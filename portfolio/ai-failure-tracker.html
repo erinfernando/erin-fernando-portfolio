@@ -413,7 +413,7 @@
 
   <div class="chart-container">
     <h2 class="chart-title">Cumulative Incidents by Category</h2>
-    <p class="chart-hint">Click any label in the legend to show/hide that line. Hover for details.</p>
+    <p class="chart-hint">Solid lines = with skills active. Dotted lines = baseline (before skills existed). Click a legend label to toggle both.</p>
     <div class="chart-wrap">
       <canvas id="failureChart"></canvas>
     </div>
@@ -424,7 +424,7 @@
     <h2>How This Works</h2>
     <p>I run a multi-agent AI system to manage web development, marketing, legal review, and operations for a real business. Each agent has a specialty — a lawyer agent reviews compliance, a creative director reviews design, a security officer audits infrastructure, and a manager orchestrates the team.</p>
     <p>The system is powerful but imperfect. Agents sometimes skip steps, repeat work, or miss handoffs. <strong>Nightingale</strong>, the System Failure Auditor, logs every breakdown into ten core categories shown below. She also creates her own custom sub-categories as she discovers specific recurring patterns — those feed internal analysis but don't clutter this chart.</p>
-    <p>The chart above shows cumulative incidents over time. A flattening line means the system is improving in that category. A steep climb means a recurring problem. This transparency is deliberate — the goal is measurable process improvement, not a perfect score.</p>
+    <p>The chart shows cumulative incidents over time. <strong>Dotted lines</strong> are the baseline — failures from before the skill system existed, when there was no Creative Director reviewing designs or Lawyer reviewing public content. <strong>Solid lines</strong> track what happened after skills were active. The baseline proves why the system was built. The solid lines show whether it's working.</p>
   </div>
 
   <section class="cat-section">
@@ -471,12 +471,13 @@
       // Update header
       document.getElementById('lastUpdated').textContent = 'Last updated: ' + data.lastUpdated;
 
-      // Build datasets
+      // Build datasets — two per category: solid (post-skill) + dotted (baseline)
       var datasets = [];
       var keys = Object.keys(data.categories).sort(function(a, b) { return +a - +b; });
 
       keys.forEach(function(key) {
         var cat = data.categories[key];
+        // Post-skill line (solid)
         datasets.push({
           label: '#' + key + ' ' + cat.name,
           data: cat.data,
@@ -485,6 +486,19 @@
           borderWidth: 2.5,
           pointRadius: 3,
           pointHoverRadius: 6,
+          tension: 0.3,
+          fill: false
+        });
+        // Baseline line (dotted, same color, thinner)
+        datasets.push({
+          label: '#' + key + ' ' + cat.name + ' (baseline)',
+          data: cat.baseline || cat.data.map(function() { return 0; }),
+          borderColor: cat.color,
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          borderDash: [6, 4],
+          pointRadius: 0,
+          pointHoverRadius: 4,
           tension: 0.3,
           fill: false
         });
@@ -517,7 +531,10 @@
               titleFont: { size: 13 },
               bodyFont: { size: 12 },
               padding: 12,
-              cornerRadius: 6
+              cornerRadius: 6,
+              filter: function(item) {
+                return item.raw > 0;
+              }
             }
           },
           scales: {
@@ -531,7 +548,7 @@
               ticks: {
                 font: { size: 11 },
                 color: '#5d6d7e',
-                stepSize: 2
+                stepSize: 5
               },
               title: {
                 display: true,
@@ -544,7 +561,7 @@
         }
       });
 
-      // Build custom legend grid
+      // Build custom legend grid — one item per category, toggles both solid + dotted
       var legendEl = document.getElementById('chartLegend');
       var chart = Chart.getChart('failureChart');
       keys.forEach(function(key, i) {
@@ -555,19 +572,27 @@
           '<span class="chart-legend-dot" style="background:' + cat.color + ';"></span>' +
           '<span class="chart-legend-label">#' + key + ' ' + cat.name + '</span>';
         item.addEventListener('click', function() {
-          var meta = chart.getDatasetMeta(i);
-          meta.hidden = !meta.hidden;
-          item.classList.toggle('dimmed', meta.hidden);
+          // Toggle both the solid and baseline datasets together
+          var solidIdx = i * 2;
+          var baseIdx = i * 2 + 1;
+          var solidMeta = chart.getDatasetMeta(solidIdx);
+          var baseMeta = chart.getDatasetMeta(baseIdx);
+          var newHidden = !solidMeta.hidden;
+          solidMeta.hidden = newHidden;
+          baseMeta.hidden = newHidden;
+          item.classList.toggle('dimmed', newHidden);
           chart.update();
         });
         legendEl.appendChild(item);
       });
 
-      // Build category table
+      // Build category table — total = post-skill + baseline
       var tbody = document.getElementById('catTableBody');
       keys.forEach(function(key) {
         var cat = data.categories[key];
-        var total = cat.data[cat.data.length - 1];
+        var postSkill = cat.data[cat.data.length - 1];
+        var baseline = cat.baseline ? cat.baseline[cat.baseline.length - 1] : 0;
+        var total = postSkill + baseline;
         var descriptions = {
           '1':  'A specialist should have been involved but was not called.',
           '2':  'Multiple agents performed the same work independently.',

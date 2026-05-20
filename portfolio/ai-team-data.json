@@ -9,8 +9,8 @@
       "tagline": "The best closer in the building.",
       "description": "She doesn't do the work. She makes sure everyone else does theirs — and that they do it right.",
       "accent": "#c8a45c",
-      "tasksHandled": 48,
-      "incidentsAttributed": 14
+      "tasksHandled": 40,
+      "incidentsAttributed": 11
     },
     {
       "id": "harvey",
@@ -19,8 +19,8 @@
       "tagline": "I don't have dreams. I have disclaimers.",
       "description": "Reviews every public-facing page for legal compliance before it goes live. Privacy notices, consent flows, liability language. If it touches the public without his sign-off, that's his failure.",
       "accent": "#1a3a5c",
-      "tasksHandled": 20,
-      "incidentsAttributed": 8
+      "tasksHandled": 15,
+      "incidentsAttributed": 5
     },
     {
       "id": "craig",
@@ -29,18 +29,18 @@
       "tagline": "If it's off by a pixel, I'll know.",
       "description": "Guards the design system like his reputation depends on it. Typography, color tokens, spacing, layout — nothing ships without a design review.",
       "accent": "#7b5ea7",
-      "tasksHandled": 55,
-      "incidentsAttributed": 32
+      "tasksHandled": 25,
+      "incidentsAttributed": 12
     },
     {
       "id": "lovelace",
       "name": "Lovelace",
       "title": "Web Developer",
-      "tagline": "One hundred forty tasks. Still standing.",
+      "tagline": "Forty-five tasks. Still standing.",
       "description": "Builds everything that runs in a browser — HTML, CSS, JavaScript, server config. Most active agent on the team by a wide margin, which also means the most chances to break things.",
       "accent": "#2a9d8f",
-      "tasksHandled": 140,
-      "incidentsAttributed": 48
+      "tasksHandled": 45,
+      "incidentsAttributed": 10
     },
     {
       "id": "dior",
@@ -50,7 +50,7 @@
       "description": "Runs competitive intelligence, audits online listings across platforms, plans campaigns, and catches every inconsistency between what the brand says and what the internet thinks.",
       "accent": "#c2727a",
       "tasksHandled": 15,
-      "incidentsAttributed": 3
+      "incidentsAttributed": 2
     },
     {
       "id": "page",
