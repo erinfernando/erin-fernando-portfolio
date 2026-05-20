@@ -232,7 +232,14 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.6px;
+    margin-bottom: 8px;
+  }
+  .persona-tagline {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text);
     margin-bottom: 10px;
+    line-height: 1.4;
   }
   .persona-desc {
     font-size: 13px;
@@ -406,7 +413,7 @@
 
   <section class="team-section">
     <h2>The Team</h2>
-    <p class="section-desc">Each persona is a specialized AI skill with a defined role. Accuracy is derived from Nightingale's audit data — tasks completed vs. incidents attributed. The MVP badge goes to the highest-accuracy persona with 10+ tasks handled.</p>
+    <p class="section-desc">Every agent has a name, a personality, and a job. The names are fun. The accountability isn't. Accuracy ratings are calculated by Nightingale from real audit data — tasks completed vs. incidents attributed. You don't get a card until you've done real work.</p>
     <div class="team-grid" id="teamGrid">
       <!-- Populated by JS -->
     </div>
@@ -593,6 +600,7 @@ fetch('ai-team-data.json')
         '<div class="persona-body">' +
           '<div class="persona-name">' + p.name + '</div>' +
           '<div class="persona-title" style="color:' + p.accent + ';">' + p.title + '</div>' +
+          (p.tagline ? '<div class="persona-tagline">&ldquo;' + p.tagline + '&rdquo;</div>' : '') +
           '<div class="persona-desc">' + p.description + '</div>' +
           '<div class="persona-stats">' +
             '<div class="accuracy-ring">' +
