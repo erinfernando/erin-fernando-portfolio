@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erin Fernando — IT Administrator | Tucson, AZ</title>
+<meta name="description" content="Erin Fernando — IT Administrator in Tucson, AZ. Ten years of small-business IT experience, CompTIA Security+ certified. Portfolio, resume, and contact information.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #1a5276;
+    --navy-dark: #0d2b3e;
+    --navy-light: #2471a3;
+    --bg: #f7f9fb;
+    --white: #ffffff;
+    --text: #2c3e50;
+    --text-light: #5d6d7e;
+    --border: #dce4ea;
+    --accent: #2e86c1;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy-dark);
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .nav-name {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-links a:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 80px 24px 72px;
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .hero .tagline {
+    font-size: 20px;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+  .hero .location {
+    font-size: 15px;
+    opacity: 0.85;
+  }
+
+  /* ── Sections ── */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px;
+  }
+  section h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  /* ── About ── */
+  .about-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--text);
+    max-width: 750px;
+  }
+
+  /* ── Skills ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .skill-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+  .skill-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .skill-card p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  /* ── Experience ── */
+  .job {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .job-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .job h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .job .dates {
+    font-size: 14px;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+  .job .company {
+    font-size: 15px;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .job ul {
+    padding-left: 20px;
+  }
+  .job li {
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── Portfolio ── */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .portfolio-card {
+    background: linear-gradient(135deg, #f0f6fb 0%, var(--white) 100%);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--navy);
+    border-radius: 6px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.15s, border-left-color 0.2s;
+    display: block;
+    cursor: pointer;
+  }
+  .portfolio-card:hover {
+    box-shadow: 0 6px 20px rgba(26,82,118,0.15);
+    transform: translateY(-3px);
+    border-left-color: var(--accent);
+  }
+  .portfolio-card h3 {
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .portfolio-card .tech {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .portfolio-card p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .portfolio-card .view-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    transition: color 0.2s;
+  }
+  .portfolio-card:hover .view-link {
+    color: var(--navy);
+  }
+
+  /* ── Certs ── */
+  .cert-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cert-item .cert-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text);
+  }
+  .cert-item .cert-date {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+
+  /* ── Contact ── */
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+  }
+  .contact-list li {
+    font-size: 16px;
+  }
+  .contact-list a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .contact-list a:hover {
+    text-decoration: underline;
+  }
+  .contact-label {
+    font-weight: 600;
+    color: var(--text);
+    margin-right: 4px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── Earlier roles ── */
+  .earlier-roles {
+    margin-top: 16px;
+  }
+  .earlier-roles summary {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    cursor: pointer;
+    padding: 8px 0;
+  }
+  .earlier-roles summary:hover {
+    color: var(--accent);
+  }
+  .early-role {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .early-role:last-child {
+    border-bottom: none;
+  }
+  .early-role .job-top {
+    margin-bottom: 4px;
+  }
+  .early-role h4 {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .early-role .company {
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .early-role p {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+
+  /* ── Focus ── */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: var(--navy-dark);
+      flex-direction: column;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 12px 24px; }
+    .nav-toggle { display: block; }
+    .hero h1 { font-size: 32px; }
+    .hero .tagline { font-size: 17px; }
+    section { padding: 40px 20px; }
+    .job-top { flex-direction: column; gap: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Erin Fernando</a>
+  <button class="nav-toggle" onclick="var n=document.querySelector('.nav-links');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div class="nav-links">
+    <a href="#about" onclick="document.querySelector('.nav-links').classList.remove('open')">About</a>
+    <a href="#skills" onclick="document.querySelector('.nav-links').classList.remove('open')">Skills</a>
+    <a href="#experience" onclick="document.querySelector('.nav-links').classList.remove('open')">Experience</a>
+    <a href="#projects" onclick="document.querySelector('.nav-links').classList.remove('open')">Lab</a>
+    <a href="#portfolio" onclick="document.querySelector('.nav-links').classList.remove('open')">Portfolio</a>
+    <a href="#contact" onclick="document.querySelector('.nav-links').classList.remove('open')">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Erin Fernando</h1>
+  <div class="tagline">IT Administrator</div>
+  <div class="location">Tucson, AZ &nbsp;&middot;&nbsp; (858) 243-6917 &nbsp;&middot;&nbsp; <a href="mailto:fernando.erin.c@gmail.com" style="color: rgba(255,255,255,0.9);">fernando.erin.c@gmail.com</a> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/erin-fernando-82458840b/" style="color: rgba(255,255,255,0.9);">LinkedIn</a></div>
+  <div style="margin-top: 24px;">
+    <a href="Erin_Fernando_Resume.pdf" download style="display: inline-block; background: #fff; color: #1a5276; font-weight: 700; font-size: 15px; padding: 12px 32px; border-radius: 6px; text-decoration: none; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.15s, box-shadow 0.15s;">Download Resume (PDF)</a>
+    <div style="margin-top: 8px; font-family: 'Consolas', 'Courier New', monospace; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.3px;">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
+  </div>
+</div>
+
+<section id="about">
+  <h2>About</h2>
+  <p class="about-text">Ten years as the sole IT admin for a small business &mdash; I built the network, brought it to PCI compliance, and owned every problem end-to-end. CompTIA Security+ certified, 20+ years building and troubleshooting hardware. Looking for a full-time IT role in Tucson where I can bring that to a team.</p>
+</section>
+
+<section id="skills">
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Operating Systems</h3>
+      <p>Windows 10, Windows 11, Windows Server 2022</p>
+    </div>
+    <div class="skill-card">
+      <h3>Networking</h3>
+      <p>TCP/IP, DNS, DHCP, VPN (NordLayer), firewall configuration, network segmentation, VLANs, Wi-Fi site surveys, wireless bridging (Ubiquiti airMAX), cable management</p>
+    </div>
+    <div class="skill-card">
+      <h3>Security</h3>
+      <p>CompTIA Security+, PCI compliance, endpoint protection (Avast Small Office), endpoint management, antivirus management, access control, password policies, phishing awareness training, backup and disaster recovery, incident response</p>
+    </div>
+    <div class="skill-card">
+      <h3>Systems &amp; Cloud</h3>
+      <p>Microsoft 365 administration, OneDrive, Active Directory (AD), Group Policy (GPO), Hyper-V, domain and tenant migrations, remote desktop support</p>
+    </div>
+    <div class="skill-card">
+      <h3>Hardware</h3>
+      <p>20+ years building PCs &mdash; component selection, diagnostics, hardware-level troubleshooting, hardware configuration</p>
+    </div>
+    <div class="skill-card">
+      <h3>Support</h3>
+      <p>Technical support, help desk, remote support, end-user training, documentation, error reporting, vendor management, IT asset management, asset lifecycle management, subscription and license auditing, root cause analysis</p>
+    </div>
+    <div class="skill-card">
+      <h3>Web</h3>
+      <p>HTML, CSS, small business website design</p>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <h2>Certifications</h2>
+  <div class="cert-item">
+    <span class="cert-name">CompTIA Security+</span>
+    <span class="cert-date">May 2026</span>
+  </div>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+
+  <div class="job">
+    <div class="job-top">
+      <h3>IT Administrator</h3>
+      <span class="dates">2016 &ndash; Present</span>
+    </div>
+    <div class="company">Oasis at Wild Horse Ranch &nbsp;&middot;&nbsp; Contract: Project-based + On-Call &nbsp;&middot;&nbsp; Tucson, AZ</div>
+    <p style="margin-bottom: 12px; font-size: 15px; color: var(--text-light);">Meeting the various needs of an indoor/outdoor wedding space was often difficult. They needed nighttime maintenance, remote work, in-office installations, extensive Wi-Fi coverage.</p>
+    <ul>
+      <li>Inherited a network with zero security posture &mdash; shared passwords across all accounts, unattended POS hardware, no phishing awareness. Rotated every credential, established unique logins, and trained staff on phishing identification.</li>
+      <li>Deployed a full security stack across all endpoints &mdash; Cisco Meraki Go firewall, NordLayer VPN, and managed antivirus. Segmented the network into VLANs for PCI compliance on card transactions.</li>
+      <li>Conducted a Wi-Fi site survey to map coverage gaps and frequency conflicts, then upgraded to a higher-output access point &mdash; enabling reliable handheld payment processing during 200+ person outdoor events.</li>
+      <li>I&rsquo;ve personally migrated over the Microsoft 365 licenses, OneDrive license and contents, Outlook contents, website files, email services, and domain services. Three times, overnight. Swapping between service providers every three years netted us $1,000/year in savings.</li>
+      <li>Implemented OneDrive for regular operational backups, and an airgapped encrypted drive for ransomware protection.</li>
+      <li>Audited all technology subscriptions and eliminated unused licenses &mdash; old Microsoft 365 accounts, dormant OneDrive seats, legacy antivirus, and unused email accounts. Replaced cable TV boxes across the venue with Amazon Fire TV Sticks and a YouTube TV subscription, cutting costs further.</li>
+      <li>Updated their old website and established web analytics for SEO purposes.</li>
+      <li>Salvaged parts from two failing PCs to build one working tower that ran for 10 more years &mdash; saving the cost of a new machine.</li>
+    </ul>
+  </div>
+
+  <details class="earlier-roles">
+    <summary>Earlier Roles (2012 &ndash; 2016)</summary>
+    <p style="font-size: 14px; color: var(--text-light); font-style: italic; padding: 8px 0;">Married to an active-duty Navy servicemember during this period &mdash; short tenures reflect military relocations.</p>
+    <div class="early-role">
+      <div class="job-top">
+        <h4>Library Page</h4>
+        <span class="dates">July 2012 &ndash; October 2014</span>
+      </div>
+      <div class="company">Geasa-Marana Public Library</div>
+      <p>Troubleshot public computers and printers, taught one-on-one computer classes to patrons, and handled front-desk customer service. First role where I explained technical concepts to non-technical users on a daily basis.</p>
+    </div>
+    <div class="early-role">
+      <div class="job-top">
+        <h4>Sales Associate (Seasonal)</h4>
+        <span class="dates">October 2014 &ndash; January 2015</span>
+      </div>
+      <div class="company">Best Buy</div>
+      <p>Sold consumer tech during the holiday season. Leaned on years of PC-building knowledge to help customers pick the right hardware.</p>
+    </div>
+    <div class="early-role">
+      <div class="job-top">
+        <h4>Crew Member</h4>
+        <span class="dates">January 2016 &ndash; October 2016</span>
+      </div>
+      <div class="company">Dunkin' Donuts</div>
+      <p>Fast-paced customer service &mdash; point-of-sale (POS) operations, cash handling, sales floor. Transitioned to the IT admin contract at Wild Horse Ranch after this role.</p>
+    </div>
+  </details>
+</section>
+
+<section id="projects">
+  <h2>Lab &amp; Side Work</h2>
+
+  <div class="job" style="margin-bottom: 16px;">
+    <h3 style="margin-bottom: 8px;">Windows Server and Active Directory (AD) Lab</h3>
+    <p style="font-size: 15px; line-height: 1.6;">I was concerned about my lack of training on common tools used by larger firms, so I used AI to generate structured lab exercises, tailored to my Security+ coursework and experience level, for learning Active Directory. I spun up a Windows Server 2022 as the domain controller, and joined three other Windows 11 VMs. From there I established a few GPOs, like standardized desktop backgrounds and password hardening measures, mapped a network drive and shared it with role-based access control (RBAC), to learn the workings of Active Directory better.</p>
+  </div>
+
+  <div class="job" style="margin-bottom: 16px;">
+    <h3 style="margin-bottom: 8px;">AI-Driven Business Operations</h3>
+    <p style="font-size: 15px; line-height: 1.6;">Designed a workflow using specialized AI agents as force multipliers for marketing analytics, drafting complex documents, security auditing, and streamlining vendor communication. Creating an automated workflow for baseline productivity tasks.</p>
+  </div>
+
+</section>
+
+<section id="portfolio">
+  <h2>Portfolio</h2>
+  <div class="portfolio-grid">
+    <a href="portfolio/operation-casita.html" class="portfolio-card">
+      <h3>Operation: Casita Unwired</h3>
+      <div class="tech">2017 &middot; Ubiquiti airMAX &middot; WDS Bridge &middot; PtP Wireless</div>
+      <p>Extended internet to a detached building via rooftop wireless bridge &mdash; running unattended since 2017.</p>
+      <span class="view-link">View documentation &rarr;</span>
+    </a>
+    <a href="portfolio/whr-network-topology.html" class="portfolio-card">
+      <h3>Small Business Network Topology <span style="font-size: 12px; color: #777; font-weight: 400;">v1</span></h3>
+      <div class="tech">2019 &middot; Cisco Meraki &middot; VLANs &middot; Firewall Rules &middot; PCI Compliance</div>
+      <p>Built a PCI-compliant network from scratch for a venue processing card transactions daily.</p>
+      <span class="view-link">View documentation &rarr;</span>
+    </a>
+    <a href="portfolio/whr-network-topology-v2.html" class="portfolio-card">
+      <h3>Small Business Network Topology <span style="font-size: 12px; color: #1a5276; font-weight: 400;">v2</span></h3>
+      <div class="tech">2026 &middot; Cisco Meraki &middot; VLANs &middot; Firewall Rules &middot; Cross-VLAN Routing</div>
+      <p>Redesigned with isolated VoIP and printer VLANs &mdash; tighter segmentation, same print access.</p>
+      <span class="view-link">View documentation &rarr;</span>
+    </a>
+  </div>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+  <div class="job">
+    <div class="job-top">
+      <h3>Marana High School</h3>
+      <span class="dates">Diploma, May 2012</span>
+    </div>
+    <p style="font-size: 15px;">Honor Roll. Coursework in Computer Programming.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <ul class="contact-list">
+    <li><span class="contact-label">Email:</span> <a href="mailto:fernando.erin.c@gmail.com">fernando.erin.c@gmail.com</a></li>
+    <li><span class="contact-label">Phone:</span> (858) 243-6917</li>
+    <li><span class="contact-label">LinkedIn:</span> <a href="https://linkedin.com/in/erin-fernando-82458840b/">linkedin.com/in/erin-fernando</a></li>
+    <li><span class="contact-label">Location:</span> Tucson, AZ</li>
+  </ul>
+</section>
+
+<footer>
+  &copy; 2026 Erin Fernando
+</footer>
+
+</body>
+</html>
