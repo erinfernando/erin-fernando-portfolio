@@ -273,6 +273,13 @@
     margin-bottom: 10px;
     line-height: 1.4;
   }
+  .tagline-attrib {
+    font-size: 11px;
+    font-style: normal;
+    opacity: 0.6;
+    display: block;
+    margin-top: 2px;
+  }
   .persona-desc {
     font-size: 13px;
     color: var(--text-light);
@@ -671,7 +678,7 @@ fetch('ai-team-data.json')
         '<div class="persona-body">' +
           '<div class="persona-name">' + p.name + '</div>' +
           '<div class="persona-title" style="color:' + p.accent + ';">' + p.title + '</div>' +
-          (p.tagline ? '<div class="persona-tagline">&ldquo;' + p.tagline + '&rdquo;</div>' : '') +
+          (p.tagline ? '<div class="persona-tagline">&ldquo;' + p.tagline + '&rdquo;' + (p.taglineAttrib ? ' <span class="tagline-attrib">&mdash; ' + p.taglineAttrib + '</span>' : '') + '</div>' : '') +
           '<div class="persona-desc">' + p.description + '</div>' +
           '<div class="persona-stats">' +
             '<div class="accuracy-ring">' +
