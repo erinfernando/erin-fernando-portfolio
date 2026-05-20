@@ -253,11 +253,30 @@
     display: flex;
     flex-direction: column;
   }
+  .persona-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    overflow: hidden;
+  }
+  .persona-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .persona-name {
     font-size: 17px;
     font-weight: 700;
     color: var(--text);
     margin-bottom: 2px;
+    text-align: center;
   }
   .persona-title {
     font-size: 12px;
@@ -265,6 +284,7 @@
     text-transform: uppercase;
     letter-spacing: 0.6px;
     margin-bottom: 8px;
+    text-align: center;
   }
   .persona-tagline {
     font-size: 14px;
@@ -672,10 +692,16 @@ fetch('ai-team-data.json')
 
       var card = document.createElement('div');
       card.className = 'persona-card';
+      var initials = p.name.split(' ').map(function(w) { return w[0]; }).join('');
+      var avatarContent = p.avatar
+        ? '<img src="' + p.avatar + '" alt="' + p.name + '">'
+        : initials;
+
       card.innerHTML =
         '<div class="persona-accent" style="background:' + p.accent + ';"></div>' +
         (isMvp ? '<div class="mvp-badge">★ MVP</div>' : '') +
         '<div class="persona-body">' +
+          '<div class="persona-avatar" style="background:' + p.accent + ';">' + avatarContent + '</div>' +
           '<div class="persona-name">' + p.name + '</div>' +
           '<div class="persona-title" style="color:' + p.accent + ';">' + p.title + '</div>' +
           (p.tagline ? '<div class="persona-tagline">&ldquo;' + p.tagline + '&rdquo;' + (p.taglineAttrib ? ' <span class="tagline-attrib">&mdash; ' + p.taglineAttrib + '</span>' : '') + '</div>' : '') +
