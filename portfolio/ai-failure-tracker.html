@@ -180,6 +180,165 @@
     text-align: center;
   }
 
+  /* ── Team Showcase ── */
+  .team-section { margin-top: 48px; }
+  .team-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .team-section .section-desc {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .persona-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+  }
+  .persona-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .persona-accent {
+    height: 5px;
+    width: 100%;
+  }
+  .persona-body {
+    padding: 20px 20px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .persona-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .persona-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 10px;
+  }
+  .persona-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 16px;
+  }
+  .persona-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .accuracy-ring {
+    width: 52px;
+    height: 52px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .accuracy-ring svg {
+    transform: rotate(-90deg);
+    width: 52px;
+    height: 52px;
+  }
+  .accuracy-ring .ring-bg {
+    fill: none;
+    stroke: #eaecee;
+    stroke-width: 4;
+  }
+  .accuracy-ring .ring-fill {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.6s ease;
+  }
+  .accuracy-pct {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stat-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-line {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+  .stat-line strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ── MVP Badge ── */
+  .mvp-badge {
+    position: absolute;
+    top: 12px;
+    right: -6px;
+    background: linear-gradient(135deg, #d4a843, #f0c75e);
+    color: #5a3e0a;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px 4px 10px;
+    border-radius: 3px 0 0 3px;
+    box-shadow: 0 2px 6px rgba(180,140,40,0.3);
+  }
+  .mvp-badge::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -6px;
+    border: 3px solid transparent;
+    border-top-color: #a07c2a;
+    border-right-color: #a07c2a;
+  }
+
+  /* ── Legend ── */
+  .accuracy-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-light);
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
   /* ── Footer ── */
   footer {
     text-align: center;
@@ -195,6 +354,7 @@
     .page-header h1 { font-size: 24px; }
     .chart-wrap { height: 300px; }
     .cat-table td, .cat-table th { padding: 10px 12px; }
+    .team-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -242,6 +402,19 @@
         <!-- Populated by JS -->
       </tbody>
     </table>
+  </section>
+
+  <section class="team-section">
+    <h2>The Team</h2>
+    <p class="section-desc">Each persona is a specialized AI skill with a defined role. Accuracy is derived from Nightingale's audit data — tasks completed vs. incidents attributed. The MVP badge goes to the highest-accuracy persona with 10+ tasks handled.</p>
+    <div class="team-grid" id="teamGrid">
+      <!-- Populated by JS -->
+    </div>
+    <div class="accuracy-legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#27ae60;"></span> 90%+ accuracy</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#f39c12;"></span> 80–89%</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#e74c3c;"></span> Below 80%</span>
+    </div>
   </section>
 
 </main>
@@ -368,6 +541,79 @@
       document.getElementById('lastUpdated').textContent = 'Data unavailable';
     });
 })();
+
+// ── Team Showcase ──
+fetch('ai-team-data.json')
+  .then(function(r) { return r.json(); })
+  .then(function(team) {
+    var grid = document.getElementById('teamGrid');
+    var CIRC = 2 * Math.PI * 22; // circumference for r=22
+
+    // Calculate accuracy for each persona
+    var personas = team.personas.map(function(p) {
+      var acc = p.tasksHandled > 0
+        ? ((p.tasksHandled - p.incidentsAttributed) / p.tasksHandled * 100)
+        : 0;
+      p.accuracy = Math.round(acc * 10) / 10;
+      return p;
+    });
+
+    // Sort by accuracy desc for display, but find MVP first
+    var mvpMinTasks = team.mvpMinTasks || 10;
+    var mvpId = null;
+    var mvpAcc = -1;
+    personas.forEach(function(p) {
+      if (p.tasksHandled >= mvpMinTasks && p.accuracy > mvpAcc) {
+        mvpAcc = p.accuracy;
+        mvpId = p.id;
+      }
+    });
+
+    // Sort: MVP first, then by accuracy desc
+    personas.sort(function(a, b) {
+      if (a.id === mvpId) return -1;
+      if (b.id === mvpId) return 1;
+      return b.accuracy - a.accuracy;
+    });
+
+    personas.forEach(function(p) {
+      var color;
+      if (p.accuracy >= 90) color = '#27ae60';
+      else if (p.accuracy >= 80) color = '#f39c12';
+      else color = '#e74c3c';
+
+      var dashOffset = CIRC - (CIRC * Math.min(p.accuracy, 100) / 100);
+      var isMvp = p.id === mvpId;
+
+      var card = document.createElement('div');
+      card.className = 'persona-card';
+      card.innerHTML =
+        '<div class="persona-accent" style="background:' + p.accent + ';"></div>' +
+        (isMvp ? '<div class="mvp-badge">★ MVP</div>' : '') +
+        '<div class="persona-body">' +
+          '<div class="persona-name">' + p.name + '</div>' +
+          '<div class="persona-title" style="color:' + p.accent + ';">' + p.title + '</div>' +
+          '<div class="persona-desc">' + p.description + '</div>' +
+          '<div class="persona-stats">' +
+            '<div class="accuracy-ring">' +
+              '<svg viewBox="0 0 52 52">' +
+                '<circle class="ring-bg" cx="26" cy="26" r="22"/>' +
+                '<circle class="ring-fill" cx="26" cy="26" r="22" stroke="' + color + '" stroke-dasharray="' + CIRC.toFixed(1) + '" stroke-dashoffset="' + dashOffset.toFixed(1) + '"/>' +
+              '</svg>' +
+              '<span class="accuracy-pct" style="color:' + color + ';">' + p.accuracy + '%</span>' +
+            '</div>' +
+            '<div class="stat-details">' +
+              '<span class="stat-line"><strong>' + p.tasksHandled + '</strong> tasks handled</span>' +
+              '<span class="stat-line"><strong>' + p.incidentsAttributed + '</strong> incidents</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      grid.appendChild(card);
+    });
+  })
+  .catch(function(err) {
+    console.error('Failed to load team data:', err);
+  });
 </script>
 
 </body>

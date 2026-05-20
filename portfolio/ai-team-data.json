@@ -1,0 +1,141 @@
+{
+  "lastUpdated": "2026-05-20",
+  "mvpMinTasks": 10,
+  "personas": [
+    {
+      "id": "donna",
+      "name": "Donna Paulsen",
+      "title": "Manager",
+      "description": "Orchestrates the full team, delegates tasks, reviews reports, and decides action on process failures.",
+      "accent": "#c8a45c",
+      "tasksHandled": 48,
+      "incidentsAttributed": 2
+    },
+    {
+      "id": "harvey",
+      "name": "Harvey Specter",
+      "title": "Lawyer",
+      "description": "Reviews every public-facing page for legal compliance — privacy notices, disclaimers, consent flows, and liability language.",
+      "accent": "#1a3a5c",
+      "tasksHandled": 20,
+      "incidentsAttributed": 2
+    },
+    {
+      "id": "craig",
+      "name": "Craig",
+      "title": "Creative Director",
+      "description": "Guards the design system — reviews layout, typography, color, and spacing against brand tokens before anything ships.",
+      "accent": "#7b5ea7",
+      "tasksHandled": 18,
+      "incidentsAttributed": 1
+    },
+    {
+      "id": "lovelace",
+      "name": "Lovelace",
+      "title": "Web Developer",
+      "description": "Builds and maintains the website — HTML, CSS, JavaScript, server config, and frontend architecture.",
+      "accent": "#2a9d8f",
+      "tasksHandled": 55,
+      "incidentsAttributed": 8
+    },
+    {
+      "id": "dior",
+      "name": "Dior",
+      "title": "Marketing Director",
+      "description": "Runs competitive intelligence, audits online listings, plans campaigns, and ensures brand consistency across platforms.",
+      "accent": "#c2727a",
+      "tasksHandled": 15,
+      "incidentsAttributed": 2
+    },
+    {
+      "id": "page",
+      "name": "Page",
+      "title": "Researcher",
+      "description": "Conducts deep research before decisions — competitor analysis, industry data, resume optimization, and market positioning.",
+      "accent": "#4a8c5c",
+      "tasksHandled": 22,
+      "incidentsAttributed": 3
+    },
+    {
+      "id": "john-wick",
+      "name": "John Wick",
+      "title": "Security Officer",
+      "description": "Defines security standards, reviews code for vulnerabilities, and maintains the security checklist across all systems.",
+      "accent": "#8b2f2f",
+      "tasksHandled": 16,
+      "incidentsAttributed": 2
+    },
+    {
+      "id": "hackerman",
+      "name": "Hackerman",
+      "title": "Penetration Tester",
+      "description": "Runs authorized security tests against live systems — headers, SSL, DNS, email auth, and endpoint exposure.",
+      "accent": "#3cb371",
+      "tasksHandled": 8,
+      "incidentsAttributed": 1
+    },
+    {
+      "id": "lois-lane",
+      "name": "Lois Lane",
+      "title": "Outreach Director",
+      "description": "Drafts and delivers client-facing communications — scan results, alerts, posture reports, and follow-up emails.",
+      "accent": "#4a7ab5",
+      "tasksHandled": 6,
+      "incidentsAttributed": 1
+    },
+    {
+      "id": "leslie-knope",
+      "name": "Leslie Knope",
+      "title": "Vendor Liaison",
+      "description": "Manages vendor relationships, creates proposals, negotiates sponsorships, and produces event documentation.",
+      "accent": "#d4a843",
+      "tasksHandled": 25,
+      "incidentsAttributed": 3
+    },
+    {
+      "id": "mailchimp",
+      "name": "MailChimp",
+      "title": "Email Template Builder",
+      "description": "Builds Mailchimp-compatible HTML email templates with merge tags, inline CSS, and responsive layouts.",
+      "accent": "#f0a830",
+      "tasksHandled": 5,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "marie-kondo",
+      "name": "Marie Kondo",
+      "title": "Redundancy Auditor",
+      "description": "Challenges repeated or repackaged information — flags when the same content appears multiple times without SEO justification.",
+      "accent": "#e8a0b4",
+      "tasksHandled": 2,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "nightingale",
+      "name": "Nightingale",
+      "title": "System Failure Auditor",
+      "description": "Investigates process breakdowns, tags recurring failures, mines session data, and generates accountability reports.",
+      "accent": "#2e86c1",
+      "tasksHandled": 4,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "tiffany",
+      "name": "Tiffany & Co.",
+      "title": "Analytics",
+      "description": "Tracks ticket sales velocity, email open rates, conversion funnels, and ROI across marketing channels.",
+      "accent": "#0abab5",
+      "tasksHandled": 3,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "theseus",
+      "name": "Theseus",
+      "title": "Skill Crafter",
+      "description": "Designs, tests, and iterates on the skill definitions that power every persona on this team.",
+      "accent": "#a0785a",
+      "tasksHandled": 30,
+      "incidentsAttributed": 3
+    }
+  ]
+}
