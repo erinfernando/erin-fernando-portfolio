@@ -8,7 +8,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
-<title>Small Business Firewall &amp; VLAN Rules v2 — Cisco Meraki Go GX20</title>
+<title>Small Business Firewall &amp; VLAN Rules v2</title>
 <style>
   @page {
     size: letter;
@@ -254,13 +254,13 @@
 </nav>
 
 <div style="background: #f4f8fb; border: 1px solid #c5d5e4; border-radius: 4px; padding: 12px 16px; margin: 16px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #2c3e50; line-height: 1.5;">
-  <strong>Note:</strong> This is a revised ruleset based on the <a href="whr-firewall-rules" style="color: #1a5276;">first draft</a>. This firewall strategy is no longer in production and is published here as a portfolio example of network security work.
+  <strong>Note:</strong> This is a revised ruleset based on the <a href="firewall-rules" style="color: #1a5276;">first draft</a>. This firewall strategy is no longer in production and is published here as a portfolio example of network security work.
 </div>
 
 <div class="doc-header">
   <h1>Firewall &amp; VLAN Rules</h1>
-  <div class="subtitle">Small Business &mdash; Cisco Meraki Go GX20</div>
-  <div class="meta">Revised ruleset &mdash; companion to <a href="whr-network-topology-v2" style="color: #1a5276;">Network Topology v2</a></div>
+  <div class="subtitle">Small Business</div>
+  <div class="meta">Revised ruleset &mdash; companion to <a href="network-topology-v2" style="color: #1a5276;">Network Topology v2</a></div>
   <div class="version-badge">v2 &mdash; Revised Rules</div>
 </div>
 
@@ -269,8 +269,8 @@
 </div>
 
 <div class="overview">
-  <strong>Device:</strong> Cisco Meraki Go GX20 (Router/Firewall)<br>
-  <strong>Upstream:</strong> Internet gateway in bridge mode &mdash; GX20 handles all routing, NAT, DHCP, and firewall duties<br>
+  <strong>Device:</strong> Firewall / Security Gateway<br>
+  <strong>Upstream:</strong> Internet gateway in bridge mode &mdash; firewall handles all routing, NAT, DHCP, and firewall duties<br>
   <strong>Compliance:</strong> PCI DSS &mdash; card reader isolated on a dedicated VLAN with no lateral access<br>
   <strong>Policy:</strong> Default deny between VLANs. Each VLAN is explicitly granted only the access it needs.
 </div>
@@ -626,7 +626,7 @@
   <tr>
     <td>8</td>
     <td><code>VLAN 10 (Ops)</code></td>
-    <td><code>NordLayer endpoints</code></td>
+    <td><code>VPN provider endpoints</code></td>
     <td>UDP 1194; TCP 443</td>
     <td><span class="allow">Allow</span></td>
     <td>VPN tunnel for privacy and security</td>
@@ -658,7 +658,7 @@
   <tr>
     <td>12</td>
     <td><code>VLAN 30 (AP Mgmt)</code></td>
-    <td><code>Meraki cloud</code></td>
+    <td><code>Vendor cloud</code></td>
     <td>TCP 443</td>
     <td><span class="allow">Allow</span></td>
     <td>AP firmware updates and cloud management</td>
@@ -702,7 +702,7 @@
   </tr>
   <tr>
     <td>1</td>
-    <td><code>NordLayer endpoints</code></td>
+    <td><code>VPN provider endpoints</code></td>
     <td><code>VLAN 10 (Ops)</code></td>
     <td>UDP 1194; TCP 443</td>
     <td><span class="allow">Allow</span></td>
@@ -735,7 +735,7 @@
   </tr>
   <tr>
     <td>DNS</td>
-    <td>Forced to GX20 for all VLANs</td>
+    <td>Forced to firewall for all VLANs</td>
     <td>Prevents devices from using external DNS to bypass filtering</td>
   </tr>
   <tr>
@@ -745,13 +745,13 @@
   </tr>
   <tr>
     <td>Firewall management</td>
-    <td>Cisco Meraki cloud app &mdash; no local admin interface exposed</td>
+    <td>Cloud management &mdash; no local admin interface exposed</td>
     <td>Firewall admin panel is never exposed to the internet</td>
   </tr>
   <tr>
     <td>Firmware updates</td>
-    <td>Automatic via Meraki cloud</td>
-    <td>GX20 receives patches without manual intervention</td>
+    <td>Automatic via vendor cloud</td>
+    <td>Firewall receives patches without manual intervention</td>
   </tr>
   <tr>
     <td>Guest Wi-Fi</td>
@@ -761,9 +761,9 @@
 </table>
 
 <div style="text-align: center; margin: 16px 0 4px 0;">
-  <a href="whr-firewall-rules" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; View First Draft (v1)</a>
+  <a href="firewall-rules" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; View First Draft (v1)</a>
   &nbsp;&nbsp;&middot;&nbsp;&nbsp;
-  <a href="whr-network-topology-v2" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">View Network Topology v2 &rarr;</a>
+  <a href="network-topology-v2" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">View Network Topology v2 &rarr;</a>
 </div>
 
 <div class="doc-footer">

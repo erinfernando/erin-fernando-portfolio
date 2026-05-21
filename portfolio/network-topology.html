@@ -502,7 +502,7 @@
 <a href="../#portfolio" style="display: inline-block; margin: 16px 0 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
 
 <div style="background: #fef9e7; border: 1px solid #f0d66e; border-radius: 4px; padding: 12px 16px; margin: 16px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #6b5900; line-height: 1.5;">
-  <strong>Note:</strong> This is a first draft of the network architecture. The production topology has since been redesigned, so this version is no longer in use and is safe to publish.<br><a href="whr-network-topology-v2" style="color: #1a5276; font-weight: 600;">View the revised version (v2) &rarr;</a>
+  <strong>Note:</strong> This is a first draft of the network architecture. The production topology has since been redesigned, so this version is no longer in use and is safe to publish.<br><a href="network-topology-v2" style="color: #1a5276; font-weight: 600;">View the revised version (v2) &rarr;</a>
 </div>
 
 <div class="doc-header">
@@ -517,7 +517,7 @@
 
 <div class="overview">
   <strong>Environment:</strong> Indoor/outdoor wedding venue &mdash; office, event spaces, and grounds<br>
-  <strong>Internet:</strong> Internet &rarr; Cisco Meraki Go firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
+  <strong>Internet:</strong> Internet &rarr; firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
   <strong>Security:</strong> PCI-compliant network segmentation for card transaction processing<br>
   <strong>Guest Wi-Fi:</strong> Not offered &mdash; deliberate decision to minimize attack surface on a PCI-compliant network
 </div>
@@ -538,7 +538,7 @@
   <!-- Tier 2: Firewall -->
   <div class="topo-tier">
     <div class="topo-device">
-      <div class="box firewall">Cisco Meraki Go</div>
+      <div class="box firewall">Firewall</div>
       <div class="conn-type">Firewall / Router</div>
     </div>
   </div>
@@ -726,8 +726,8 @@
     <td>Satellite internet, bridge mode &mdash; passthrough to firewall</td>
   </tr>
   <tr>
-    <td>Cisco Meraki Go</td>
-    <td>Firewall / router</td>
+    <td>Firewall</td>
+    <td>Security gateway</td>
     <td><span class="wired-tag">Wired</span></td>
     <td>Network segmentation, PCI compliance, VPN</td>
   </tr>
@@ -1051,7 +1051,7 @@
   <tr>
     <td>6</td>
     <td><code>VLAN 10 (Ops)</code></td>
-    <td><code>NordLayer endpoints</code></td>
+    <td><code>VPN provider endpoints</code></td>
     <td>UDP 1194; TCP 443</td>
     <td><span class="allow">Allow</span></td>
     <td>VPN tunnel for privacy and security</td>
@@ -1083,7 +1083,7 @@
   <tr>
     <td>10</td>
     <td><code>VLAN 30 (AP Mgmt)</code></td>
-    <td><code>Meraki cloud</code></td>
+    <td><code>Vendor cloud</code></td>
     <td>TCP 443</td>
     <td><span class="allow">Allow</span></td>
     <td>AP firmware updates and cloud management</td>
@@ -1127,7 +1127,7 @@
   <tbody>
   <tr>
     <td>1</td>
-    <td><code>NordLayer endpoints</code></td>
+    <td><code>VPN provider endpoints</code></td>
     <td><code>VLAN 10 (Ops)</code></td>
     <td>UDP 1194; TCP 443</td>
     <td><span class="allow">Allow</span></td>
@@ -1164,7 +1164,7 @@
   </tr>
   <tr>
     <td>DNS</td>
-    <td>Forced to GX20 for all VLANs</td>
+    <td>Forced to firewall for all VLANs</td>
     <td>Prevents devices from using external DNS to bypass filtering</td>
   </tr>
   <tr>
@@ -1174,8 +1174,8 @@
   </tr>
   <tr>
     <td>Firewall management</td>
-    <td>Cisco Meraki cloud app &mdash; no local admin interface exposed</td>
-    <td>Managed via mobile app; no web UI or ports open for router administration</td>
+    <td>Cloud management &mdash; no local admin interface exposed</td>
+    <td>Managed via app or web dashboard; no ports open for router administration</td>
   </tr>
   <tr>
     <td>Remote desktop</td>
@@ -1184,8 +1184,8 @@
   </tr>
   <tr>
     <td>Firmware updates</td>
-    <td>Automatic via Meraki cloud</td>
-    <td>GX20 receives patches without manual intervention</td>
+    <td>Automatic via vendor cloud</td>
+    <td>Firewall receives patches without manual intervention</td>
   </tr>
   <tr>
     <td>Guest Wi-Fi</td>
@@ -1196,7 +1196,7 @@
 </table>
 
 <div style="text-align: center; margin: 16px 0 4px 0;">
-  <a href="whr-network-topology-v2" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">View Revised Version (v2) &rarr;</a>
+  <a href="network-topology-v2" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">View Revised Version (v2) &rarr;</a>
 </div>
 
 <div class="doc-footer">

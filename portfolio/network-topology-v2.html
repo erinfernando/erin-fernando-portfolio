@@ -540,7 +540,7 @@
 
 <div class="overview">
   <strong>Environment:</strong> Small brick-and-mortar business &mdash; office, service areas<br>
-  <strong>Internet:</strong> Internet &rarr; Cisco Meraki Go firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
+  <strong>Internet:</strong> Internet &rarr; firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
   <strong>VLANs:</strong> 6 segments &mdash; Operations, Voice, Print, PCI, Staff Wi-Fi, Untrusted Wi-Fi<br>
   <strong>Cross-VLAN:</strong> Printing allowed from Operations and Staff Wi-Fi to Print VLAN via IPP/RAW ports<br>
   <strong>Guest Wi-Fi:</strong> Not offered &mdash; deliberate decision to minimize attack surface on a PCI-compliant network
@@ -562,7 +562,7 @@
   <!-- Tier 2: Firewall -->
   <div class="topo-tier">
     <div class="topo-device">
-      <div class="box firewall">Cisco Meraki Go</div>
+      <div class="box firewall">Firewall</div>
       <div class="conn-type">Firewall / Router &mdash; Inter-VLAN Routing</div>
     </div>
   </div>
@@ -772,8 +772,8 @@
     <td>Satellite internet, bridge mode</td>
   </tr>
   <tr>
-    <td>Cisco Meraki Go</td>
-    <td>Firewall / router</td>
+    <td>Firewall</td>
+    <td>Security gateway</td>
     <td>All (trunk)</td>
     <td><span class="wired-tag">Wired</span></td>
     <td>Inter-VLAN routing, PCI compliance, VPN</td>
@@ -932,12 +932,12 @@
   <tr><td>5</td><td><code>VLAN 18 (Print)</code></td><td><code>Any</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Printer has no internet access</td></tr>
   <tr><td>6</td><td><code>VLAN 10 (Ops)</code></td><td><code>Any</code></td><td>TCP 80, 443</td><td><span class="allow">Allow</span></td><td>Web browsing</td></tr>
   <tr><td>7</td><td><code>VLAN 10 (Ops)</code></td><td><code>Any</code></td><td>TCP 587, 993</td><td><span class="allow">Allow</span></td><td>Email (SMTP submission + IMAP over TLS)</td></tr>
-  <tr><td>8</td><td><code>VLAN 10 (Ops)</code></td><td><code>NordLayer endpoints</code></td><td>UDP 1194; TCP 443</td><td><span class="allow">Allow</span></td><td>VPN tunnel for privacy and security</td></tr>
+  <tr><td>8</td><td><code>VLAN 10 (Ops)</code></td><td><code>VPN provider endpoints</code></td><td>UDP 1194; TCP 443</td><td><span class="allow">Allow</span></td><td>VPN tunnel for privacy and security</td></tr>
   <tr><td>9</td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td><code>Any</code></td><td>TCP 80, 443</td><td><span class="allow">Allow</span></td><td>Web access for staff laptops</td></tr>
   <tr><td>10</td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td><code>Camera cloud IPs</code></td><td>TCP 443; UDP 8554</td><td><span class="allow">Allow</span></td><td>Security cameras &rarr; cloud storage/streaming</td></tr>
   <tr><td>11</td><td><code>VLAN 50 (Untrusted)</code></td><td><code>Any</code></td><td>TCP 80, 443</td><td><span class="allow">Allow</span></td><td>Internet-only for cell phones</td></tr>
-  <tr><td>12</td><td><code>VLAN 30 (AP Mgmt)</code></td><td><code>Meraki cloud</code></td><td>TCP 443</td><td><span class="allow">Allow</span></td><td>AP firmware updates and cloud management</td></tr>
-  <tr><td>13</td><td><code>GX20 (self)</code></td><td><code>208.67.222.222, 208.67.220.220</code></td><td>UDP 53</td><td><span class="allow">Allow</span></td><td>DNS forwarding to OpenDNS only</td></tr>
+  <tr><td>12</td><td><code>VLAN 30 (AP Mgmt)</code></td><td><code>Vendor cloud</code></td><td>TCP 443</td><td><span class="allow">Allow</span></td><td>AP firmware updates and cloud management</td></tr>
+  <tr><td>13</td><td><code>Firewall (self)</code></td><td><code>208.67.222.222, 208.67.220.220</code></td><td>UDP 53</td><td><span class="allow">Allow</span></td><td>DNS forwarding to OpenDNS only</td></tr>
   <tr><td>14</td><td><code>Any</code></td><td><code>Any</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Default deny &mdash; catch-all</td></tr>
   </tbody>
 </table>
@@ -953,7 +953,7 @@
   <tr><th scope="col">#</th><th scope="col">Source</th><th scope="col">Destination</th><th scope="col">Protocol / Port</th><th scope="col">Action</th><th scope="col">Purpose</th></tr>
   </thead>
   <tbody>
-  <tr><td>1</td><td><code>NordLayer endpoints</code></td><td><code>VLAN 10 (Ops)</code></td><td>UDP 1194; TCP 443</td><td><span class="allow">Allow</span></td><td>Inbound VPN tunnel</td></tr>
+  <tr><td>1</td><td><code>VPN provider endpoints</code></td><td><code>VLAN 10 (Ops)</code></td><td>UDP 1194; TCP 443</td><td><span class="allow">Allow</span></td><td>Inbound VPN tunnel</td></tr>
   <tr><td>2</td><td><code>Any</code></td><td><code>Any</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>No unsolicited inbound traffic</td></tr>
   </tbody>
 </table>
@@ -967,18 +967,61 @@
   <tr><th scope="col">Measure</th><th scope="col">Setting</th><th scope="col">Rationale</th></tr>
   </thead>
   <tbody>
-  <tr><td>DNS filtering</td><td>OpenDNS (<code>208.67.222.222</code>, <code>208.67.220.220</code>)</td><td>GX20 forwards all DNS to OpenDNS &mdash; blocks malicious domains before they resolve. All VLANs forced to use GX20 as DNS server, preventing bypass.</td></tr>
+  <tr><td>DNS filtering</td><td>OpenDNS (<code>208.67.222.222</code>, <code>208.67.220.220</code>)</td><td>Firewall forwards all DNS to OpenDNS &mdash; blocks malicious domains before they resolve. All VLANs forced to use firewall as DNS server, preventing bypass.</td></tr>
   <tr><td>Content filtering</td><td>Enabled on VLAN 50 (Untrusted)</td><td>Block malware, phishing, and adult content on the cell phone network</td></tr>
   <tr><td>WPA3</td><td>Enabled on Staff Wi-Fi and Untrusted Wi-Fi SSIDs</td><td>Stronger wireless encryption &mdash; prevents eavesdropping and offline dictionary attacks that WPA2 is vulnerable to</td></tr>
-  <tr><td>DHCP snooping</td><td>Enabled on managed switch, all VLANs &mdash; GX20 uplink port marked as trusted</td><td>Drops rogue DHCP responses from untrusted ports. Builds a MAC-to-IP binding table used by ARP inspection.</td></tr>
+  <tr><td>DHCP snooping</td><td>Enabled on managed switch, all VLANs &mdash; Firewall uplink port marked as trusted</td><td>Drops rogue DHCP responses from untrusted ports. Builds a MAC-to-IP binding table used by ARP inspection.</td></tr>
   <tr><td>Dynamic ARP inspection</td><td>Enabled on managed switch, all VLANs &mdash; requires DHCP snooping</td><td>Validates ARP packets against the DHCP snooping binding table. Prevents ARP spoofing / man-in-the-middle attacks on the LAN.</td></tr>
   <tr><td>UPnP</td><td>Disabled</td><td>Prevents devices from automatically opening ports</td></tr>
-  <tr><td>Firewall management</td><td>Cisco Meraki cloud app &mdash; no local admin interface exposed</td><td>Managed via mobile app; no web UI or ports open for router administration</td></tr>
+  <tr><td>Firewall management</td><td>Cloud management &mdash; no local admin interface exposed</td><td>Managed via app or web dashboard; no ports open for router administration</td></tr>
   <tr><td>Remote desktop</td><td>Chrome Remote Desktop &mdash; no ports exposed</td><td>Encrypted remote access for service maintenance; NAT traversal via Google relay, no open inbound ports</td></tr>
-  <tr><td>Firmware updates</td><td>Automatic via Meraki cloud</td><td>GX20 receives patches without manual intervention</td></tr>
+  <tr><td>Firmware updates</td><td>Automatic via vendor cloud</td><td>Firewall receives patches without manual intervention</td></tr>
   <tr><td>Guest Wi-Fi</td><td>Not configured</td><td>Deliberate decision &mdash; reduces attack surface on a PCI-compliant network</td></tr>
   </tbody>
 </table>
+
+<h2>Estimated Equipment Cost</h2>
+
+<p>This roadmap can be implemented with off-the-shelf small business networking equipment. No enterprise licensing or recurring subscription fees are required &mdash; all options below include free cloud management.</p>
+
+<table class="rules-table">
+  <thead>
+  <tr>
+    <th scope="col">Equipment</th>
+    <th scope="col">What to Look For</th>
+    <th scope="col">Price Range</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><strong>Firewall / Security Gateway</strong></td>
+    <td>Stateful inspection, inter-VLAN routing with ACLs, NAT, VPN, IDS/IPS, logging. Must enforce rules <em>between</em> VLANs &mdash; segmentation alone does not satisfy PCI.</td>
+    <td>$130 &ndash; $280</td>
+  </tr>
+  <tr>
+    <td><strong>Managed PoE Switch</strong></td>
+    <td>802.1Q VLAN tagging and trunking, port security, PoE+ (802.3at) to power access points and VoIP phones. Minimum 8 ports.</td>
+    <td>$100 &ndash; $200</td>
+  </tr>
+  <tr>
+    <td><strong>Wi-Fi Access Point</strong></td>
+    <td>Multiple SSIDs mapped to separate VLANs, WPA3, client isolation on untrusted networks. Wi-Fi 6 (802.11ax) or newer.</td>
+    <td>$85 &ndash; $190</td>
+  </tr>
+  <tr>
+    <td><strong>VPN Service</strong></td>
+    <td>Encrypts traffic off-site. Look for business plans with centralized management. Some firewalls include WireGuard or OpenVPN natively.</td>
+    <td>Free &ndash; $8/user/mo</td>
+  </tr>
+  </tbody>
+</table>
+
+<p style="margin-top: 12px; font-size: 10pt;"><strong>Total estimated hardware cost: $315 &ndash; $670</strong> &mdash; one-time purchase, no recurring fees. VPN may add a small monthly cost per user.</p>
+
+<div style="margin-top: 12px; font-size: 9pt; color: #555; line-height: 1.6;">
+  <strong>Example products:</strong> Ubiquiti UCG-Ultra, Ubiquiti UCG-Fiber, TP-Link Omada ER7206 (firewalls); Ubiquiti USW-Lite-8-PoE, TP-Link Omada SG2210P, Netgear GS310TP (switches); Ubiquiti U6 Pro, TP-Link EAP610, TP-Link EAP670 (access points); Tailscale, Cloudflare WARP, OpenVPN, WireGuard (VPN).<br>
+  List updated May 2026.
+</div>
 
 <div class="doc-footer">
   Erin Fernando &nbsp;&mdash;&nbsp; PCI-Compliant Network Roadmap &nbsp;&mdash;&nbsp; &copy; 2026
