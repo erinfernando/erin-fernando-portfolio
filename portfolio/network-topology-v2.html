@@ -535,13 +535,13 @@
 </div>
 
 <div class="overview" style="border-left-color: #2e86c1; margin-bottom: 12px;">
-  <strong>Design rationale:</strong> VoIP phones and printers are moved to dedicated VLANs because these devices are particularly susceptible to exploitation. Cross-communication is allowed only where necessary &mdash; office workstations can reach printers for jobs, but all other cross-VLAN traffic is denied. VoIP lines are isolated and given access to cloud servers only.
+  <strong>Design rationale:</strong> VoIP phones, printers, and IoT devices are moved to dedicated VLANs because these devices are particularly susceptible to exploitation. Security cameras are isolated on their own VLAN with cloud-only access &mdash; a compromised camera cannot pivot to staff machines. Cross-communication is allowed only where necessary &mdash; office workstations can reach printers for jobs, but all other cross-VLAN traffic is denied.
 </div>
 
 <div class="overview">
   <strong>Environment:</strong> Small brick-and-mortar business &mdash; office, service areas<br>
   <strong>Internet:</strong> Internet &rarr; firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
-  <strong>VLANs:</strong> 6 segments &mdash; Operations, Voice, Print, PCI, Staff Wi-Fi, Untrusted Wi-Fi<br>
+  <strong>VLANs:</strong> 7 segments &mdash; Operations, Voice, Print, PCI, Staff Wi-Fi, IoT, Untrusted Wi-Fi<br>
   <strong>Cross-VLAN:</strong> Printing allowed from Operations and Staff Wi-Fi to Print VLAN via IPP/RAW ports<br>
   <strong>Guest Wi-Fi:</strong> Not offered &mdash; deliberate decision to minimize attack surface on a PCI-compliant network
 </div>
@@ -685,10 +685,20 @@
               <div class="conn-type">Wireless</div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IoT VLAN -->
+    <div class="vlan-col">
+      <div class="line" style="background: #7d3c98;"></div>
+      <div class="vlan-group">
+        <div class="vlan-group-label" style="color: #6c3483;">IoT</div>
+        <div class="endpoints-row">
           <div class="endpoint-col">
             <div class="topo-device">
-              <div class="box endpoint" style="border-color: #27ae60; border-style: dashed;">Cameras</div>
-              <div class="conn-type">Wireless</div>
+              <div class="box voice-endpoint" style="border-style: dashed;">Cameras</div>
+              <div class="conn-type">Wireless &mdash; Isolated</div>
             </div>
           </div>
         </div>
@@ -818,7 +828,7 @@
     <td>Wi-Fi</td>
     <td>Trunk</td>
     <td><span class="wired-tag">Wired</span></td>
-    <td>Serves Staff Wi-Fi and Untrusted Wi-Fi SSIDs</td>
+    <td>Serves Staff Wi-Fi, IoT, and Untrusted Wi-Fi SSIDs</td>
   </tr>
   <tr>
     <td>Laptops</td>
@@ -830,9 +840,9 @@
   <tr>
     <td>Cameras</td>
     <td>Security</td>
-    <td>Staff Wi-Fi</td>
+    <td>IoT</td>
     <td><span class="wireless-tag">Wireless</span></td>
-    <td>Surveillance cameras on business grounds</td>
+    <td>Isolated &mdash; cloud upload only, no cross-VLAN access</td>
   </tr>
   <tr>
     <td>Cell Phones</td>
@@ -856,7 +866,8 @@
   <tr><td><code>18</code></td><td>Print</td><td><code>192.168.18.0/24</code></td><td><code>.100 &ndash; .105</code></td><td>Printer &mdash; reachable from Ops and Staff Wi-Fi via IPP/RAW</td></tr>
   <tr><td><code>20</code></td><td>PCI</td><td><code>192.168.20.0/24</code></td><td><code>.100 &ndash; .110</code></td><td>Card reader only &mdash; fully isolated for PCI compliance</td></tr>
   <tr><td><code>30</code></td><td>AP Management</td><td><code>192.168.30.0/24</code></td><td><code>.100 &ndash; .110</code></td><td>Access point management interface</td></tr>
-  <tr><td><code>40</code></td><td>Staff Wi-Fi</td><td><code>192.168.40.0/24</code></td><td><code>.100 &ndash; .200</code></td><td>Staff laptops, security cameras &mdash; wireless</td></tr>
+  <tr><td><code>40</code></td><td>Staff Wi-Fi</td><td><code>192.168.40.0/24</code></td><td><code>.100 &ndash; .200</code></td><td>Staff laptops &mdash; wireless, can print</td></tr>
+  <tr><td><code>45</code></td><td>IoT</td><td><code>192.168.45.0/24</code></td><td><code>.100 &ndash; .120</code></td><td>Security cameras &mdash; cloud upload only, fully isolated</td></tr>
   <tr><td><code>50</code></td><td>Untrusted Wi-Fi</td><td><code>192.168.50.0/24</code></td><td><code>.100 &ndash; .250</code></td><td>Employee cell phones &mdash; internet only, fully isolated</td></tr>
   </tbody>
 </table>
@@ -872,16 +883,17 @@
 
 <table class="matrix-table">
   <thead>
-  <tr><th scope="col"></th><th scope="col">Ops</th><th scope="col">Voice</th><th scope="col">Print</th><th scope="col">PCI</th><th scope="col">AP Mgmt</th><th scope="col">Staff Wi-Fi</th><th scope="col">Untrusted</th><th scope="col">Internet</th></tr>
+  <tr><th scope="col"></th><th scope="col">Ops</th><th scope="col">Voice</th><th scope="col">Print</th><th scope="col">PCI</th><th scope="col">AP Mgmt</th><th scope="col">Staff Wi-Fi</th><th scope="col">IoT</th><th scope="col">Untrusted</th><th scope="col">Internet</th></tr>
   </thead>
   <tbody>
-  <tr><td scope="row">Operations</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="partial">PRINT</td><td class="no">DENY</td><td class="yes">ALLOW</td><td class="yes">ALLOW</td><td class="no">DENY</td><td class="yes">ALLOW</td></tr>
-  <tr><td scope="row">Voice</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">SIP/RTP</td></tr>
-  <tr><td scope="row">Print</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td></tr>
-  <tr><td scope="row">PCI</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">PAY *</td></tr>
-  <tr><td scope="row">AP Mgmt</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">CLOUD</td></tr>
-  <tr><td scope="row">Staff Wi-Fi</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">PRINT</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="yes">ALLOW</td></tr>
-  <tr><td scope="row">Untrusted</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="partial">WEB</td></tr>
+  <tr><td scope="row">Operations</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="partial">PRINT</td><td class="no">DENY</td><td class="yes">ALLOW</td><td class="yes">ALLOW</td><td class="no">DENY</td><td class="no">DENY</td><td class="yes">ALLOW</td></tr>
+  <tr><td scope="row">Voice</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">SIP/RTP</td></tr>
+  <tr><td scope="row">Print</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td></tr>
+  <tr><td scope="row">PCI</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">PAY *</td></tr>
+  <tr><td scope="row">AP Mgmt</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">CLOUD</td></tr>
+  <tr><td scope="row">Staff Wi-Fi</td><td class="no">DENY</td><td class="no">DENY</td><td class="partial">PRINT</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="no">DENY</td><td class="yes">ALLOW</td></tr>
+  <tr><td scope="row">IoT</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="no">DENY</td><td class="partial">CLOUD</td></tr>
+  <tr><td scope="row">Untrusted</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="no">DENY</td><td class="self">&mdash;</td><td class="partial">WEB</td></tr>
   </tbody>
 </table>
 
@@ -899,14 +911,16 @@
   <tr><td>2</td><td><code>Any local VLAN</code></td><td><code>VLAN 20 (PCI)</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Nothing reaches the card reader</td></tr>
   <tr><td>3</td><td><code>VLAN 15 (Voice)</code></td><td><code>Any local VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Phones cannot reach internal resources</td></tr>
   <tr><td>4</td><td><code>Any local VLAN</code></td><td><code>VLAN 15 (Voice)</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Nothing reaches the phones</td></tr>
-  <tr><td>5</td><td><code>VLAN 50 (Untrusted)</code></td><td><code>Any local VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Cell phones cannot reach internal resources</td></tr>
-  <tr><td>6</td><td><code>Any local VLAN</code></td><td><code>VLAN 50 (Untrusted)</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Nothing reaches untrusted devices</td></tr>
-  <tr><td>7</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 18 (Print)</code></td><td>TCP 631, 9100</td><td><span class="allow">Allow</span></td><td>Desktops can print (IPP + RAW)</td></tr>
-  <tr><td>8</td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td><code>VLAN 18 (Print)</code></td><td>TCP 631, 9100</td><td><span class="allow">Allow</span></td><td>Laptops can print (IPP + RAW)</td></tr>
-  <tr><td>9</td><td><code>VLAN 18 (Print)</code></td><td><code>Any local VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Printer cannot initiate outbound connections</td></tr>
-  <tr><td>10</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 30 (AP Mgmt)</code></td><td>TCP 443</td><td><span class="allow">Allow</span></td><td>Admin desktop can manage the access point</td></tr>
-  <tr><td>11</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td>Any</td><td><span class="allow">Allow</span></td><td>Ops can reach staff devices for support</td></tr>
-  <tr><td>12</td><td><code>Any VLAN</code></td><td><code>Any VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Default deny &mdash; catch-all</td></tr>
+  <tr><td>5</td><td><code>VLAN 45 (IoT)</code></td><td><code>Any local VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Cameras cannot reach internal resources</td></tr>
+  <tr><td>6</td><td><code>Any local VLAN</code></td><td><code>VLAN 45 (IoT)</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Nothing reaches IoT devices</td></tr>
+  <tr><td>7</td><td><code>VLAN 50 (Untrusted)</code></td><td><code>Any local VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Cell phones cannot reach internal resources</td></tr>
+  <tr><td>8</td><td><code>Any local VLAN</code></td><td><code>VLAN 50 (Untrusted)</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Nothing reaches untrusted devices</td></tr>
+  <tr><td>9</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 18 (Print)</code></td><td>TCP 631, 9100</td><td><span class="allow">Allow</span></td><td>Desktops can print (IPP + RAW)</td></tr>
+  <tr><td>10</td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td><code>VLAN 18 (Print)</code></td><td>TCP 631, 9100</td><td><span class="allow">Allow</span></td><td>Laptops can print (IPP + RAW)</td></tr>
+  <tr><td>11</td><td><code>VLAN 18 (Print)</code></td><td><code>Any local VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Printer cannot initiate outbound connections</td></tr>
+  <tr><td>12</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 30 (AP Mgmt)</code></td><td>TCP 443</td><td><span class="allow">Allow</span></td><td>Admin desktop can manage the access point</td></tr>
+  <tr><td>13</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td>Any</td><td><span class="allow">Allow</span></td><td>Ops can reach staff devices for support</td></tr>
+  <tr><td>14</td><td><code>Any VLAN</code></td><td><code>Any VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Default deny &mdash; catch-all</td></tr>
   </tbody>
 </table>
 
@@ -915,7 +929,7 @@
 </div>
 
 <div class="callout-blue">
-  <strong>New in v2:</strong> Rules 3&ndash;4 isolate the Voice VLAN. Rules 7&ndash;9 create a controlled print path: desktops and laptops can send print jobs to the printer, but the printer itself cannot initiate connections to anything. In v1, the printer sat on the same VLAN as desktops &mdash; a compromised printer had direct access to workstations.
+  <strong>New in v2:</strong> Rules 3&ndash;4 isolate the Voice VLAN. Rules 5&ndash;6 isolate IoT devices (cameras) &mdash; they can only reach their cloud provider, nothing internal. Rules 9&ndash;11 create a controlled print path: desktops and laptops can send print jobs to the printer, but the printer itself cannot initiate connections to anything. In v1, cameras and printers sat on the same VLAN as desktops &mdash; a compromised device had direct access to workstations.
 </div>
 
 <h2>Firewall Rules &mdash; Outbound (WAN)</h2>
@@ -934,11 +948,12 @@
   <tr><td>7</td><td><code>VLAN 10 (Ops)</code></td><td><code>Any</code></td><td>TCP 587, 993</td><td><span class="allow">Allow</span></td><td>Email (SMTP submission + IMAP over TLS)</td></tr>
   <tr><td>8</td><td><code>VLAN 10 (Ops)</code></td><td><code>VPN provider endpoints</code></td><td>UDP 1194; TCP 443</td><td><span class="allow">Allow</span></td><td>VPN tunnel for privacy and security</td></tr>
   <tr><td>9</td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td><code>Any</code></td><td>TCP 80, 443</td><td><span class="allow">Allow</span></td><td>Web access for staff laptops</td></tr>
-  <tr><td>10</td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td><code>Camera cloud IPs</code></td><td>TCP 443; UDP 8554</td><td><span class="allow">Allow</span></td><td>Security cameras &rarr; cloud storage/streaming</td></tr>
-  <tr><td>11</td><td><code>VLAN 50 (Untrusted)</code></td><td><code>Any</code></td><td>TCP 80, 443</td><td><span class="allow">Allow</span></td><td>Internet-only for cell phones</td></tr>
-  <tr><td>12</td><td><code>VLAN 30 (AP Mgmt)</code></td><td><code>Vendor cloud</code></td><td>TCP 443</td><td><span class="allow">Allow</span></td><td>AP firmware updates and cloud management</td></tr>
-  <tr><td>13</td><td><code>Firewall (self)</code></td><td><code>208.67.222.222, 208.67.220.220</code></td><td>UDP 53</td><td><span class="allow">Allow</span></td><td>DNS forwarding to OpenDNS only</td></tr>
-  <tr><td>14</td><td><code>Any</code></td><td><code>Any</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Default deny &mdash; catch-all</td></tr>
+  <tr><td>10</td><td><code>VLAN 45 (IoT)</code></td><td><code>Camera cloud IPs</code></td><td>TCP 443; UDP 8554</td><td><span class="allow">Allow</span></td><td>Security cameras &rarr; cloud storage/streaming</td></tr>
+  <tr><td>11</td><td><code>VLAN 45 (IoT)</code></td><td><code>Any</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Cameras cannot reach anything else</td></tr>
+  <tr><td>12</td><td><code>VLAN 50 (Untrusted)</code></td><td><code>Any</code></td><td>TCP 80, 443</td><td><span class="allow">Allow</span></td><td>Internet-only for cell phones</td></tr>
+  <tr><td>13</td><td><code>VLAN 30 (AP Mgmt)</code></td><td><code>Vendor cloud</code></td><td>TCP 443</td><td><span class="allow">Allow</span></td><td>AP firmware updates and cloud management</td></tr>
+  <tr><td>14</td><td><code>Firewall (self)</code></td><td><code>208.67.222.222, 208.67.220.220</code></td><td>UDP 53</td><td><span class="allow">Allow</span></td><td>DNS forwarding to OpenDNS only</td></tr>
+  <tr><td>15</td><td><code>Any</code></td><td><code>Any</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Default deny &mdash; catch-all</td></tr>
   </tbody>
 </table>
 
