@@ -265,7 +265,7 @@
     background: #e8f0f8;
     border: 1px solid #c5d9ea;
     padding: 1px 8px;
-    border-radius: 10px;
+    border-radius: 3px;
     letter-spacing: 0.3px;
     white-space: nowrap;
     vertical-align: baseline;
@@ -578,9 +578,9 @@
 
     <h3>Strategies:</h3>
     <ul>
-      <li>Built <span class="skill-decal">Skill: Researcher</span> to research how to research, again and again, in a short Ouroboros-cycle. Making sure to improve the base skill to a higher degree before moving on to other items.</li>
-      <li>Had Researcher investigate how to make a skill that specialized in the <span class="skill-decal">Skill: Skill Crafter</span> class.</li>
-      <li>After getting two &ldquo;characters,&rdquo; I began having them feed on each other in another Ouroboros-cycle.</li>
+      <li>Generated <span class="skill-decal">Skill: Researcher</span>, which was instructed to research how to research, in an Ouroboros-like snake eating its own tail fashion. Raising the functionality of the producer element was a motivating factor for this cycle. I wanted to upgrade <span class="skill-decal">Skill: Researcher</span> from D-Tier to B-Tier; the smith needs to be capable of making high quality products after all.</li>
+      <li>Had Researcher investigate how to make a skill that specialized in the <span class="skill-decal">Skill: Skill-Crafter</span> archetype.</li>
+      <li>Ouroboros cycles of self-improvement were employed throughout.</li>
       <li>Now that I had some specialized sub-classes as a base, I set out to add more team members to my roster.</li>
       <li>I wanted to make sure I perfectly balanced the team by having a healthy balance of heavy hitters, supports, and safety nets.</li>
       <li>Assigned a persona to each Profession. <em>Note: this method of calling skills seems to result in better outcomes, possibly due to it feeling more clear to the human user.</em></li>
@@ -712,14 +712,31 @@
                 return actual > 0 || base > 0;
               },
               callbacks: {
-                afterTitle: function() {
-                  return 'actual · baseline';
+                afterTitle: function(items) {
+                  // Pad to right-align over the number columns
+                  var longest = 0;
+                  items.forEach(function(item) {
+                    var len = item.dataset.label.length;
+                    if (len > longest) longest = len;
+                  });
+                  var pad = '';
+                  for (var i = 0; i < longest - 2; i++) pad += ' ';
+                  return pad + 'actual · baseline';
                 },
                 label: function(ctx) {
                   var actual = ctx.raw;
                   var baseDs = ctx.chart.data.datasets[ctx.datasetIndex + 1];
                   var base = baseDs ? baseDs.data[ctx.dataIndex] : 0;
-                  return ctx.dataset.label + ':  ' + actual + '  ·  ' + base;
+                  // Pad category name so numbers align
+                  var name = ctx.dataset.label;
+                  var filtered = ctx.chart.tooltip.body || [];
+                  var longest = 0;
+                  ctx.chart.data.datasets.forEach(function(ds, i) {
+                    if (i % 2 === 0 && ds.label.length > longest) longest = ds.label.length;
+                  });
+                  var pad = '';
+                  for (var i = name.length; i < longest; i++) pad += ' ';
+                  return name + pad + '   ' + actual + ' · ' + base;
                 },
                 labelColor: function(ctx) {
                   return {
