@@ -201,6 +201,69 @@
     text-decoration: line-through;
   }
 
+  /* ── Custom Tooltip ── */
+  #chartTooltip {
+    position: absolute;
+    z-index: 100;
+    background: rgba(13,43,62,0.95);
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    transform: translate(-50%, -100%);
+    margin-top: -12px;
+    min-width: 240px;
+  }
+  .tt-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .tt-header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.55;
+    margin-bottom: 4px;
+    padding-right: 1px;
+  }
+  .tt-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 1.5px 0;
+  }
+  .tt-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .tt-label {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tt-vals {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .tt-vals span {
+    min-width: 20px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
   /* ── How It Works ── */
   .how-it-works {
     background: var(--white);
@@ -574,6 +637,7 @@
       <li>Build out skills to automate routine tasks and functions for a small business.</li>
       <li>Help streamline complex processes into a formal structure.</li>
       <li>Limit-testing the capabilities of AI skillsets with a special focus on self-propulsion and organic growth.</li>
+      <li>Determine the veracity of AI skillsets for real-world application. Can AI reliably be used for XYZ archetype reliably?</li>
     </ul>
 
     <h3>Strategies:</h3>
@@ -695,55 +759,53 @@
               display: false
             },
             tooltip: {
-              backgroundColor: 'rgba(13,43,62,0.95)',
-              titleFont: { size: 13, weight: '600' },
-              bodyFont: { size: 12, family: "'Segoe UI', system-ui, sans-serif" },
-              padding: { top: 10, bottom: 10, left: 14, right: 14 },
-              cornerRadius: 6,
-              usePointStyle: false,
-              boxWidth: 10,
-              boxHeight: 10,
-              filter: function(item) {
-                // Only show actual (even) datasets; skip baseline (odd)
-                if (item.datasetIndex % 2 === 1) return false;
-                var actual = item.raw;
-                var baseDs = item.chart.data.datasets[item.datasetIndex + 1];
-                var base = baseDs ? baseDs.data[item.dataIndex] : 0;
-                return actual > 0 || base > 0;
-              },
-              callbacks: {
-                afterTitle: function(items) {
-                  // Pad to right-align over the number columns
-                  var longest = 0;
-                  items.forEach(function(item) {
-                    var len = item.dataset.label.length;
-                    if (len > longest) longest = len;
-                  });
-                  var pad = '';
-                  for (var i = 0; i < longest - 2; i++) pad += ' ';
-                  return pad + 'actual · baseline';
-                },
-                label: function(ctx) {
-                  var actual = ctx.raw;
-                  var baseDs = ctx.chart.data.datasets[ctx.datasetIndex + 1];
-                  var base = baseDs ? baseDs.data[ctx.dataIndex] : 0;
-                  // Pad category name so numbers align
-                  var name = ctx.dataset.label;
-                  var filtered = ctx.chart.tooltip.body || [];
-                  var longest = 0;
-                  ctx.chart.data.datasets.forEach(function(ds, i) {
-                    if (i % 2 === 0 && ds.label.length > longest) longest = ds.label.length;
-                  });
-                  var pad = '';
-                  for (var i = name.length; i < longest; i++) pad += ' ';
-                  return name + pad + '   ' + actual + ' · ' + base;
-                },
-                labelColor: function(ctx) {
-                  return {
-                    borderColor: ctx.dataset.borderColor,
-                    backgroundColor: ctx.dataset.borderColor
-                  };
+              enabled: false,
+              mode: 'index',
+              intersect: false,
+              external: function(context) {
+                var tooltipEl = document.getElementById('chartTooltip');
+                if (!tooltipEl) {
+                  tooltipEl = document.createElement('div');
+                  tooltipEl.id = 'chartTooltip';
+                  document.body.appendChild(tooltipEl);
                 }
+                var tooltip = context.tooltip;
+                if (tooltip.opacity === 0) {
+                  tooltipEl.style.opacity = '0';
+                  tooltipEl.style.pointerEvents = 'none';
+                  return;
+                }
+                // Build rows — merge actual + baseline per category
+                var rows = [];
+                var dataIndex = tooltip.dataPoints ? tooltip.dataPoints[0].dataIndex : 0;
+                var chart = context.chart;
+                for (var i = 0; i < chart.data.datasets.length; i += 2) {
+                  var ds = chart.data.datasets[i];
+                  var baseDs = chart.data.datasets[i + 1];
+                  var actual = ds.data[dataIndex] || 0;
+                  var base = baseDs ? (baseDs.data[dataIndex] || 0) : 0;
+                  if (actual === 0 && base === 0) continue;
+                  var meta = chart.getDatasetMeta(i);
+                  if (meta.hidden) continue;
+                  rows.push({ label: ds.label, color: ds.borderColor, actual: actual, base: base });
+                }
+                var dateLabel = chart.data.labels[dataIndex];
+                var html = '<div class="tt-title">' + dateLabel + '</div>';
+                html += '<div class="tt-header"><span>actual</span><span>baseline</span></div>';
+                rows.forEach(function(r) {
+                  html += '<div class="tt-row">' +
+                    '<span class="tt-dot" style="background:' + r.color + ';"></span>' +
+                    '<span class="tt-label">' + r.label + '</span>' +
+                    '<span class="tt-vals"><span>' + r.actual + '</span><span>' + r.base + '</span></span>' +
+                  '</div>';
+                });
+                tooltipEl.innerHTML = html;
+                tooltipEl.style.opacity = '1';
+                tooltipEl.style.pointerEvents = 'none';
+                // Position
+                var pos = chart.canvas.getBoundingClientRect();
+                tooltipEl.style.left = pos.left + window.scrollX + tooltip.caretX + 'px';
+                tooltipEl.style.top = pos.top + window.scrollY + tooltip.caretY + 'px';
               }
             }
           },
