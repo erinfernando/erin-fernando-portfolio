@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
+<meta name="description" content="A case study on PCI-DSS compliance for small businesses — breach costs, compliance tiers, SAQ types, and the ROI of network security. By Erin Fernando.">
+<title>The Importance of PCI Compliance | Erin Fernando</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.5in 0.6in;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+  body {
+    font-family: 'Segoe UI', 'Calibri', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0 0.6in 0.5in;
+    background: #f7f9fb;
+  }
+
+  .doc-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #1a5276;
+  }
+  .doc-header h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #1a5276;
+    margin-bottom: 2px;
+  }
+  .doc-header .subtitle {
+    font-size: 11pt;
+    color: #555;
+    font-style: italic;
+  }
+
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a5276;
+    margin: 24px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 16px 0 6px;
+  }
+
+  p, li {
+    font-size: 10pt;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9pt;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #1a5276;
+    color: #fff;
+    font-weight: 700;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  tr:nth-child(even) { background: #f4f8fb; }
+
+  /* Highlight boxes */
+  .callout {
+    background: #fef9e7;
+    border: 1px solid #f0d66e;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 10pt;
+    color: #6b5900;
+    line-height: 1.5;
+  }
+  .callout-red {
+    background: #fdedec;
+    border: 1px solid #e6b0aa;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 10pt;
+    color: #78281f;
+    line-height: 1.5;
+  }
+  .callout-blue {
+    background: #eaf2f8;
+    border: 1px solid #aed6f1;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 10pt;
+    color: #1a5276;
+    line-height: 1.5;
+  }
+  .callout-green {
+    background: #eafaf1;
+    border: 1px solid #a9dfbf;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 10pt;
+    color: #1e8449;
+    line-height: 1.5;
+  }
+
+  /* Stat highlight */
+  .stat-row {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    flex: 1 1 140px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: 3px solid #1a5276;
+    border-radius: 4px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-card .stat-number {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #1a5276;
+    line-height: 1.2;
+  }
+  .stat-card .stat-label {
+    font-size: 8.5pt;
+    color: #555;
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+  .stat-card.red { border-top-color: #c0392b; }
+  .stat-card.red .stat-number { color: #c0392b; }
+  .stat-card.green { border-top-color: #27ae60; }
+  .stat-card.green .stat-number { color: #27ae60; }
+
+  /* Fine escalation */
+  .fine-tier {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    font-size: 9.5pt;
+  }
+  .fine-bar {
+    height: 18px;
+    background: #c0392b;
+    border-radius: 3px;
+    min-width: 20px;
+  }
+
+  .overview {
+    background: #fff;
+    border-left: 4px solid #1a5276;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+    line-height: 1.6;
+  }
+
+  .note {
+    font-size: 9pt;
+    color: #666;
+    font-style: italic;
+    margin: 8px 0;
+  }
+
+  .doc-footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 2px solid #1a5276;
+    font-size: 9pt;
+    color: #777;
+  }
+
+  a { color: #1a5276; }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px 24px; }
+    .stat-row { flex-direction: column; }
+    .stat-card { flex: 1 1 auto; }
+  }
+</style>
+</head>
+<body>
+
+<a href="../#portfolio" style="display: inline-block; margin: 16px 0 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
+
+<div class="doc-header">
+  <h1>The Importance of PCI Compliance</h1>
+  <div class="subtitle">A case study on what compliance actually costs &mdash; and what non-compliance costs more</div>
+</div>
+
+<!-- The Hook -->
+<div class="stat-row">
+  <div class="stat-card green">
+    <div class="stat-number">$1K&ndash;$5K</div>
+    <div class="stat-label">Annual compliance cost<br>for a small business</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-number">$120K&ndash;$1.24M</div>
+    <div class="stat-label">Average breach cost<br>for a small business</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-number">$5K&ndash;$100K</div>
+    <div class="stat-label">Monthly non-compliance<br>fines from card brands</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">0</div>
+    <div class="stat-label">Fully PCI-compliant orgs<br>found breached (Verizon)</div>
+  </div>
+</div>
+
+<div class="overview">
+  <strong>The bottom line:</strong> PCI compliance is not optional for any business that accepts credit cards. The cost of compliance is a fraction of the cost of a single breach. Verizon's forensic investigators have never found a fully PCI-compliant organization at the time of a confirmed breach &mdash; not once.
+</div>
+
+<!-- Who Needs PCI -->
+<h2>Who Needs PCI Compliance?</h2>
+
+<p>Any business that stores, processes, or transmits cardholder data must comply with PCI DSS (Payment Card Industry Data Security Standard). This includes:</p>
+
+<ul>
+  <li>Brick-and-mortar stores with card readers or POS terminals</li>
+  <li>Online stores accepting credit card payments</li>
+  <li>Restaurants, hotels, and hospitality businesses</li>
+  <li>Service businesses that invoice by card</li>
+  <li>Any business using a payment gateway, even if the processor handles the transaction</li>
+</ul>
+
+<p>Size does not matter. A single-location coffee shop and a multinational retailer are both subject to PCI DSS &mdash; the difference is the level of assessment required.</p>
+
+<!-- Cost of Non-Compliance -->
+<h2>The Cost of Non-Compliance</h2>
+
+<h3>Monthly fines from card brands</h3>
+
+<p>Visa, Mastercard, and other card brands levy fines on the acquiring bank, which passes them to the merchant. Fines escalate the longer a business remains non-compliant:</p>
+
+<table>
+  <thead>
+  <tr><th scope="col">Period</th><th scope="col">Monthly Fine</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>Months 1&ndash;3</td><td>$5,000 &ndash; $10,000</td></tr>
+  <tr><td>Months 4&ndash;6</td><td>$25,000 &ndash; $50,000</td></tr>
+  <tr><td>Month 7+</td><td>$50,000 &ndash; $100,000+</td></tr>
+  </tbody>
+</table>
+
+<h3>What happens after a breach</h3>
+
+<p>When a small business suffers a card data breach, the costs compound quickly:</p>
+
+<table>
+  <thead>
+  <tr><th scope="col">Cost Category</th><th scope="col">Typical Range</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>PCI Forensic Investigator (mandatory)</td><td>$8,000 &ndash; $100,000+</td></tr>
+  <tr><td>Card replacement and reissuance</td><td>$3 &ndash; $25 per compromised card</td></tr>
+  <tr><td>Incident response</td><td>$300 &ndash; $1,000/hour</td></tr>
+  <tr><td>Customer notification and credit monitoring</td><td>Varies by state law</td></tr>
+  <tr><td>Monthly non-compliance fines</td><td>$5,000 &ndash; $100,000/month</td></tr>
+  <tr><td>Fraud liability on compromised cards</td><td>Six to seven figures</td></tr>
+  <tr><td>Legal fees, regulatory audits</td><td>Varies</td></tr>
+  </tbody>
+</table>
+
+<div class="callout-red">
+  <strong>Losing the ability to process cards entirely:</strong> After a breach or repeated violations, a business can be placed on the MATCH List (Mastercard Alert to Control High-Risk Merchants). A business on the MATCH list cannot open new merchant accounts for up to <strong>5 years</strong> &mdash; effectively unable to accept credit cards. For most retail and hospitality businesses, this is a death sentence.
+</div>
+
+<h3>Business survival after a breach</h3>
+
+<div class="stat-row">
+  <div class="stat-card red">
+    <div class="stat-number">40%</div>
+    <div class="stat-label">of SMBs say a $100K<br>attack would end their business</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-number">19%</div>
+    <div class="stat-label">of breached businesses<br>face bankruptcy</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-number">29%</div>
+    <div class="stat-label">lose customers permanently<br>due to trust erosion</div>
+  </div>
+</div>
+
+<p class="note">Sources: VikingCloud 2025, Verizon 2025 DBIR, industry surveys.</p>
+
+<!-- Who Gets Targeted -->
+<h2>Small Businesses Are the Primary Target</h2>
+
+<table>
+  <thead>
+  <tr><th scope="col">Statistic</th><th scope="col">Value</th><th scope="col">Source</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>Cyberattacks targeting businesses under 1,000 employees</td><td>43&ndash;46%</td><td>Verizon 2025 DBIR</td></tr>
+  <tr><td>SMBs that experienced a breach in the past year</td><td>61%</td><td>Industry surveys</td></tr>
+  <tr><td>Ransomware involvement in SMB breaches</td><td>88%</td><td>Verizon 2025 DBIR</td></tr>
+  <tr><td>Ransomware in large enterprise breaches</td><td>39%</td><td>Verizon 2025 DBIR</td></tr>
+  <tr><td>Average time to detect a breach</td><td>181 days</td><td>IBM 2025</td></tr>
+  <tr><td>Average time to contain after detection</td><td>60 days</td><td>IBM 2025</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>Key insight:</strong> Small businesses face a higher rate of ransomware attacks (88%) than large enterprises (39%), yet have fewer resources to recover. The average breach goes undetected for 6 months &mdash; by the time it's found, the damage is done.
+</div>
+
+<!-- Compliance Costs by Tier -->
+<h2>Compliance Costs by Business Size</h2>
+
+<p>PCI DSS defines four merchant levels based on annual card transaction volume. The level determines the type and rigor of assessment required:</p>
+
+<table>
+  <thead>
+  <tr><th scope="col"></th><th scope="col">Level 4</th><th scope="col">Level 3</th><th scope="col">Level 2</th><th scope="col">Level 1</th></tr>
+  </thead>
+  <tbody>
+  <tr><td><strong>Transaction volume</strong></td><td>&lt;20K e-com or &lt;1M total</td><td>20K&ndash;1M e-com</td><td>1M&ndash;6M</td><td>6M+</td></tr>
+  <tr><td><strong>Typical business</strong></td><td>Most small businesses</td><td>Mid-size e-commerce</td><td>Large retailers</td><td>Major enterprises</td></tr>
+  <tr><td><strong>Assessment type</strong></td><td>Self-Assessment Questionnaire (SAQ)</td><td>SAQ + quarterly ASV scan</td><td>SAQ + ASV; some acquirers mandate QSA</td><td>Full audit by QSA (mandatory)</td></tr>
+  <tr><td><strong>QSA audit required?</strong></td><td>No</td><td>No</td><td>Sometimes</td><td>Yes</td></tr>
+  <tr><td><strong>Quarterly ASV scan?</strong></td><td>Depends on SAQ type</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td><strong>Annual compliance cost</strong></td><td>$1,000 &ndash; $5,000</td><td>$5,000 &ndash; $20,000</td><td>$10,000 &ndash; $50,000</td><td>$50,000 &ndash; $500,000+</td></tr>
+  </tbody>
+</table>
+
+<p class="note">ASV = Approved Scanning Vendor (quarterly external vulnerability scan). QSA = Qualified Security Assessor (on-site audit). SAQ = Self-Assessment Questionnaire.</p>
+
+<!-- SAQ Types -->
+<h2>SAQ Types: Which Assessment Do You Need?</h2>
+
+<p>The SAQ you file depends on <em>how</em> your business handles card data, not just how many transactions you process:</p>
+
+<table>
+  <thead>
+  <tr><th scope="col">SAQ</th><th scope="col">Who It's For</th><th scope="col">Requirements</th><th scope="col">Pen Test?</th></tr>
+  </thead>
+  <tbody>
+  <tr><td><strong>A</strong></td><td>Fully outsourced (Stripe Checkout, Square, hosted payment page)</td><td>22</td><td>No</td></tr>
+  <tr><td><strong>A-EP</strong></td><td>E-commerce with partial outsourcing (your site redirects to processor)</td><td>191</td><td>Yes</td></tr>
+  <tr><td><strong>B</strong></td><td>Imprint machines or standalone dial-out terminals (no network connection)</td><td>41</td><td>No</td></tr>
+  <tr><td><strong>B-IP</strong></td><td>Standalone IP-connected terminals (no card data storage)</td><td>82</td><td>Scan only</td></tr>
+  <tr><td><strong>C</strong></td><td>Payment app connected to internet (IP terminal, mobile card reader)</td><td>160</td><td>Scan only</td></tr>
+  <tr><td><strong>C-VT</strong></td><td>Virtual terminal, manual card entry via web on an isolated machine</td><td>79</td><td>No</td></tr>
+  <tr><td><strong>P2PE</strong></td><td>PCI-validated point-to-point encryption terminals only</td><td>33</td><td>No</td></tr>
+  <tr><td><strong>D</strong></td><td>Everyone else &mdash; full assessment covering all 12 PCI DSS requirements</td><td>329</td><td>Yes</td></tr>
+  </tbody>
+</table>
+
+<div class="callout-blue">
+  <strong>The practical difference:</strong> A small business using a hosted payment page (like Stripe Checkout) qualifies for SAQ A &mdash; 22 requirements. A business that stores card data or runs its own payment application faces SAQ D &mdash; 329 requirements. That is a 15x difference in compliance burden. Choosing the right payment integration can dramatically reduce your compliance scope.
+</div>
+
+<!-- PCI DSS 4.0 -->
+<h2>PCI DSS 4.0: What Changed</h2>
+
+<p>PCI DSS 4.0 replaced version 3.2.1 in March 2024. The final wave of new requirements became mandatory on <strong>March 31, 2025</strong>. Businesses that haven't updated are already out of compliance.</p>
+
+<h3>Key new requirements</h3>
+
+<table>
+  <thead>
+  <tr><th scope="col">Requirement</th><th scope="col">What It Means</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>MFA for all CDE access</td><td>Multi-factor authentication now required for <em>all</em> access to the cardholder data environment &mdash; not just admins or remote access</td></tr>
+  <tr><td>12-character minimum passwords</td><td>Increased from 8 characters</td></tr>
+  <tr><td>Payment page script monitoring</td><td>Must detect unauthorized changes to payment pages (skimming attacks)</td></tr>
+  <tr><td>Authenticated vulnerability scanning</td><td>Internal scans must use authenticated methods</td></tr>
+  <tr><td>Network security reviews every 6 months</td><td>Firewall and segmentation controls reviewed semi-annually, not annually</td></tr>
+  <tr><td>Annual scoping documentation</td><td>Must formally document what's in scope every year</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>Philosophy shift:</strong> PCI DSS 4.0 moved from an annual compliance event to continuous security operations &mdash; real-time monitoring and ongoing accountability rather than a once-a-year checkbox exercise.
+</div>
+
+<!-- Common Mistakes -->
+<h2>Common Mistakes Small Businesses Make</h2>
+
+<ul>
+  <li><strong>"We're too small to be targeted."</strong> &mdash; 43&ndash;46% of cyberattacks target businesses under 1,000 employees. Attackers specifically seek out small businesses because they tend to have weaker defenses.</li>
+  <li><strong>"Our payment processor handles everything."</strong> &mdash; Even with a hosted payment page, the business is still responsible for network security, access controls, and SAQ filing. The processor does not make you compliant.</li>
+  <li><strong>"We don't store card numbers."</strong> &mdash; PCI DSS applies to any business that <em>transmits</em> or <em>processes</em> card data, not just those that store it. If a card is swiped, dipped, or tapped at your terminal, you're in scope.</li>
+  <li><strong>Flat network with no segmentation.</strong> &mdash; Every device on the same network means every device is in PCI scope. One compromised laptop gives an attacker a path to the card reader.</li>
+  <li><strong>Shared passwords on POS systems.</strong> &mdash; PCI DSS requires unique logins. Shared credentials make it impossible to audit who accessed what and when.</li>
+  <li><strong>Treating compliance as a one-time project.</strong> &mdash; PCI DSS 4.0 explicitly requires ongoing monitoring, semi-annual reviews, and continuous security operations.</li>
+</ul>
+
+<!-- ROI -->
+<h2>The ROI of Compliance</h2>
+
+<div class="stat-row">
+  <div class="stat-card green">
+    <div class="stat-number">$1K&ndash;$5K</div>
+    <div class="stat-label">Annual compliance cost<br>(Level 4 merchant)</div>
+  </div>
+  <div class="stat-card green">
+    <div class="stat-number">$315&ndash;$670</div>
+    <div class="stat-label">One-time hardware cost<br>for network segmentation</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-number">$120K&ndash;$1.24M</div>
+    <div class="stat-label">Average breach cost<br>(small business)</div>
+  </div>
+</div>
+
+<table>
+  <thead>
+  <tr><th scope="col">Factor</th><th scope="col">Impact</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>Non-compliance cost multiplier</td><td>2.71x more expensive than maintaining compliance</td></tr>
+  <tr><td>Additional breach cost from non-compliance</td><td>+$174,538 added to average breach</td></tr>
+  <tr><td>Tested incident response plan</td><td>$2.66M savings per breach</td></tr>
+  <tr><td>Faster detection (under 200 days)</td><td>$1.14M savings per breach</td></tr>
+  <tr><td>Cyber insurance premiums</td><td>10&ndash;25% reduction with documented security controls</td></tr>
+  </tbody>
+</table>
+
+<p class="note">Sources: Ponemon Institute, IBM 2025 Cost of a Data Breach Report, industry surveys.</p>
+
+<div class="callout-green">
+  <strong>The math:</strong> A Level 4 small business spends roughly $1,000&ndash;$5,000 per year on compliance and $315&ndash;$670 one-time on network hardware. A single breach costs 25x to 250x that amount &mdash; and 40% of small businesses say a $100K attack would end their business entirely. Compliance is not an expense. It is the cheapest insurance a small business can buy.
+</div>
+
+<!-- Getting Started -->
+<h2>Getting Started</h2>
+
+<p>For a small business, PCI compliance starts with three things:</p>
+
+<ol style="padding-left: 20px; margin-bottom: 12px;">
+  <li style="margin-bottom: 6px;"><strong>Segment your network.</strong> Isolate the card reader on its own VLAN so a compromised laptop or camera cannot reach it. This is the single most impactful step.</li>
+  <li style="margin-bottom: 6px;"><strong>Choose the right payment integration.</strong> A hosted payment page (Stripe, Square) drops your SAQ from 329 requirements to 22.</li>
+  <li style="margin-bottom: 6px;"><strong>File your SAQ.</strong> The self-assessment questionnaire is how you demonstrate compliance. Your payment processor or acquiring bank can tell you which SAQ applies.</li>
+</ol>
+
+<div class="callout-blue">
+  <strong>Ready to build the network?</strong> See the <a href="network-topology-v2" style="font-weight: 600;">PCI-Compliant Network Roadmap</a> for a complete topology template with VLAN segmentation, firewall rules, and an equipment cost breakdown starting at $315.
+</div>
+
+<div class="doc-footer">
+  Erin Fernando &nbsp;&mdash;&nbsp; The Importance of PCI Compliance &nbsp;&mdash;&nbsp; &copy; 2026
+</div>
+
+</body>
+</html>
