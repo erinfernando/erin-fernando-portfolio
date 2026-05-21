@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
 <meta name="description" content="Small business network topology and firewall rules (v2) — revised architecture with isolated VoIP and printer VLANs. By Erin Fernando.">
-<title>Small Business Network Topology v2 — Oasis at Wild Horse Ranch</title>
+<title>Small Business Network Topology v2</title>
 <style>
   @page {
     size: letter;
@@ -494,26 +497,26 @@
 <body>
 
 <nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
-  <a href="../index.html" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
+  <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
   <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.style.display=n.style.display==='flex'?'none':'flex'" aria-label="Menu" aria-expanded="false">&#9776;</button>
   <div style="display: flex; gap: 4px;" class="subnav-links">
-    <a href="../index.html#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
-    <a href="../index.html#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
-    <a href="../index.html#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
-    <a href="../index.html#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
-    <a href="../index.html#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
-    <a href="../index.html#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
+    <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
+    <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
+    <a href="../#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
+    <a href="../#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
+    <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
+    <a href="../#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
   </div>
 </nav>
 
-<a href="../index.html#portfolio" style="display: inline-block; margin: 16px 0 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
+<a href="../#portfolio" style="display: inline-block; margin: 16px 0 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
 
 <div style="background: #fef9e7; border: 1px solid #f0d66e; border-radius: 4px; padding: 12px 16px; margin: 16px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #6b5900; line-height: 1.5;">
-  <strong>Note:</strong> This is a revised architecture based on lessons learned from the <a href="whr-network-topology.html" style="color: #1a5276;">first draft</a>. The primary improvement is isolating VoIP phones and printers into dedicated VLANs, reducing the attack surface on the operations network.
+  <strong>Note:</strong> This is a revised architecture based on lessons learned from the <a href="whr-network-topology" style="color: #1a5276;">first draft</a>. This network strategy is no longer in production and is published here as a portfolio example of network design work.
 </div>
 
 <div class="doc-header">
-  <h1>Oasis at Wild Horse Ranch</h1>
+  <h1>Small Business Network</h1>
   <div class="subtitle">Network Topology &mdash; Revised</div>
   <div class="version-badge">v2 &mdash; Revised Architecture</div>
 </div>
@@ -956,11 +959,11 @@
 </table>
 
 <div style="text-align: center; margin: 16px 0 4px 0;">
-  <a href="whr-network-topology.html" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; View First Draft (v1)</a>
+  <a href="whr-network-topology" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; View First Draft (v1)</a>
 </div>
 
 <div class="doc-footer">
-  Erin Fernando &nbsp;&mdash;&nbsp; Network Documentation &nbsp;&mdash;&nbsp; Oasis at Wild Horse Ranch &nbsp;&mdash;&nbsp; &copy; 2026
+  Erin Fernando &nbsp;&mdash;&nbsp; Network Documentation &nbsp;&mdash;&nbsp; Small Business &nbsp;&mdash;&nbsp; &copy; 2026
 </div>
 
 </body>

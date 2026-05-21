@@ -3,384 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Erin Fernando — IT Administrator | Tucson, AZ</title>
 <meta name="description" content="Erin Fernando — IT Administrator in Tucson, AZ. Ten years of small-business IT experience, CompTIA Security+ certified. Portfolio, resume, and contact information.">
+<!-- Open Graph — LinkedIn / social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Erin Fernando — IT Administrator">
+<meta property="og:description" content="Ten years of small-business IT, CompTIA Security+ certified. Network builds, PCI compliance, endpoint security. Tucson, AZ.">
+<meta property="og:url" content="https://erinfernando.com/">
+<meta property="og:image" content="https://erinfernando.com/og-image.png">
+<meta property="og:locale" content="en_US">
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Erin Fernando — IT Administrator">
+<meta name="twitter:description" content="Ten years of small-business IT, CompTIA Security+ certified. Network builds, PCI compliance, endpoint security. Tucson, AZ.">
+<meta name="twitter:image" content="https://erinfernando.com/og-image.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --navy: #1a5276;
-    --navy-dark: #0d2b3e;
-    --navy-light: #2471a3;
-    --bg: #f7f9fb;
-    --white: #ffffff;
-    --text: #2c3e50;
-    --text-light: #5d6d7e;
-    --border: #dce4ea;
-    --accent: #2e86c1;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text);
-    background: var(--bg);
-  }
-
-  /* ── Nav ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--navy-dark);
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 56px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  .nav-name {
-    color: #fff;
-    font-weight: 700;
-    font-size: 18px;
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-links a {
-    color: rgba(255,255,255,0.8);
-    text-decoration: none;
-    font-size: 14px;
-    padding: 6px 14px;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
-  }
-  .nav-links a:hover {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-  }
-  .nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 4px 8px;
-  }
-
-  /* ── Hero ── */
-  .hero {
-    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
-    color: #fff;
-    text-align: center;
-    padding: 80px 24px 72px;
-  }
-  .hero h1 {
-    font-size: 42px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-  }
-  .hero .tagline {
-    font-size: 20px;
-    font-weight: 300;
-    opacity: 0.9;
-    margin-bottom: 20px;
-  }
-  .hero .location {
-    font-size: 15px;
-    opacity: 0.85;
-  }
-
-  /* ── Sections ── */
-  section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 56px 24px;
-  }
-  section h2 {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 24px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--border);
-  }
-
-  /* ── About ── */
-  .about-text {
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--text);
-    max-width: 750px;
-  }
-
-  /* ── Skills ── */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
-  }
-  .skill-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 20px;
-  }
-  .skill-card h3 {
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--navy);
-    margin-bottom: 8px;
-  }
-  .skill-card p {
-    font-size: 15px;
-    color: var(--text-light);
-    line-height: 1.5;
-  }
-
-  /* ── Experience ── */
-  .job {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-  .job-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-  .job h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .job .dates {
-    font-size: 14px;
-    color: var(--text-light);
-    white-space: nowrap;
-  }
-  .job .company {
-    font-size: 15px;
-    color: var(--navy);
-    margin-bottom: 12px;
-  }
-  .job ul {
-    padding-left: 20px;
-  }
-  .job li {
-    margin-bottom: 8px;
-    font-size: 15px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  /* ── Portfolio ── */
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .portfolio-card {
-    background: linear-gradient(135deg, #f0f6fb 0%, var(--white) 100%);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--navy);
-    border-radius: 6px;
-    padding: 28px 24px;
-    text-decoration: none;
-    color: inherit;
-    transition: box-shadow 0.2s, transform 0.15s, border-left-color 0.2s;
-    display: block;
-    cursor: pointer;
-  }
-  .portfolio-card:hover {
-    box-shadow: 0 6px 20px rgba(26,82,118,0.15);
-    transform: translateY(-3px);
-    border-left-color: var(--accent);
-  }
-  .portfolio-card h3 {
-    font-size: 18px;
-    color: var(--navy);
-    margin-bottom: 8px;
-  }
-  .portfolio-card .tech {
-    font-size: 13px;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .portfolio-card p {
-    font-size: 15px;
-    color: var(--text-light);
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
-  .portfolio-card .view-link {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--accent);
-    transition: color 0.2s;
-  }
-  .portfolio-card:hover .view-link {
-    color: var(--navy);
-  }
-
-  /* ── Certs ── */
-  .cert-item {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 16px 20px;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .cert-item .cert-name {
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--text);
-  }
-  .cert-item .cert-date {
-    font-size: 14px;
-    color: var(--text-light);
-  }
-
-  /* ── Contact ── */
-  .contact-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 32px;
-  }
-  .contact-list li {
-    font-size: 16px;
-  }
-  .contact-list a {
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .contact-list a:hover {
-    text-decoration: underline;
-  }
-  .contact-label {
-    font-weight: 600;
-    color: var(--text);
-    margin-right: 4px;
-  }
-
-  /* ── Footer ── */
-  footer {
-    text-align: center;
-    padding: 32px 24px;
-    font-size: 13px;
-    color: var(--text-light);
-    border-top: 1px solid var(--border);
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  /* ── Earlier roles ── */
-  .earlier-roles {
-    margin-top: 16px;
-  }
-  .earlier-roles summary {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--navy);
-    cursor: pointer;
-    padding: 8px 0;
-  }
-  .earlier-roles summary:hover {
-    color: var(--accent);
-  }
-  .early-role {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .early-role:last-child {
-    border-bottom: none;
-  }
-  .early-role .job-top {
-    margin-bottom: 4px;
-  }
-  .early-role h4 {
-    font-size: 15px;
-    font-weight: 700;
-  }
-  .early-role .company {
-    font-size: 14px;
-    color: var(--navy);
-    margin-bottom: 4px;
-  }
-  .early-role p {
-    font-size: 14px;
-    color: var(--text-light);
-  }
-
-  /* ── Focus ── */
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
-  /* ── Mobile ── */
-  @media (max-width: 640px) {
-    .nav-links {
-      display: none;
-      position: absolute;
-      top: 56px;
-      left: 0;
-      right: 0;
-      background: var(--navy-dark);
-      flex-direction: column;
-      padding: 8px 0;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    .nav-links.open { display: flex; }
-    .nav-links a { padding: 12px 24px; }
-    .nav-toggle { display: block; }
-    .hero h1 { font-size: 32px; }
-    .hero .tagline { font-size: 17px; }
-    section { padding: 40px 20px; }
-    .job-top { flex-direction: column; gap: 2px; }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
   <a href="#" class="nav-name">Erin Fernando</a>
-  <button class="nav-toggle" onclick="var n=document.querySelector('.nav-links');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
   <div class="nav-links">
-    <a href="#about" onclick="document.querySelector('.nav-links').classList.remove('open')">About</a>
-    <a href="#skills" onclick="document.querySelector('.nav-links').classList.remove('open')">Skills</a>
-    <a href="#experience" onclick="document.querySelector('.nav-links').classList.remove('open')">Experience</a>
-    <a href="#projects" onclick="document.querySelector('.nav-links').classList.remove('open')">Lab</a>
-    <a href="#portfolio" onclick="document.querySelector('.nav-links').classList.remove('open')">Portfolio</a>
-    <a href="#contact" onclick="document.querySelector('.nav-links').classList.remove('open')">Contact</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Lab</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
 <div class="hero">
   <h1>Erin Fernando</h1>
   <div class="tagline">IT Administrator</div>
-  <div class="location">Tucson, AZ &nbsp;&middot;&nbsp; (858) 243-6917 &nbsp;&middot;&nbsp; <a href="mailto:fernando.erin.c@gmail.com" style="color: rgba(255,255,255,0.9);">fernando.erin.c@gmail.com</a> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/erin-fernando-82458840b/" style="color: rgba(255,255,255,0.9);">LinkedIn</a></div>
-  <div style="margin-top: 24px;">
-    <a href="Erin_Fernando_Resume.pdf" download style="display: inline-block; background: #fff; color: #1a5276; font-weight: 700; font-size: 15px; padding: 12px 32px; border-radius: 6px; text-decoration: none; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.15s, box-shadow 0.15s;">Download Resume (PDF)</a>
-    <div style="margin-top: 8px; font-family: 'Consolas', 'Courier New', monospace; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.3px;">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
+  <div class="location">Tucson, AZ &nbsp;&middot;&nbsp; <span data-contact="phone"><noscript>Enable JavaScript to see phone</noscript></span> &nbsp;&middot;&nbsp; <span data-contact="email"><noscript>Enable JavaScript to see email</noscript></span> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/erin-fernando-82458840b/">LinkedIn</a></div>
+  <div class="hero-cta">
+    <a href="Erin_Fernando_Resume.pdf" download class="btn-download btn-download--hero">Download Resume (PDF)</a>
+    <div class="resume-hash resume-hash--hero">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
   </div>
 </div>
 
@@ -426,8 +91,11 @@
 <section id="certs">
   <h2>Certifications</h2>
   <div class="cert-item">
-    <span class="cert-name">CompTIA Security+</span>
-    <span class="cert-date">May 2026</span>
+    <img src="Security+.png" alt="CompTIA Security+ Certified badge" class="cert-badge">
+    <div class="cert-details">
+      <span class="cert-name">CompTIA Security+</span>
+      <span class="cert-date">Earned May 2026</span>
+    </div>
   </div>
 </section>
 
@@ -440,7 +108,7 @@
       <span class="dates">2016 &ndash; Present</span>
     </div>
     <div class="company">Oasis at Wild Horse Ranch &nbsp;&middot;&nbsp; Contract: Project-based + On-Call &nbsp;&middot;&nbsp; Tucson, AZ</div>
-    <p style="margin-bottom: 12px; font-size: 15px; color: var(--text-light);">Meeting the various needs of an indoor/outdoor wedding space was often difficult. They needed nighttime maintenance, remote work, in-office installations, extensive Wi-Fi coverage.</p>
+    <p class="job-context">Meeting the various needs of an indoor/outdoor wedding space was often difficult. They needed nighttime maintenance, remote work, in-office installations, extensive Wi-Fi coverage.</p>
     <ul>
       <li>Inherited a network with zero security posture &mdash; shared passwords across all accounts, unattended POS hardware, no phishing awareness. Rotated every credential, established unique logins, and trained staff on phishing identification.</li>
       <li>Deployed a full security stack across all endpoints &mdash; Cisco Meraki Go firewall, NordLayer VPN, and managed antivirus. Segmented the network into VLANs for PCI compliance on card transactions.</li>
@@ -455,7 +123,7 @@
 
   <details class="earlier-roles">
     <summary>Earlier Roles (2012 &ndash; 2016)</summary>
-    <p style="font-size: 14px; color: var(--text-light); font-style: italic; padding: 8px 0;">Married to an active-duty Navy servicemember during this period &mdash; short tenures reflect military relocations.</p>
+    <p class="earlier-roles-note">Married to an active-duty Navy servicemember during this period &mdash; short tenures reflect military relocations.</p>
     <div class="early-role">
       <div class="job-top">
         <h4>Library Page</h4>
@@ -486,14 +154,14 @@
 <section id="projects">
   <h2>Lab &amp; Side Work</h2>
 
-  <div class="job" style="margin-bottom: 16px;">
-    <h3 style="margin-bottom: 8px;">Windows Server and Active Directory (AD) Lab</h3>
-    <p style="font-size: 15px; line-height: 1.6;">I was concerned about my lack of training on common tools used by larger firms, so I used AI to generate structured lab exercises, tailored to my Security+ coursework and experience level, for learning Active Directory. I spun up a Windows Server 2022 as the domain controller, and joined three other Windows 11 VMs. From there I established a few GPOs, like standardized desktop backgrounds and password hardening measures, mapped a network drive and shared it with role-based access control (RBAC), to learn the workings of Active Directory better.</p>
+  <div class="job lab-entry">
+    <h3>Windows Server and Active Directory (AD) Lab</h3>
+    <p>I was concerned about my lack of training on common tools used by larger firms, so I used AI to generate structured lab exercises, tailored to my Security+ coursework and experience level, for learning Active Directory. I spun up a Windows Server 2022 as the domain controller, and joined three other Windows 11 VMs. From there I established a few GPOs, like standardized desktop backgrounds and password hardening measures, mapped a network drive and shared it with role-based access control (RBAC), to learn the workings of Active Directory better.</p>
   </div>
 
-  <div class="job" style="margin-bottom: 16px;">
-    <h3 style="margin-bottom: 8px;">AI-Driven Business Operations</h3>
-    <p style="font-size: 15px; line-height: 1.6;">Designed a workflow using specialized AI agents as force multipliers for marketing analytics, drafting complex documents, security auditing, and streamlining vendor communication. Creating an automated workflow for baseline productivity tasks.</p>
+  <div class="job lab-entry">
+    <h3>AI-Driven Business Operations</h3>
+    <p>Designed a workflow using specialized AI agents as force multipliers for marketing analytics, drafting complex documents, security auditing, and streamlining vendor communication. Creating an automated workflow for baseline productivity tasks.</p>
   </div>
 
 </section>
@@ -501,8 +169,8 @@
 <section id="portfolio">
   <h2>Portfolio</h2>
   <div class="portfolio-grid">
-    <a href="portfolio/ai-failure-tracker.html" class="portfolio-card" style="border-left-color: #2e86c1; position: relative; overflow: hidden;">
-      <svg viewBox="0 0 400 200" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" aria-hidden="true">
+    <a href="portfolio/ai-failure-tracker.html" class="portfolio-card">
+      <svg viewBox="0 0 400 200" preserveAspectRatio="none" class="portfolio-card__chart" aria-hidden="true">
         <!-- Silent Failure — steep climb -->
         <polyline points="0,180 36,170 72,170 108,158 144,158 180,142 216,142 252,126 288,126 324,126 360,110 400,50" fill="none" stroke="#e84393" stroke-width="2" opacity="0.18"/>
         <circle cx="0" cy="180" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="36" cy="170" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="108" cy="158" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="180" cy="142" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="252" cy="126" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="360" cy="110" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="400" cy="50" r="2.5" fill="#e84393" opacity="0.25"/>
@@ -516,7 +184,7 @@
         <polyline points="0,195 36,195 72,195 108,195 144,185 180,185 216,185 252,172 288,172 324,172 360,158 400,130" fill="none" stroke="#8e44ad" stroke-width="1.8" opacity="0.14"/>
         <circle cx="144" cy="185" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="252" cy="172" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="360" cy="158" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="400" cy="130" r="2.5" fill="#8e44ad" opacity="0.2"/>
       </svg>
-      <div style="position:relative;z-index:1;">
+      <div class="portfolio-card__content">
         <h3>Project: Nightingale</h3>
         <div class="tech">2026 &middot; Chart.js &middot; Multi-Agent AI &middot; Live Metrics</div>
         <p>Live dashboard tracking 10 categories of process failures in my AI agent workflow. Interactive chart with daily updates.</p>
@@ -530,13 +198,13 @@
       <span class="view-link">View documentation &rarr;</span>
     </a>
     <a href="portfolio/whr-network-topology.html" class="portfolio-card">
-      <h3>Small Business Network Topology <span style="font-size: 12px; color: #777; font-weight: 400;">v1</span></h3>
+      <h3>Small Business Network Topology <span class="version-tag">v1</span></h3>
       <div class="tech">2019 &middot; Cisco Meraki &middot; VLANs &middot; Firewall Rules &middot; PCI Compliance</div>
       <p>Built a PCI-compliant network from scratch for a venue processing card transactions daily.</p>
       <span class="view-link">View documentation &rarr;</span>
     </a>
     <a href="portfolio/whr-network-topology-v2.html" class="portfolio-card">
-      <h3>Small Business Network Topology <span style="font-size: 12px; color: #1a5276; font-weight: 400;">v2</span></h3>
+      <h3>Small Business Network Topology <span class="version-tag version-tag--current">v2</span></h3>
       <div class="tech">2026 &middot; Cisco Meraki &middot; VLANs &middot; Firewall Rules &middot; Cross-VLAN Routing</div>
       <p>Redesigned with isolated VoIP and printer VLANs &mdash; tighter segmentation, same print access.</p>
       <span class="view-link">View documentation &rarr;</span>
@@ -551,21 +219,35 @@
       <h3>Marana High School</h3>
       <span class="dates">Diploma, May 2012</span>
     </div>
-    <p style="font-size: 15px;">Honor Roll. Coursework in Computer Programming.</p>
+    <p class="education-note">Honor Roll. Coursework in Computer Programming.</p>
   </div>
 </section>
 
 <section id="contact">
   <h2>Contact</h2>
-  <ul class="contact-list">
-    <li><span class="contact-label">Email:</span> <a href="mailto:fernando.erin.c@gmail.com">fernando.erin.c@gmail.com</a></li>
-    <li><span class="contact-label">Phone:</span> (858) 243-6917</li>
-    <li><span class="contact-label">LinkedIn:</span> <a href="https://linkedin.com/in/erin-fernando-82458840b/">linkedin.com/in/erin-fernando</a></li>
-    <li><span class="contact-label">Location:</span> Tucson, AZ</li>
-  </ul>
-  <div style="text-align: center; margin-top: 24px;">
-    <a href="Erin_Fernando_Resume.pdf" download style="display: inline-block; background: #1a5276; color: #fff; font-weight: 700; font-size: 15px; padding: 12px 32px; border-radius: 6px; text-decoration: none; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">Download Resume (PDF)</a>
-    <div style="margin-top: 8px; font-family: 'Consolas', 'Courier New', monospace; font-size: 10px; color: #999; letter-spacing: 0.3px;">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
+  <div class="contact-grid">
+    <ul class="contact-list">
+      <li>
+        <span class="contact-label">Email</span>
+        <span class="contact-value" data-contact="email"><noscript>Enable JavaScript to see email</noscript></span>
+      </li>
+      <li>
+        <span class="contact-label">Phone</span>
+        <span class="contact-value" data-contact="phone"><noscript>Enable JavaScript to see phone</noscript></span>
+      </li>
+      <li>
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value"><a href="https://linkedin.com/in/erin-fernando-82458840b/">linkedin.com/in/erin-fernando</a></span>
+      </li>
+      <li>
+        <span class="contact-label">Location</span>
+        <span class="contact-value">Tucson, AZ</span>
+      </li>
+    </ul>
+    <div class="contact-cta">
+      <a href="Erin_Fernando_Resume.pdf" download class="btn-download btn-download--contact">Download Resume (PDF)</a>
+      <div class="resume-hash resume-hash--contact">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
+    </div>
   </div>
 </section>
 
@@ -573,5 +255,6 @@
   &copy; 2026 Erin Fernando
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
