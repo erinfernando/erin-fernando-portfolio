@@ -307,9 +307,9 @@ section h2 {
   pointer-events: none;
 }
 .version-tag {
-  font-size: 12px;
+  font-size: 15px;
   color: #777;
-  font-weight: 400;
+  font-weight: 600;
 }
 .version-tag--current {
   color: var(--navy);
