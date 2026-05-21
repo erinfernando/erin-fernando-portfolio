@@ -226,7 +226,7 @@
   .tt-header {
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 4px;
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -254,14 +254,19 @@
   }
   .tt-vals {
     display: flex;
-    gap: 12px;
+    gap: 4px;
     flex-shrink: 0;
-    text-align: right;
+    align-items: center;
   }
   .tt-vals span {
-    min-width: 20px;
+    min-width: 18px;
     text-align: right;
     font-variant-numeric: tabular-nums;
+  }
+  .tt-sep {
+    min-width: auto;
+    opacity: 0.4;
+    text-align: center;
   }
 
   /* ── How It Works ── */
@@ -791,12 +796,12 @@
                 }
                 var dateLabel = chart.data.labels[dataIndex];
                 var html = '<div class="tt-title">' + dateLabel + '</div>';
-                html += '<div class="tt-header"><span>actual</span><span>baseline</span></div>';
+                html += '<div class="tt-header"><span>actual</span><span class="tt-sep">&middot;</span><span>baseline</span></div>';
                 rows.forEach(function(r) {
                   html += '<div class="tt-row">' +
                     '<span class="tt-dot" style="background:' + r.color + ';"></span>' +
                     '<span class="tt-label">' + r.label + '</span>' +
-                    '<span class="tt-vals"><span>' + r.actual + '</span><span>' + r.base + '</span></span>' +
+                    '<span class="tt-vals"><span>' + r.actual + '</span><span class="tt-sep">&middot;</span><span>' + r.base + '</span></span>' +
                   '</div>';
                 });
                 tooltipEl.innerHTML = html;
