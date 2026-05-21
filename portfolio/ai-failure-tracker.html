@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
-<meta name="description" content="Nightingale — live failure rate tracker for an AI agent workflow. Tracks 10 categories of process breakdowns with daily automated updates. By Erin Fernando.">
-<title>Nightingale — AI Process Metrics | Erin Fernando</title>
+<meta name="description" content="Project: Nightingale — live failure rate tracker for an AI agent workflow. Tracks 10 categories of process breakdowns with daily automated updates. By Erin Fernando.">
+<title>Project: Nightingale — AI Process Metrics | Erin Fernando</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,35 +107,99 @@
   .chart-legend-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px 24px;
+    gap: 10px;
     margin-top: 20px;
     padding-top: 16px;
     border-top: 1px solid var(--border);
   }
   .chart-legend-item {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 8px;
-    border-radius: 4px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
     cursor: pointer;
-    transition: opacity 0.2s, background 0.15s;
+    transition: opacity 0.2s, background 0.15s, border-color 0.2s;
     user-select: none;
   }
-  .chart-legend-item:hover { background: rgba(0,0,0,0.03); }
-  .chart-legend-item.dimmed { opacity: 0.35; }
-  .chart-legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+  .chart-legend-item:hover {
+    background: rgba(0,0,0,0.02);
+    border-color: #b0bec5;
+  }
+  .chart-legend-item.dimmed {
+    opacity: 0.35;
+    border-style: dashed;
+  }
+  .legend-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+  .chart-legend-item:not(.dimmed) .legend-checkbox {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .legend-check-svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .chart-legend-item:not(.dimmed) .legend-check-svg {
+    opacity: 1;
+  }
+  .legend-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .legend-line-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .legend-line-sample {
+    width: 24px;
+    height: 0;
     flex-shrink: 0;
   }
-  .chart-legend-label {
+  .legend-line-sample.dotted {
+    border-bottom-width: 2px;
+    border-bottom-style: dashed;
+  }
+  .legend-line-sample.solid {
+    border-bottom-width: 2.5px;
+    border-bottom-style: solid;
+  }
+  .legend-line-type {
+    font-size: 11px;
+    color: var(--text-light);
+  }
+  .legend-cat-name {
     font-size: 12.5px;
+    font-weight: 600;
     color: var(--text);
+    margin-top: 2px;
     line-height: 1.3;
   }
-  .chart-legend-item.dimmed .chart-legend-label { text-decoration: line-through; }
+  .chart-legend-item.dimmed .legend-cat-name {
+    text-decoration: line-through;
+  }
 
   /* ── How It Works ── */
   .how-it-works {
@@ -150,13 +214,68 @@
     font-size: 20px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
+  .how-it-works h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin: 20px 0 8px;
+    letter-spacing: 0.3px;
+  }
+  .how-it-works h3:first-of-type { margin-top: 0; }
   .how-it-works p {
     font-size: 15px;
     line-height: 1.7;
     color: var(--text);
     margin-bottom: 12px;
+  }
+  .how-it-works ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+  .how-it-works ul li {
+    position: relative;
+    padding: 6px 0 6px 20px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .how-it-works ul li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 14px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--navy-light);
+  }
+  .how-list-break {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 12px 20px;
+  }
+  .skill-decal {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    background: #e8f0f8;
+    border: 1px solid #c5d9ea;
+    padding: 1px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+  .how-it-works .results-desc {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 0;
   }
 
   /* ── Category Table ── */
@@ -431,7 +550,7 @@
 </nav>
 
 <header class="page-header">
-  <h1>Nightingale</h1>
+  <h1>Project: Nightingale</h1>
   <p class="subtitle">Live process metrics for a multi-agent AI workflow</p>
   <p class="updated" id="lastUpdated">Loading...</p>
 </header>
@@ -449,9 +568,31 @@
 
   <div class="how-it-works">
     <h2>How This Works</h2>
-    <p>I run a multi-agent AI system to manage web development, marketing, legal review, and operations for a real business. Each agent has a specialty — a lawyer agent reviews compliance, a creative director reviews design, a security officer audits infrastructure, and a manager orchestrates the team.</p>
-    <p>The system is powerful but imperfect. Agents sometimes skip steps, repeat work, or miss handoffs. <strong>Nightingale</strong>, the System Failure Auditor, logs every breakdown into ten core categories shown below. She also creates her own custom sub-categories as she discovers specific recurring patterns — those feed internal analysis but don't clutter this chart.</p>
-    <p>The chart shows cumulative incidents over time. <strong>Dotted lines</strong> are the baseline — failures from before the skill system existed, when there was no Creative Director reviewing designs or Lawyer reviewing public content. <strong>Solid lines</strong> track what happened after skills were active. The baseline proves why the system was built. The solid lines show whether it's working.</p>
+
+    <h3>Objectives:</h3>
+    <ul>
+      <li>Build out skills to automate routine tasks and functions for a small business.</li>
+      <li>Help streamline complex processes into a formal structure.</li>
+      <li>Limit-testing.</li>
+    </ul>
+
+    <h3>Strategies:</h3>
+    <ul>
+      <li>Built <span class="skill-decal">Skill: Researcher</span> to research how to research, again and again, in a short Ouroboros-cycle. Making sure to improve the base skill to a higher degree before moving on to other items.</li>
+      <li>Had Researcher investigate how to make a skill that specialized in the <span class="skill-decal">Skill: Skill Crafter</span> class.</li>
+      <li>After getting two &ldquo;characters,&rdquo; I began having them feed on each other in another Ouroboros-cycle.</li>
+      <li>Now that I had some specialized sub-classes as a base, I set out to add more team members to my roster.</li>
+      <li>I wanted to make sure I perfectly balanced the team by having a healthy balance of heavy hitters, supports, and safety nets.</li>
+      <li>Assigned a persona to each Profession. <em>Note: this method of calling skills seems to result in better outcomes, possibly due to it feeling more clear to the human user.</em></li>
+      <li>Personas and Professions as a viewpoint enabled easier processing for gaps and scoping of responsibilities.</li>
+      <li>Page was used to look into more automation strategies and gaps.</li>
+      <hr class="how-list-break">
+      <li>Eventually developed an auditing system, compiled chats and tool-calls to have it process. Used the early stages of skill-less AI project developments as a baseline metric of performance.</li>
+      <li>From this auditing system, Project: Nightingale was born. She is tasked with the delicate art of being a nurse. She must decide if she is helping or harming, on the fly. In order to do this, metrics were developed. 10 primary categories of the broad strokes, and 11+ is for tracking in a more granular mode. The granular mode has also been built out with organic growth in mind. The 10 primary categories will stay the same over time; but the granular mode, by nature, will be a list of problems that are naturally rotated through with the passage of time. Scaling this for long-term use is critical for the development process to survive.</li>
+    </ul>
+
+    <h3>Results:</h3>
+    <p class="results-desc">See for yourself. This is a progress report feed that&rsquo;s updated daily. It features a graph representing the baseline with dotted lines, and solid lines highlight team performance. Additionally, it has more specific information about this in the character cards. Over time, I hope to fully refine the team composition, manage skill balancing issues, and upgrade all of my classes to S-Tier. Only time will tell, so come watch with me!</p>
   </div>
 
   <section class="cat-section">
@@ -588,7 +729,7 @@
         }
       });
 
-      // Build custom legend grid — one item per category, toggles both solid + dotted
+      // Build custom legend grid — paired boxes with checkbox, baseline on top, actual below
       var legendEl = document.getElementById('chartLegend');
       var chart = Chart.getChart('failureChart');
       keys.forEach(function(key, i) {
@@ -596,8 +737,20 @@
         var item = document.createElement('div');
         item.className = 'chart-legend-item';
         item.innerHTML =
-          '<span class="chart-legend-dot" style="background:' + cat.color + ';"></span>' +
-          '<span class="chart-legend-label">#' + key + ' ' + cat.name + '</span>';
+          '<div class="legend-checkbox">' +
+            '<svg class="legend-check-svg" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>' +
+          '</div>' +
+          '<div class="legend-lines">' +
+            '<div class="legend-line-row">' +
+              '<span class="legend-line-sample dotted" style="border-bottom-color:' + cat.color + ';"></span>' +
+              '<span class="legend-line-type">Baseline</span>' +
+            '</div>' +
+            '<div class="legend-line-row">' +
+              '<span class="legend-line-sample solid" style="border-bottom-color:' + cat.color + ';"></span>' +
+              '<span class="legend-line-type">Actual</span>' +
+            '</div>' +
+            '<span class="legend-cat-name">#' + key + ' ' + cat.name + '</span>' +
+          '</div>';
         item.addEventListener('click', function() {
           // Toggle both the solid and baseline datasets together
           var solidIdx = i * 2;
