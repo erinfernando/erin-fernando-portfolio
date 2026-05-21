@@ -8,8 +8,8 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
-<meta name="description" content="Small business network topology and firewall rules (v2) — revised architecture with isolated VoIP and printer VLANs. By Erin Fernando.">
-<title>Small Business Network Topology v2</title>
+<meta name="description" content="PCI-compliant network roadmap for small businesses — affordable equipment, VLAN segmentation, firewall rules, and practical security. By Erin Fernando.">
+<title>PCI-Compliant Network Roadmap | Erin Fernando</title>
 <style>
   @page {
     size: letter;
@@ -80,12 +80,12 @@
     display: inline-block;
     border: 2px solid #1a5276;
     border-radius: 5px;
-    padding: 6px 14px;
+    padding: 8px 18px;
     font-weight: 700;
-    font-size: 9.5pt;
+    font-size: 10pt;
     color: #1a5276;
     background: #f4f8fb;
-    min-width: 80px;
+    min-width: 100px;
   }
   .topo-device .box.gateway {
     background: #1a5276;
@@ -143,7 +143,7 @@
   .connector .line {
     width: 2px;
     height: 18px;
-    background: #999;
+    background: #555;
   }
 
   /* Horizontal spread line */
@@ -156,7 +156,7 @@
   }
   .spread-line .h-line {
     height: 2px;
-    background: #999;
+    background: #555;
     flex-grow: 1;
   }
 
@@ -171,12 +171,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100px;
+    min-width: 100px;
+    flex: 1;
   }
   .endpoint-col .line {
     width: 2px;
     height: 14px;
-    background: #999;
+    background: #555;
+  }
+  .vlan-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 0;
+  }
+  .vlan-col > .line {
+    width: 2px;
+    height: 14px;
+    background: #555;
   }
 
   /* Legend */
@@ -226,14 +238,16 @@
   .vlan-group {
     border: 1px dashed #ccc;
     border-radius: 6px;
-    padding: 8px 6px 6px 6px;
+    padding: 12px 10px 10px 10px;
     position: relative;
     margin: 0 4px;
+    flex: 1 1 auto;
   }
   .vlan-group .vlan-group-label {
     position: absolute;
     top: -8px;
-    left: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     background: #fff;
     padding: 0 4px;
     font-size: 7.5pt;
@@ -512,22 +526,21 @@
 <a href="../#portfolio" style="display: inline-block; margin: 16px 0 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
 
 <div style="background: #fef9e7; border: 1px solid #f0d66e; border-radius: 4px; padding: 12px 16px; margin: 16px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #6b5900; line-height: 1.5;">
-  <strong>Note:</strong> This is a revised architecture based on lessons learned from the <a href="whr-network-topology" style="color: #1a5276;">first draft</a>. This network strategy is no longer in production and is published here as a portfolio example of network design work.
+  <strong>Note:</strong> This is simply a template for network mapping and security measures. It is general-purpose and does not fit every case.
 </div>
 
 <div class="doc-header">
-  <h1>Small Business Network</h1>
-  <div class="subtitle">Network Topology &mdash; Revised</div>
-  <div class="version-badge">v2 &mdash; Revised Architecture</div>
+  <h1>PCI-Compliant Network Roadmap</h1>
+  <div class="subtitle">A simple, affordable roll-out strategy for small businesses that handle card transactions</div>
 </div>
 
 <div class="overview" style="border-left-color: #2e86c1; margin-bottom: 12px;">
-  <strong>What changed from v1:</strong> Due to the susceptible nature of VoIP and printer devices, they were moved to their own separate VLANs for isolation. Cross-communication needs to be allowed for office desktops and laptops to reach the printers for jobs, but should be limited otherwise. VoIP lines were isolated from other VLANs and given access to cloud servers only.
+  <strong>Design rationale:</strong> VoIP phones and printers are moved to dedicated VLANs because these devices are particularly susceptible to exploitation. Cross-communication is allowed only where necessary &mdash; office workstations can reach printers for jobs, but all other cross-VLAN traffic is denied. VoIP lines are isolated and given access to cloud servers only.
 </div>
 
 <div class="overview">
-  <strong>Environment:</strong> Indoor/outdoor wedding venue &mdash; office, event spaces, and grounds<br>
-  <strong>Internet:</strong> Starlink &rarr; Cisco Meraki Go firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
+  <strong>Environment:</strong> Small brick-and-mortar business &mdash; office, service areas<br>
+  <strong>Internet:</strong> Internet &rarr; Cisco Meraki Go firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
   <strong>VLANs:</strong> 6 segments &mdash; Operations, Voice, Print, PCI, Staff Wi-Fi, Untrusted Wi-Fi<br>
   <strong>Cross-VLAN:</strong> Printing allowed from Operations and Staff Wi-Fi to Print VLAN via IPP/RAW ports<br>
   <strong>Guest Wi-Fi:</strong> Not offered &mdash; deliberate decision to minimize attack surface on a PCI-compliant network
@@ -536,10 +549,10 @@
 <!-- === TOPOLOGY DIAGRAM === -->
 <div class="topo">
 
-  <!-- Tier 1: Starlink -->
+  <!-- Tier 1: Internet -->
   <div class="topo-tier">
     <div class="topo-device">
-      <div class="box gateway">Starlink Router</div>
+      <div class="box gateway">Internet Router</div>
       <div class="conn-type">Internet Gateway &mdash; Bridge Mode</div>
     </div>
   </div>
@@ -575,115 +588,124 @@
   <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
 
     <!-- Operations VLAN -->
-    <div class="vlan-group">
-      <div class="vlan-group-label" style="color: #1a5276;">Operations VLAN</div>
-      <div class="endpoints-row">
-        <div class="endpoint-col">
-          <div class="line"></div>
-          <div class="topo-device">
-            <div class="box endpoint">Desktops</div>
-            <div class="conn-type">Wired</div>
+    <div class="vlan-col">
+      <div class="line"></div>
+      <div class="vlan-group">
+        <div class="vlan-group-label" style="color: #1a5276;">Ops VLAN</div>
+        <div class="endpoints-row">
+          <div class="endpoint-col">
+            <div class="topo-device">
+              <div class="box endpoint">Desktops</div>
+              <div class="conn-type">Wired &mdash; Cross-VLAN</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Voice VLAN -->
-    <div class="vlan-group">
-      <div class="vlan-group-label" style="color: #6c3483;">Voice VLAN</div>
-      <div class="endpoints-row">
-        <div class="endpoint-col">
-          <div class="line" style="background: #8e44ad;"></div>
-          <div class="topo-device">
-            <div class="box voice-endpoint">Phones</div>
-            <div class="conn-type">Wired &mdash; Isolated</div>
+    <div class="vlan-col">
+      <div class="line" style="background: #8e44ad;"></div>
+      <div class="vlan-group">
+        <div class="vlan-group-label" style="color: #6c3483;">Voice VLAN</div>
+        <div class="endpoints-row">
+          <div class="endpoint-col">
+            <div class="topo-device">
+              <div class="box voice-endpoint">Phones</div>
+              <div class="conn-type">Wired &mdash; Isolated</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Print VLAN -->
-    <div class="vlan-group">
-      <div class="vlan-group-label" style="color: #117864;">Print VLAN</div>
-      <div class="endpoints-row">
-        <div class="endpoint-col">
-          <div class="line" style="background: #16a085;"></div>
-          <div class="topo-device">
-            <div class="box print-endpoint">Printer</div>
-            <div class="conn-type">Wired &mdash; Cross-VLAN</div>
+    <div class="vlan-col">
+      <div class="line" style="background: #16a085;"></div>
+      <div class="vlan-group">
+        <div class="vlan-group-label" style="color: #117864;">Print VLAN</div>
+        <div class="endpoints-row">
+          <div class="endpoint-col">
+            <div class="topo-device">
+              <div class="box print-endpoint">Printer</div>
+              <div class="conn-type">Wired &mdash; Cross-VLAN</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- PCI VLAN -->
-    <div class="vlan-group">
-      <div class="vlan-group-label" style="color: #b7600a;">PCI VLAN</div>
-      <div class="endpoints-row">
-        <div class="endpoint-col">
-          <div class="line" style="background: #e67e22;"></div>
-          <div class="topo-device">
-            <div class="box pci-endpoint">Card Reader</div>
-            <div class="conn-type">Wired &mdash; Isolated</div>
+    <div class="vlan-col">
+      <div class="line" style="background: #e67e22;"></div>
+      <div class="vlan-group">
+        <div class="vlan-group-label" style="color: #b7600a;">PCI VLAN</div>
+        <div class="endpoints-row">
+          <div class="endpoint-col">
+            <div class="topo-device">
+              <div class="box pci-endpoint">Card Reader</div>
+              <div class="conn-type">Wired &mdash; Isolated</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Wi-Fi AP -->
-    <div class="vlan-group">
-      <div class="vlan-group-label" style="color: #1e8449;">Wi-Fi AP</div>
-      <div class="endpoints-row">
-        <div class="endpoint-col">
-          <div class="line" style="background: #27ae60;"></div>
-          <div class="topo-device">
-            <div class="box ap">Access Point</div>
-            <div class="conn-type">Wi-Fi</div>
-          </div>
-        </div>
+
+  </div>
+
+  <!-- Connector from spread line down to AP -->
+  <div class="connector"><div class="line" style="height: 18px; background: #27ae60;"></div></div>
+
+  <!-- Wi-Fi AP — own tier -->
+  <div class="topo-tier">
+    <div class="vlan-group" style="display: inline-block;">
+      <div class="vlan-group-label" style="color: #1e8449;">Wi-Fi AP VLAN</div>
+      <div class="topo-device">
+        <div class="box ap">Access Point</div>
+        <div class="conn-type">VLAN 30</div>
       </div>
     </div>
-
   </div>
 
-  <!-- Connector down from AP to wireless VLANs -->
-  <div style="display: flex; justify-content: center;">
-    <div class="connector"><div class="line" style="height: 18px; background: #27ae60;"></div></div>
-  </div>
+  <div class="connector"><div class="line" style="height: 18px; background: #27ae60;"></div></div>
 
   <!-- Wireless endpoints -->
   <div style="display: flex; justify-content: center; gap: 12px;">
 
     <!-- Staff Wi-Fi VLAN -->
-    <div class="vlan-group">
-      <div class="vlan-group-label" style="color: #1a5276;">Staff Wi-Fi</div>
-      <div class="endpoints-row">
-        <div class="endpoint-col">
-          <div class="line" style="background: #27ae60;"></div>
-          <div class="topo-device">
-            <div class="box endpoint" style="border-color: #27ae60; border-style: dashed;">Laptops</div>
-            <div class="conn-type">Wireless</div>
+    <div class="vlan-col">
+      <div class="line" style="background: #27ae60;"></div>
+      <div class="vlan-group">
+        <div class="vlan-group-label" style="color: #1a5276;">Staff Wi-Fi</div>
+        <div class="endpoints-row">
+          <div class="endpoint-col">
+            <div class="topo-device">
+              <div class="box endpoint" style="border-color: #27ae60; border-style: dashed;">Laptops</div>
+              <div class="conn-type">Wireless</div>
+            </div>
           </div>
-        </div>
-        <div class="endpoint-col">
-          <div class="line" style="background: #27ae60;"></div>
-          <div class="topo-device">
-            <div class="box endpoint" style="border-color: #27ae60; border-style: dashed;">Cameras</div>
-            <div class="conn-type">Wireless</div>
+          <div class="endpoint-col">
+            <div class="topo-device">
+              <div class="box endpoint" style="border-color: #27ae60; border-style: dashed;">Cameras</div>
+              <div class="conn-type">Wireless</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Untrusted Wi-Fi VLAN -->
-    <div class="vlan-group">
-      <div class="vlan-group-label" style="color: #b7600a;">Untrusted Wi-Fi</div>
-      <div class="endpoints-row">
-        <div class="endpoint-col">
-          <div class="line" style="background: #e67e22;"></div>
-          <div class="topo-device">
-            <div class="box pci-endpoint" style="border-style: dashed;">Cell Phones</div>
-            <div class="conn-type">Wireless &mdash; Isolated</div>
+    <div class="vlan-col">
+      <div class="line" style="background: #e67e22;"></div>
+      <div class="vlan-group">
+        <div class="vlan-group-label" style="color: #b7600a;">Untrusted Wi-Fi</div>
+        <div class="endpoints-row">
+          <div class="endpoint-col">
+            <div class="topo-device">
+              <div class="box pci-endpoint" style="border-style: dashed;">Cell Phones</div>
+              <div class="conn-type">Wireless &mdash; Isolated</div>
+            </div>
           </div>
         </div>
       </div>
@@ -743,7 +765,7 @@
   </thead>
   <tbody>
   <tr>
-    <td>Starlink Router</td>
+    <td>Internet Router</td>
     <td>Internet gateway</td>
     <td>&mdash;</td>
     <td><span class="wired-tag">WAN</span></td>
@@ -810,7 +832,7 @@
     <td>Security</td>
     <td>Staff Wi-Fi</td>
     <td><span class="wireless-tag">Wireless</span></td>
-    <td>Surveillance cameras on venue grounds</td>
+    <td>Surveillance cameras on business grounds</td>
   </tr>
   <tr>
     <td>Cell Phones</td>
@@ -958,12 +980,8 @@
   </tbody>
 </table>
 
-<div style="text-align: center; margin: 16px 0 4px 0;">
-  <a href="whr-network-topology" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; View First Draft (v1)</a>
-</div>
-
 <div class="doc-footer">
-  Erin Fernando &nbsp;&mdash;&nbsp; Network Documentation &nbsp;&mdash;&nbsp; Small Business &nbsp;&mdash;&nbsp; &copy; 2026
+  Erin Fernando &nbsp;&mdash;&nbsp; PCI-Compliant Network Roadmap &nbsp;&mdash;&nbsp; &copy; 2026
 </div>
 
 </body>

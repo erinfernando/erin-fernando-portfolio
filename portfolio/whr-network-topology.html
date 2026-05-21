@@ -517,7 +517,7 @@
 
 <div class="overview">
   <strong>Environment:</strong> Indoor/outdoor wedding venue &mdash; office, event spaces, and grounds<br>
-  <strong>Internet:</strong> Starlink &rarr; Cisco Meraki Go firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
+  <strong>Internet:</strong> Internet &rarr; Cisco Meraki Go firewall &rarr; managed switch &rarr; wired and wireless endpoints<br>
   <strong>Security:</strong> PCI-compliant network segmentation for card transaction processing<br>
   <strong>Guest Wi-Fi:</strong> Not offered &mdash; deliberate decision to minimize attack surface on a PCI-compliant network
 </div>
@@ -525,10 +525,10 @@
 <!-- === TOPOLOGY DIAGRAM === -->
 <div class="topo">
 
-  <!-- Tier 1: Starlink -->
+  <!-- Tier 1: Internet -->
   <div class="topo-tier">
     <div class="topo-device">
-      <div class="box gateway">Starlink Router</div>
+      <div class="box gateway">Internet Router</div>
       <div class="conn-type">Internet Gateway &mdash; Bridge Mode</div>
     </div>
   </div>
@@ -720,7 +720,7 @@
   </thead>
   <tbody>
   <tr>
-    <td>Starlink Router</td>
+    <td>Internet Router</td>
     <td>Internet gateway</td>
     <td><span class="wired-tag">WAN</span></td>
     <td>Satellite internet, bridge mode &mdash; passthrough to firewall</td>

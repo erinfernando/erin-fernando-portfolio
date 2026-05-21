@@ -19,6 +19,30 @@
   });
 })();
 
+/* ── Scroll spy ── */
+/* Highlights the nav link matching the section currently in view. */
+(function () {
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+  if (!sections.length || !navLinks.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        navLinks.forEach(function (link) {
+          link.classList.toggle(
+            'active',
+            link.getAttribute('href') === '#' + entry.target.id
+          );
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sections.forEach(function (section) { observer.observe(section); });
+})();
+
 /* ── Contact obfuscation ── */
 /* Email and phone are assembled at runtime so crawlers reading
    the static HTML never see a harvestable address or number. */
