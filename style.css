@@ -310,6 +310,34 @@ section h2 {
   height: 100%;
   pointer-events: none;
 }
+.portfolio-series-header {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--navy);
+  margin: 40px 0 6px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--navy);
+}
+.portfolio-card .part-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--white);
+  background: var(--navy);
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.portfolio-card .part-label--ransomware {
+  background: #c0392b;
+}
+.portfolio-card .part-label--training {
+  background: #27ae60;
+}
 .version-tag {
   font-size: 15px;
   color: #777;

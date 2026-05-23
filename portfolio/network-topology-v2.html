@@ -498,6 +498,7 @@
       padding: 8px 0;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
+    .subnav-links.open { display: flex !important; }
     .subnav-links a { padding: 12px 24px !important; }
     nav button { display: block !important; }
   }
@@ -512,7 +513,7 @@
 
 <nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
   <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
-  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.style.display=n.style.display==='flex'?'none':'flex'" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
   <div style="display: flex; gap: 4px;" class="subnav-links">
     <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
     <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
@@ -523,7 +524,7 @@
   </div>
 </nav>
 
-<a href="../#portfolio" style="display: inline-block; margin: 16px 0 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
+<a href="../#portfolio" style="display: inline-block; margin: 16px 0 20px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
 
 <div style="background: #fef9e7; border: 1px solid #f0d66e; border-radius: 4px; padding: 12px 16px; margin: 16px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #6b5900; line-height: 1.5;">
   <strong>Note:</strong> This is simply a template for network mapping and security measures. It is general-purpose and does not fit every case.
@@ -920,7 +921,8 @@
   <tr><td>11</td><td><code>VLAN 18 (Print)</code></td><td><code>Any local VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Printer cannot initiate outbound connections</td></tr>
   <tr><td>12</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 30 (AP Mgmt)</code></td><td>TCP 443</td><td><span class="allow">Allow</span></td><td>Admin desktop can manage the access point</td></tr>
   <tr><td>13</td><td><code>VLAN 10 (Ops)</code></td><td><code>VLAN 40 (Staff Wi-Fi)</code></td><td>Any</td><td><span class="allow">Allow</span></td><td>Ops can reach staff devices for support</td></tr>
-  <tr><td>14</td><td><code>Any VLAN</code></td><td><code>Any VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Default deny &mdash; catch-all</td></tr>
+  <tr><td>14</td><td><code>Any VLAN</code></td><td><code>Any VLAN</code></td><td>UDP 5353</td><td><span class="deny">Deny</span></td><td>Block Bonjour/mDNS service discovery between VLANs &nbsp;<span style="font-size: 8pt; color: #888; font-style: italic;">(optional)</span></td></tr>
+  <tr><td>15</td><td><code>Any VLAN</code></td><td><code>Any VLAN</code></td><td>Any</td><td><span class="deny">Deny</span></td><td>Default deny &mdash; catch-all</td></tr>
   </tbody>
 </table>
 
@@ -930,6 +932,10 @@
 
 <div class="callout-blue">
   <strong>New in v2:</strong> Rules 3&ndash;4 isolate the Voice VLAN. Rules 5&ndash;6 isolate IoT devices (cameras) &mdash; they can only reach their cloud provider, nothing internal. Rules 9&ndash;11 create a controlled print path: desktops and laptops can send print jobs to the printer, but the printer itself cannot initiate connections to anything. In v1, cameras and printers sat on the same VLAN as desktops &mdash; a compromised device had direct access to workstations.
+</div>
+
+<div class="callout">
+  <strong>Rule 14 (optional):</strong> Apple devices broadcast Bonjour (mDNS) on UDP 5353 for service discovery &mdash; AirPrint, AirPlay, file sharing. Blocking it between VLANs prevents an Apple device on one segment from discovering services on another. The default deny (rule 15) technically catches this, but some firewalls handle multicast traffic separately from unicast &mdash; an explicit rule removes ambiguity. <strong>Trade-off:</strong> AirPrint auto-discovery will not work across VLANs. Staff will need to add printers by IP address instead of relying on Bonjour. Within each VLAN, auto-discovery still works normally. Skip this rule if you have no Apple devices on the network.
 </div>
 
 <h2>Firewall Rules &mdash; Outbound (WAN)</h2>
@@ -1010,7 +1016,7 @@
   <tbody>
   <tr>
     <td><strong>Firewall / Security Gateway</strong></td>
-    <td>Stateful inspection, inter-VLAN routing with ACLs, NAT, VPN, IDS/IPS, logging. Must enforce rules <em>between</em> VLANs &mdash; segmentation alone does not satisfy PCI.</td>
+    <td>Stateful inspection, inter-VLAN routing with ACLs, NAT, VPN, IDS/IPS, logging. Must enforce rules <em>between</em> VLANs &mdash; segmentation alone does not satisfy PCI. <strong>Prefer cloud-managed</strong> &mdash; see note below.</td>
     <td>$130 &ndash; $280</td>
   </tr>
   <tr>
@@ -1038,8 +1044,26 @@
   List updated May 2026.
 </div>
 
+<h3 style="font-size: 11pt; font-weight: 700; color: #2c3e50; margin: 24px 0 8px;">Why cloud-managed firewalls are safer than local admin portals</h3>
+
+<p>A traditional firewall exposes a local admin portal &mdash; a web interface running on the firewall&rsquo;s LAN IP address, typically on port 80 or 443. Any device on the network that can reach that IP can attempt to log in. That means a compromised camera, an infected workstation, or a rogue device on any VLAN with a route to the firewall can try to brute-force the admin password, exploit a vulnerability in the web UI, or hijack an active session. The admin portal itself becomes an attack surface.</p>
+
+<p>Cloud-managed firewalls (Ubiquiti, TP-Link Omada, Meraki) work differently. The firewall talks <em>outbound</em> to the vendor&rsquo;s cloud over an encrypted connection. You manage it through the vendor&rsquo;s app or web dashboard &mdash; also over an encrypted connection to their cloud. The two never meet on the local network. No ports are open on the firewall for administration, which means there is nothing for a local attacker to connect to.</p>
+
+<div class="callout-blue">
+  <strong>Phone app vs. local admin portal:</strong> When you manage your firewall from the Ubiquiti or Omada app on your phone, the connection goes through the vendor&rsquo;s cloud &mdash; encrypted end-to-end, authenticated with your vendor account (which should have MFA enabled). A local admin portal sits on the LAN waiting for anyone to knock. For a PCI environment, cloud management eliminates an entire class of attack by removing the admin interface from the network entirely.
+</div>
+
+<div style="margin: 36px 0 20px; padding: 20px 24px; background: #f0f6fb; border-radius: 8px; border-left: 4px solid #1a5276; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 9.5pt;">
+  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">PCI Compliance Series</div>
+  <div style="margin-bottom: 4px;"><a href="pci-compliance-case-study.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 1: The Importance of PCI Compliance</a> &mdash; <span style="color: #666;">Breach costs, compliance tiers, the business case</span></div>
+  <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 2: PCI-Compliant Network Roadmap</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
+  <div style="margin-bottom: 4px;"><a href="pci-hardening-basics.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 3: PCI Hardening Basics</a> &mdash; <span style="color: #666;">Endpoint protection, passwords, POS security</span></div>
+  <div><a href="employee-security-training.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 4: Employee Security Training</a> &mdash; <span style="color: #666;">Phishing, social engineering, incident reporting</span></div>
+</div>
+
 <div class="doc-footer">
-  Erin Fernando &nbsp;&mdash;&nbsp; PCI-Compliant Network Roadmap &nbsp;&mdash;&nbsp; &copy; 2026
+  Erin Fernando &nbsp;&mdash;&nbsp; <a href="https://erinfernando.com" style="color: inherit; text-decoration: none;">erinfernando.com</a> &nbsp;&mdash;&nbsp; PCI-Compliant Network Roadmap &nbsp;&mdash;&nbsp; &copy; 2026
 </div>
 
 </body>

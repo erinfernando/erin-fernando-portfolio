@@ -31,10 +31,10 @@
   <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
   <div class="nav-links">
     <a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a>
     <a href="#skills">Skills</a>
     <a href="#experience">Experience</a>
     <a href="#projects">Lab</a>
-    <a href="#portfolio">Portfolio</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -42,7 +42,7 @@
 <div class="hero">
   <h1>Erin Fernando</h1>
   <div class="tagline">IT Administrator</div>
-  <div class="location">Tucson, AZ &nbsp;&middot;&nbsp; <span data-contact="phone"><noscript>Enable JavaScript to see phone</noscript></span> &nbsp;&middot;&nbsp; <span data-contact="email"><noscript>Enable JavaScript to see email</noscript></span> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/erin-fernando-82458840b/">LinkedIn</a></div>
+  <div class="location">Tucson, AZ &nbsp;&middot;&nbsp; <span data-contact="email"><noscript>Enable JavaScript to see email</noscript></span> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/erin-fernando-82458840b/">LinkedIn</a></div>
   <div class="hero-cta">
     <a href="Erin_Fernando_Resume.pdf" download class="btn-download btn-download--hero">Download Resume (PDF)</a>
     <div class="resume-hash resume-hash--hero">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
@@ -52,6 +52,79 @@
 <section id="about">
   <h2>About</h2>
   <p class="about-text">Ten years as the sole IT admin for a small business &mdash; I built the network, brought it to PCI compliance, and owned every problem end-to-end. CompTIA Security+ certified, 20+ years building and troubleshooting hardware. Looking for a full-time IT role in Tucson where I can bring that to a team.</p>
+</section>
+
+<section id="portfolio">
+  <h2>Portfolio</h2>
+  <div class="portfolio-grid">
+    <a href="portfolio/ai-failure-tracker.html" class="portfolio-card">
+      <svg viewBox="0 0 400 200" preserveAspectRatio="none" class="portfolio-card__chart" aria-hidden="true">
+        <!-- Silent Failure — steep climb -->
+        <polyline points="0,180 36,170 72,170 108,158 144,158 180,142 216,142 252,126 288,126 324,126 360,110 400,50" fill="none" stroke="#e84393" stroke-width="2" opacity="0.18"/>
+        <circle cx="0" cy="180" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="36" cy="170" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="108" cy="158" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="180" cy="142" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="252" cy="126" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="360" cy="110" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="400" cy="50" r="2.5" fill="#e84393" opacity="0.25"/>
+        <!-- Tool/Env Issue — steep climb -->
+        <polyline points="0,190 36,190 72,178 108,178 144,165 180,165 216,150 252,150 288,150 324,135 360,135 400,40" fill="none" stroke="#636e72" stroke-width="2" opacity="0.2"/>
+        <circle cx="0" cy="190" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="72" cy="178" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="144" cy="165" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="216" cy="150" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="324" cy="135" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="400" cy="40" r="2.5" fill="#636e72" opacity="0.28"/>
+        <!-- Specialist Not Consulted -->
+        <polyline points="0,195 36,195 72,182 108,182 144,182 180,182 216,168 252,168 288,168 324,168 360,152 400,130" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.16"/>
+        <circle cx="72" cy="182" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="216" cy="168" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="360" cy="152" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="400" cy="130" r="2.5" fill="#e74c3c" opacity="0.22"/>
+        <!-- Information Loss -->
+        <polyline points="0,195 36,195 72,195 108,195 144,185 180,185 216,185 252,172 288,172 324,172 360,158 400,130" fill="none" stroke="#8e44ad" stroke-width="1.8" opacity="0.14"/>
+        <circle cx="144" cy="185" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="252" cy="172" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="360" cy="158" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="400" cy="130" r="2.5" fill="#8e44ad" opacity="0.2"/>
+      </svg>
+      <div class="portfolio-card__content">
+        <h3>Project: Nightingale</h3>
+        <div class="tech">2026 &middot; Failure Analytics &middot; Workflow Automation &middot; Live Metrics via Automated Monitoring</div>
+        <p>Live dashboard tracking 10 categories of process failures in my AI agent workflow. Interactive chart with daily updates.</p>
+        <span class="view-link">View live tracker &rarr;</span>
+      </div>
+    </a>
+    <a href="portfolio/operation-casita.html" class="portfolio-card">
+      <h3>Operation: Casita Unwired</h3>
+      <div class="tech">2017 &middot; Ubiquiti airMAX &middot; WDS Bridge &middot; PtP Wireless</div>
+      <p>Extended internet to a detached building via rooftop wireless bridge &mdash; running unattended since 2017.</p>
+      <span class="view-link">View documentation &rarr;</span>
+    </a>
+  </div>
+
+  <h3 class="portfolio-series-header">PCI Compliance</h3>
+  <div class="portfolio-grid">
+    <a href="portfolio/pci-compliance-case-study.html" class="portfolio-card">
+      <div class="part-label">PCI Compliance: Part 1</div>
+      <h3>The Importance of PCI Compliance</h3>
+      <div class="tech">PCI DSS 4.0 &middot; Breach Analytics &middot; Compliance ROI</div>
+      <p>What compliance costs vs. what a breach costs. The business case for why security is a low-cost no-brainer.</p>
+      <span class="view-link">See for yourself &rarr;</span>
+    </a>
+    <a href="portfolio/network-topology-v2.html" class="portfolio-card">
+      <div class="part-label">PCI Compliance: Part 2</div>
+      <h3>PCI-Compliant Network Roadmap</h3>
+      <div class="tech">VLANs &middot; Firewall Rules &middot; Equipment Budget</div>
+      <p>A simple, affordable roll-out strategy for small businesses that handle card transactions &mdash; budget-friendly equipment, easy to implement.</p>
+      <span class="view-link">View roadmap &rarr;</span>
+    </a>
+    <a href="portfolio/pci-hardening-basics.html" class="portfolio-card">
+      <div class="part-label">PCI Compliance: Part 3</div>
+      <h3>PCI Hardening Basics</h3>
+      <div class="tech">Endpoint Protection &middot; VPN &middot; Password Policy &middot; Windows &amp; macOS Tabs</div>
+      <p>Practical hardening guide with platform-specific recommendations for Windows and macOS &mdash; endpoint protection, VPN, password managers, POS tamper checks.</p>
+      <span class="view-link">View guide &rarr;</span>
+    </a>
+    <a href="portfolio/employee-security-training.html" class="portfolio-card">
+      <div class="part-label">PCI Compliance: Part 4</div>
+      <h3>Employee Security Training</h3>
+      <div class="tech">Phishing &middot; Social Engineering &middot; Incident Response &middot; PCI Requirement 12.6</div>
+      <p>Ready-to-use training outline for front-line staff &mdash; phishing, POS tamper checks, password hygiene, and what to do when something goes wrong.</p>
+      <span class="view-link">View training guide &rarr;</span>
+    </a>
+    <a href="portfolio/ransomware-backup-strategy.html" class="portfolio-card" style="margin-top: 24px;">
+      <div class="part-label part-label--ransomware">Ransomware</div>
+      <h3>Ransomware Backup Strategy</h3>
+      <div class="tech">Backup Tiers &middot; Encrypted SSDs &middot; Air-Gapped Storage &middot; Calendar Reminders</div>
+      <p>Three-tier backup plan with encrypted SSD rotation, cloud sync, and one-click calendar reminders for backup schedules.</p>
+      <span class="view-link">View strategy &rarr;</span>
+    </a>
+  </div>
 </section>
 
 <section id="skills">
@@ -166,52 +239,6 @@
 
 </section>
 
-<section id="portfolio">
-  <h2>Portfolio</h2>
-  <div class="portfolio-grid">
-    <a href="portfolio/ai-failure-tracker.html" class="portfolio-card">
-      <svg viewBox="0 0 400 200" preserveAspectRatio="none" class="portfolio-card__chart" aria-hidden="true">
-        <!-- Silent Failure — steep climb -->
-        <polyline points="0,180 36,170 72,170 108,158 144,158 180,142 216,142 252,126 288,126 324,126 360,110 400,50" fill="none" stroke="#e84393" stroke-width="2" opacity="0.18"/>
-        <circle cx="0" cy="180" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="36" cy="170" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="108" cy="158" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="180" cy="142" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="252" cy="126" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="360" cy="110" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="400" cy="50" r="2.5" fill="#e84393" opacity="0.25"/>
-        <!-- Tool/Env Issue — steep climb -->
-        <polyline points="0,190 36,190 72,178 108,178 144,165 180,165 216,150 252,150 288,150 324,135 360,135 400,40" fill="none" stroke="#636e72" stroke-width="2" opacity="0.2"/>
-        <circle cx="0" cy="190" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="72" cy="178" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="144" cy="165" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="216" cy="150" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="324" cy="135" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="400" cy="40" r="2.5" fill="#636e72" opacity="0.28"/>
-        <!-- Specialist Not Consulted -->
-        <polyline points="0,195 36,195 72,182 108,182 144,182 180,182 216,168 252,168 288,168 324,168 360,152 400,130" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.16"/>
-        <circle cx="72" cy="182" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="216" cy="168" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="360" cy="152" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="400" cy="130" r="2.5" fill="#e74c3c" opacity="0.22"/>
-        <!-- Information Loss -->
-        <polyline points="0,195 36,195 72,195 108,195 144,185 180,185 216,185 252,172 288,172 324,172 360,158 400,130" fill="none" stroke="#8e44ad" stroke-width="1.8" opacity="0.14"/>
-        <circle cx="144" cy="185" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="252" cy="172" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="360" cy="158" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="400" cy="130" r="2.5" fill="#8e44ad" opacity="0.2"/>
-      </svg>
-      <div class="portfolio-card__content">
-        <h3>Project: Nightingale</h3>
-        <div class="tech">2026 &middot; Failure Analytics &middot; Workflow Automation &middot; Live Metrics via Automated Monitoring</div>
-        <p>Live dashboard tracking 10 categories of process failures in my AI agent workflow. Interactive chart with daily updates.</p>
-        <span class="view-link">View live tracker &rarr;</span>
-      </div>
-    </a>
-    <a href="portfolio/operation-casita.html" class="portfolio-card">
-      <h3>Operation: Casita Unwired</h3>
-      <div class="tech">2017 &middot; Ubiquiti airMAX &middot; WDS Bridge &middot; PtP Wireless</div>
-      <p>Extended internet to a detached building via rooftop wireless bridge &mdash; running unattended since 2017.</p>
-      <span class="view-link">View documentation &rarr;</span>
-    </a>
-    <a href="portfolio/network-topology-v2.html" class="portfolio-card">
-      <h3>PCI-Compliant Network Roadmap</h3>
-      <div class="tech">VLANs &middot; Firewall Rules &middot; PCI Compliance</div>
-      <p>A simple, affordable roll-out strategy for small businesses that handle card transactions &mdash; budget-friendly equipment, easy to implement.</p>
-      <span class="view-link">View roadmap &rarr;</span>
-    </a>
-    <a href="portfolio/pci-compliance-case-study.html" class="portfolio-card">
-      <h3>The Importance of PCI Compliance</h3>
-      <div class="tech">PCI DSS 4.0 &middot; Breach Analytics &middot; Compliance ROI</div>
-      <p>A case study on what compliance costs vs. the cost of a potential breach. Is it worth it to protect yourself? Evidently, yes, security is a low-cost no-brainer.</p>
-      <span class="view-link">See for yourself &rarr;</span>
-    </a>
-  </div>
-</section>
-
 <section id="education">
   <h2>Education</h2>
   <div class="job">
@@ -230,10 +257,6 @@
       <li>
         <span class="contact-label">Email</span>
         <span class="contact-value" data-contact="email"><noscript>Enable JavaScript to see email</noscript></span>
-      </li>
-      <li>
-        <span class="contact-label">Phone</span>
-        <span class="contact-value" data-contact="phone"><noscript>Enable JavaScript to see phone</noscript></span>
       </li>
       <li>
         <span class="contact-label">LinkedIn</span>

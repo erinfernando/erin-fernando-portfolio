@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
+<meta name="description" content="PCI hardening basics for small businesses — endpoint protection, VPN, password policy, password managers, POS physical security, and default credentials. By Erin Fernando.">
+<title>PCI Hardening Basics for Small Businesses | Erin Fernando</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.5in 0.6in;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  /* Design tokens — cherry-picked from Open Props v1.7.6 (MIT) */
+  :root {
+    --shadow-color: 220 3% 15%;
+    --shadow-strength: 1%;
+    --shadow-2: 0 3px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+                0 7px 14px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%));
+    --shadow-3: 0 -1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+                0 1px 2px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+                0 2px 5px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+                0 4px 12px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
+                0 12px 15px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
+    --ease-3: cubic-bezier(.25, 0, .3, 1);
+    --radius-2: 5px;
+    --radius-3: 1rem;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Calibri', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0 0.6in 0.5in;
+    background: #f7f9fb;
+  }
+
+  .doc-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #1a5276;
+  }
+  .doc-header h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #1a5276;
+    margin-bottom: 2px;
+  }
+  .doc-header .subtitle {
+    font-size: 11pt;
+    color: #555;
+    font-style: italic;
+  }
+
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a5276;
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: none;
+    position: relative;
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #1a5276, #2e86c1);
+    border-radius: 2px;
+  }
+
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 16px 0 6px;
+  }
+
+  p, li {
+    font-size: 10pt;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9pt;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #1a5276;
+    color: #fff;
+    font-weight: 700;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  tr:nth-child(even) { background: #f4f8fb; }
+
+  /* Highlight boxes */
+  .callout {
+    background: #fef9e7;
+    border: 1px solid #f0d66e;
+    border-left: 4px solid #f0d66e;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #6b5900;
+    line-height: 1.5;
+  }
+  .callout-red {
+    background: #fdedec;
+    border: 1px solid #e6b0aa;
+    border-left: 4px solid #c0392b;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #78281f;
+    line-height: 1.5;
+  }
+  .callout-blue {
+    background: #eaf2f8;
+    border: 1px solid #aed6f1;
+    border-left: 4px solid #2e86c1;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #1a5276;
+    line-height: 1.5;
+  }
+  .callout-green {
+    background: #eafaf1;
+    border: 1px solid #a9dfbf;
+    border-left: 4px solid #27ae60;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #1e8449;
+    line-height: 1.5;
+  }
+
+  /* Checklist cards */
+  .checklist-card {
+    background: #fff;
+    border-radius: var(--radius-3);
+    padding: 20px 24px;
+    margin: 16px 0;
+    box-shadow: var(--shadow-2);
+    transition: transform 180ms var(--ease-3), box-shadow 180ms var(--ease-3);
+  }
+  .checklist-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-3);
+  }
+  .checklist-card h3 {
+    margin-top: 0;
+  }
+  .checklist-card ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .checklist-card ul li {
+    padding: 5px 0 5px 24px;
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .checklist-card ul li:last-child {
+    border-bottom: none;
+  }
+  .checklist-card ul li::before {
+    content: '\2610';
+    position: absolute;
+    left: 0;
+    color: #1a5276;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  .note {
+    font-size: 9pt;
+    color: #666;
+    font-style: italic;
+    margin: 8px 0;
+  }
+
+  .doc-footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 14px;
+    border-top: 2px solid #1a5276;
+    font-size: 9pt;
+    color: #777;
+  }
+
+  a { color: #1a5276; }
+
+  /* OS tabs */
+  .os-tab-group { margin: 16px 0 0; }
+  .os-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #e0e7ee;
+    margin-bottom: 16px;
+  }
+  .os-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #888;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    background: none;
+    font-family: inherit;
+    transition: color 150ms ease, border-color 150ms ease;
+    user-select: none;
+  }
+  .os-tab:hover { color: #1a5276; }
+  .os-tab.active {
+    color: #1a5276;
+    border-bottom-color: #1a5276;
+  }
+  .os-panel { display: none; }
+  .os-panel.active { display: block; }
+
+  /* SmolCSS reduced-motion pattern (MIT) */
+  @media (prefers-reduced-motion: reduce) {
+    .checklist-card { transition-duration: 0.01ms !important; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px 24px; }
+    table { font-size: 8pt; }
+    th, td { padding: 4px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="../#portfolio" style="display: inline-block; margin: 16px 0 20px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
+
+<div class="doc-header">
+  <h1>PCI Hardening Basics for Small Businesses</h1>
+  <div class="subtitle">Simple additions, affordable pricing, limited maintenance</div>
+</div>
+
+<p>Hardening a business does not mean rebuilding everything from scratch. It means adding a few layers to what you already have. Most of the tools on this page are free or under $5/month per machine, take minutes to install, and require almost no ongoing attention once they are running.</p>
+
+<p>If you are reading this, your machines already have built-in protection running &mdash; Windows Defender on PCs, XProtect on Macs. That is a starting point &mdash; not a finish line.</p>
+
+<p>People don&rsquo;t think twice about that PDF they downloaded from an email they skimmed. But a PDF could be a front for <em>secret coding</em>. That house furnishing blog you clicked on has a Trojan in it. Logging of keystrokes, Trojans in blog posts, browser hijacking? Oh my! But you can&rsquo;t avoid operating in a digital space either. So use protection, okay?</p>
+
+<!-- Section 1: Why Built-In Protection Alone Is Not Enough -->
+<h2>Why Built-In Protection Alone Is Not Enough</h2>
+
+<div class="os-tab-group" id="tabs-defense">
+  <div class="os-tabs">
+    <button class="os-tab active" data-os="windows" onclick="switchAllOS('windows')">Windows</button>
+    <button class="os-tab" data-os="apple" onclick="switchAllOS('apple')">macOS</button>
+  </div>
+
+  <div class="os-panel active" data-os="windows">
+    <p>Windows Defender is built into every Windows machine. It is free, it updates automatically, and it runs in the background. These are all good things. And to its credit, Defender is very capable at what it was designed to do &mdash; defending its own operating system. It knows Windows inside and out. It recognizes Microsoft&rsquo;s own products, services, and file structures better than any third-party scanner ever will. When a threat targets the OS itself, Defender is in its element.</p>
+
+    <p>But that is exactly where its strength ends and its blind spots begin. Defender is built to protect Windows. A dedicated endpoint antivirus is built to protect <em>you</em> &mdash; from threats that have nothing to do with the operating system:</p>
+
+    <ul>
+      <li><strong>Suspicious files and unknown executables</strong> &mdash; files that are not in Microsoft&rsquo;s catalog but exhibit malicious behavior. A heuristic-focused AV catches what signature-based detection misses.</li>
+      <li><strong>Potentially unwanted programs (PUPs)</strong> &mdash; adware, toolbars, and bundled software that Defender tends to shrug off because they are not technically malware</li>
+      <li><strong>Targeted ransomware</strong> &mdash; Defender&rsquo;s controlled folder access helps, but a dedicated anti-ransomware engine with rollback capability catches more and recovers faster</li>
+      <li><strong>Web-based threats</strong> &mdash; malicious downloads, phishing payloads, and drive-by exploits that arrive through the browser, not the OS</li>
+    </ul>
+
+    <div class="callout-blue">
+      <strong>Windows does have your back on downloads &mdash; partially.</strong> SmartScreen checks downloaded files against a reputation database. Mark of the Web tags everything from the internet so apps open it in a sandbox. Defender scans on download. That is three checkpoints before a malicious PDF can do anything &mdash; more than macOS offers. But none of those catch a zero-day exploit or a brand-new payload that is not in any signature database yet. A secondary AV with heuristic detection fills that gap.
+    </div>
+
+    <p>A VPN adds a third layer by encrypting all internet traffic on the network. Some VPNs also offer tunneling for remote maintenance &mdash; meaning you or your IT admin can securely manage firewalls, switches, and access points from anywhere without exposing management interfaces to the open internet.</p>
+
+    <p>Each layer covers a different angle. Defender watches the OS. A secondary AV watches everything else on the machine. A VPN watches the traffic between the machine and the internet. One product cannot do all three jobs well.</p>
+
+    <div class="callout-red">
+      <strong>My baseline recommendation:</strong> Windows Defender + a secondary endpoint antivirus + a VPN. Three layers, three different jobs. This is the floor &mdash; not the ceiling.
+    </div>
+  </div>
+
+  <div class="os-panel" data-os="apple">
+    <p>macOS comes with XProtect &mdash; Apple&rsquo;s built-in anti-malware. It runs silently in the background and updates automatically through system updates. Apple also layers Gatekeeper (blocks unsigned or unnotarized apps from running) and MRT (Malware Removal Tool, which scans for and removes known threats) on top of XProtect.</p>
+
+    <p>XProtect is effective at what Apple designed it to do &mdash; recognizing known macOS threats, blocking flagged applications, and protecting the operating system from tampering. But like Defender on the Windows side, it protects <em>the OS</em>, not necessarily <em>you</em>:</p>
+
+    <ul>
+      <li><strong>Zero-day threats and novel malware</strong> &mdash; anything not yet in Apple&rsquo;s signature database passes through XProtect undetected. Heuristic-based AV catches behavioral anomalies that signature matching misses.</li>
+      <li><strong>Potentially unwanted programs (PUPs)</strong> &mdash; Apple defines &ldquo;malware&rdquo; narrowly. Adware, browser hijackers, and bundled software frequently slip through because they are not technically malicious.</li>
+      <li><strong>Phishing payloads</strong> &mdash; remember that PDF with the <em>secret coding</em>? XProtect does not analyze document content for embedded threats. Files that arrive through email or browser and rely on social engineering slip right past it. Are you <em>sure</em> it&rsquo;s just a PDF?</li>
+      <li><strong>Ransomware</strong> &mdash; macOS is not immune. KeRanger, EvilQuest, and LockBit variants have all targeted Mac users. Gatekeeper helps if the ransomware is unsigned, but not if the user manually overrides it.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>macOS firewall is OFF by default.</strong> Unlike Windows Firewall, the macOS application firewall does not turn on automatically. Go to System Settings &gt; Network &gt; Firewall and enable it. This is a one-time setting that blocks unauthorized incoming connections per-application.
+    </div>
+
+    <div class="callout">
+      <strong>AirDrop is OFF by default.</strong> Restrict AirDrop to &ldquo;Contacts Only&rdquo; or disable it entirely on business machines. System Settings &gt; General &gt; AirDrop &amp; Handoff. AirDrop uses peer-to-peer Wi-Fi, which can bypass VLAN segmentation if devices share the same access point. Leaving AirDrop on for Everyone is crazy. Strangers can drop files to you at a distance, out of sight. Who knows what they could send. And it could compromise the network segmentation you just spent all that time setting up! So turn it off now.
+    </div>
+
+    <p>A VPN adds another layer by encrypting all internet traffic. Some VPNs also offer tunneling for remote maintenance &mdash; letting your IT admin manage firewalls and switches from anywhere without exposing management interfaces.</p>
+
+    <p>Each layer covers a different angle. XProtect watches the OS. A secondary AV watches everything else on the machine. A VPN watches the traffic. The macOS firewall controls incoming connections. One product cannot do all four jobs.</p>
+
+    <div class="callout-red">
+      <strong>My baseline recommendation:</strong> XProtect + a secondary endpoint antivirus + a VPN + enable the macOS firewall. Four layers. This is the floor &mdash; not the ceiling.
+    </div>
+
+    <div class="callout-blue">
+      <strong>Apple networking note:</strong> Macs broadcast Bonjour (mDNS) service discovery on UDP port 5353. In a PCI environment with VLANs, block mDNS traffic between network segments on your firewall or managed switch &mdash; otherwise an Apple device on the guest VLAN can discover services on your payment VLAN.
+    </div>
+  </div>
+</div>
+
+<!-- Section 2: Layer 1 — Add a Secondary Antivirus -->
+<h2>Layer 1: Add a Secondary Antivirus</h2>
+
+<div class="os-tab-group" id="tabs-antivirus">
+  <div class="os-tabs">
+    <button class="os-tab active" data-os="windows" onclick="switchAllOS('windows')">Windows</button>
+    <button class="os-tab" data-os="apple" onclick="switchAllOS('apple')">macOS</button>
+  </div>
+
+  <div class="os-panel active" data-os="windows">
+    <p>A secondary antivirus runs alongside Defender and catches what Defender misses. These are not replacements &mdash; they are partners. Defender handles the baseline real-time protection; the second product focuses on the gaps.</p>
+
+    <h3>What to pair with Windows Defender</h3>
+
+    <table>
+      <thead>
+      <tr><th scope="col">Product</th><th scope="col">Cost</th><th scope="col">What It Adds Over Defender</th><th scope="col">Maintenance</th></tr>
+      </thead>
+      <tbody>
+      <tr><td><strong>Malwarebytes Premium</strong></td><td>~$4/endpoint/mo</td><td>Real-time exploit protection, ransomware rollback, PUP detection, browser guard. Runs alongside Defender without conflict.</td><td>Install and forget. Updates automatically. Dashboard alerts if anything flags.</td></tr>
+      <tr><td><strong>Malwarebytes ThreatDown</strong></td><td>$4&ndash;$5/endpoint/mo</td><td>Everything in Premium + EDR capability, managed threat hunting, centralized business console.</td><td>Slightly more admin overhead. Worth it if you manage 5+ machines.</td></tr>
+      <tr><td><strong>Bitdefender GravityZone</strong></td><td>~$3&ndash;$5/endpoint/mo</td><td>Excellent detection rates, hypervisor-level introspection, lightweight agent. Consistently top-ranked in independent testing.</td><td>Cloud console. Set policies once, deploy to all endpoints.</td></tr>
+      <tr><td><strong>ESET Endpoint Security</strong></td><td>~$4/endpoint/mo</td><td>Low system footprint, strong heuristics, built-in device control. Good for older hardware that struggles with heavier agents.</td><td>Minimal. Good for environments where performance matters.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-green">
+      <strong>The math:</strong> For a small business with 3&ndash;5 machines, a secondary antivirus costs $12&ndash;$25/month total. That is less than a single lunch. The average cost of a data breach for a small business starts at $120,000. Penny-wise and pound foolish to not have add-on security.
+    </div>
+
+    <h3>How they work together</h3>
+
+    <p>Windows Defender registers itself as the primary antivirus through the Windows Security Center. Most secondary products are designed to coexist with Defender &mdash; Malwarebytes, for example, explicitly registers as a secondary scanner. You do not need to disable Defender or choose one over the other. They run side by side.</p>
+
+    <p>Think of it like a spelling check and a grammar check. They look for different things. Running both catches more than running either one alone.</p>
+  </div>
+
+  <div class="os-panel" data-os="apple">
+    <p>A secondary antivirus runs alongside XProtect and catches what Apple&rsquo;s built-in tools miss. These are not replacements &mdash; XProtect continues to function independently at the system level. The second product fills the gaps that signature-only detection leaves open.</p>
+
+    <h3>What to pair with XProtect</h3>
+
+    <table>
+      <thead>
+      <tr><th scope="col">Product</th><th scope="col">Cost</th><th scope="col">What It Adds Over XProtect</th><th scope="col">Maintenance</th></tr>
+      </thead>
+      <tbody>
+      <tr><td><strong>Malwarebytes for Mac</strong></td><td>~$4/endpoint/mo</td><td>Real-time protection, adware and PUP removal, browser guard. Most popular macOS security companion. Same console as the Windows version if you manage both.</td><td>Install and forget. Updates automatically.</td></tr>
+      <tr><td><strong>Intego Mac Internet Security</strong></td><td>~$4&ndash;$5/endpoint/mo</td><td>Mac-only company. VirusBarrier (malware scanner) + NetBarrier (application-level firewall with granular per-app rules). Built exclusively for the macOS threat landscape.</td><td>Lightweight. Annual license.</td></tr>
+      <tr><td><strong>Bitdefender Antivirus for Mac</strong></td><td>~$3&ndash;$5/endpoint/mo</td><td>Excellent detection rates, ransomware protection, adware removal. Cross-platform console if you also manage Windows endpoints.</td><td>Cloud console. Minimal footprint.</td></tr>
+      <tr><td><strong>ESET Cyber Security Pro</strong></td><td>~$4/endpoint/mo</td><td>Anti-phishing, web filtering, firewall module. Low system impact. Good for older Macs that struggle with heavier agents.</td><td>Minimal. Good for mixed environments.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-green">
+      <strong>The math:</strong> For a small business with 3&ndash;5 Macs, a secondary antivirus costs $12&ndash;$25/month total. That is less than a single lunch. The average cost of a data breach for a small business starts at $120,000. Penny-wise and pound foolish to not have add-on security.
+    </div>
+
+    <h3>How they work together</h3>
+
+    <p>Unlike Windows, macOS does not have a centralized security registration system like Windows Security Center. XProtect runs at the system level independently &mdash; it does not register itself as &ldquo;the&rdquo; antivirus. Third-party products install alongside it without conflict. Both continue to function in parallel, scanning for different threat signatures.</p>
+
+    <p>Think of it like a spelling check and a grammar check. They look for different things. Running both catches more than running either one alone.</p>
+  </div>
+</div>
+
+<!-- Section 3: Layer 2 — Add a VPN -->
+<h2>Layer 2: Add a VPN</h2>
+
+<p>A VPN encrypts all network traffic between a device and the internet. If someone on the same network tries to intercept traffic &mdash; a real concern in retail and hospitality where staff and customers share the same internet connection &mdash; they see encrypted noise instead of readable data.</p>
+
+<p>This is not a replacement for network segmentation. VLANs still isolate your payment devices from everything else. A VPN adds encryption on top of that isolation.</p>
+
+<h3>VPN options for small businesses</h3>
+
+<table>
+  <thead>
+  <tr><th scope="col">Product</th><th scope="col">Cost</th><th scope="col">Setup Time</th><th scope="col">Best For</th></tr>
+  </thead>
+  <tbody>
+  <tr><td><strong>Cloudflare WARP</strong></td><td>Free (basic); $7/user/mo (Zero Trust)</td><td>5 minutes &mdash; download app, connect</td><td>Simplest option. Installs like any app. DNS filtering included on the paid tier. Good first VPN.</td></tr>
+  <tr><td><strong>Tailscale</strong></td><td>Free (up to 3 users); $6/user/mo</td><td>5 minutes &mdash; no port forwarding needed</td><td>Mesh VPN built on WireGuard. Excellent for remote admin access to firewalls and switches. You can manage your network from your phone.</td></tr>
+  <tr><td><strong>WireGuard</strong></td><td>Free (open source)</td><td>30&ndash;60 minutes &mdash; needs a server</td><td>Fastest protocol, smallest codebase, smallest attack surface. Self-hosted. Best if you want full control and have the skills to set it up.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout-blue">
+  <strong>Start free.</strong> Cloudflare WARP takes five minutes to install on every machine and costs nothing for basic protection. If you need more &mdash; remote device management, content filtering, zero-trust policies &mdash; Tailscale and the paid WARP tiers are still under $10/user/month.
+</div>
+
+<div class="callout">
+  <strong>Important distinction:</strong> A VPN protects traffic in transit. It does NOT replace network segmentation &mdash; VLANs still do the heavy lifting for PCI scope isolation. See the <a href="network-topology-v2.html" style="font-weight: 600;">PCI-Compliant Network Roadmap</a> for the full segmentation strategy.
+</div>
+
+<!-- Section 4: Password Policy -->
+<h2>Passwords &amp; Access Control</h2>
+
+<p>PCI DSS 4.0 raised the bar on password requirements. These are auditable controls, not suggestions. If your business still uses 8-character passwords or shares login credentials across employees, you are already out of compliance.</p>
+
+<h3>What changed from 3.2.1 to 4.0</h3>
+
+<table>
+  <thead>
+  <tr><th scope="col">Requirement</th><th scope="col">PCI DSS 3.2.1 (Retired)</th><th scope="col">PCI DSS 4.0 (Current)</th></tr>
+  </thead>
+  <tbody>
+  <tr><td><strong>Minimum length</strong></td><td>7 characters</td><td>12 characters</td></tr>
+  <tr><td><strong>Complexity</strong></td><td>Numeric + alphabetic</td><td>Numeric + alphabetic (or equivalent complexity)</td></tr>
+  <tr><td><strong>Password history</strong></td><td>Last 4 cannot be reused</td><td>Last 4 cannot be reused</td></tr>
+  <tr><td><strong>Lockout threshold</strong></td><td>6 failed attempts</td><td>10 failed attempts</td></tr>
+  <tr><td><strong>Password rotation</strong></td><td>Every 90 days (mandatory)</td><td>Every 90 days, or risk-based approach with continuous monitoring</td></tr>
+  <tr><td><strong>MFA scope</strong></td><td>Remote + admin access to CDE</td><td>ALL access to the cardholder data environment</td></tr>
+  <tr><td><strong>First-use passwords</strong></td><td>Must be changed on first use</td><td>Must be changed on first use; must be unique per user</td></tr>
+  </tbody>
+</table>
+
+<div class="callout-red">
+  <strong>Shared passwords on POS systems are a PCI violation.</strong> Every employee needs their own login &mdash; even for the register. Requirement 8 mandates unique identification for every user with access to system components.
+</div>
+
+<h3>The easy fix: centrally managed password managers</h3>
+
+<p>Individual logins create a management problem. A centrally managed password manager solves it: unique credentials for every employee, an audit trail for compliance, instant revocation when someone leaves, and hidden passwords for employees who only need to auto-fill them.</p>
+
+<table>
+  <thead>
+  <tr><th scope="col">Feature</th><th scope="col">Bitwarden Teams</th><th scope="col">Keeper Business</th><th scope="col">1Password Business</th></tr>
+  </thead>
+  <tbody>
+  <tr><td><strong>Cost</strong></td><td>$4/user/mo</td><td>~$4/user/mo</td><td>$7.99/user/mo</td></tr>
+  <tr><td><strong>Hide password on shared vaults</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td><strong>PCI DSS certified</strong></td><td>No (SOC 2 Type II)</td><td>Yes (only PCI-certified option)</td><td>No (SOC 2 Type II)</td></tr>
+  <tr><td><strong>Self-host option</strong></td><td>Yes (open source)</td><td>No</td><td>No</td></tr>
+  <tr><td><strong>Standout feature</strong></td><td>Open source; full data control</td><td>Granular role-based access</td><td>Best UX; free family plan per employee</td></tr>
+  </tbody>
+</table>
+
+<div class="callout-green">
+  <strong>For POS terminals:</strong> Use the &ldquo;hide password&rdquo; feature. Employees auto-fill the terminal login without ever seeing the actual credential. The admin rotates it centrally &mdash; no sticky notes, no shared knowledge, no credentials walking out the door when someone quits.
+</div>
+
+<p class="note">Avoid LastPass for new deployments. The 2022&ndash;2023 breach resulted in the exfiltration of encrypted vault data. While master passwords were not directly exposed, the incident demonstrated a fundamental architecture weakness in how vault data was stored.</p>
+
+<!-- Section 5: POS Physical Security -->
+<h2>POS Physical Security</h2>
+
+<p>Skimming and shimming attacks remain the most common physical attack vector for small businesses. Attackers overlay card readers, splice cables, or point hidden cameras at PIN pads. These devices can be installed in seconds and go unnoticed for weeks.</p>
+
+<p>Place terminals where customers cannot reach ports, cables, or the back of the device. Route cables through conduit or behind fixed counters. If the terminal sits on an open counter, secure it with a locking mount.</p>
+
+<div class="checklist-card">
+  <h3>POS Terminal Daily Check (30 seconds)</h3>
+  <ul>
+    <li><strong>Wiggle the card reader</strong> &mdash; it should not move, shift, or detach from the terminal body</li>
+    <li><strong>Check for overlays on the PIN pad</strong> &mdash; look for extra thickness, misaligned buttons, or different plastic texture</li>
+    <li><strong>Inspect cable connections</strong> &mdash; nothing extra spliced in, no unfamiliar adapters between the terminal and the wall</li>
+    <li><strong>Look for hidden cameras</strong> &mdash; check nearby shelves, signage, or fixtures pointed at the PIN pad</li>
+    <li><strong>Compare against a reference photo</strong> &mdash; keep a dated photo of the terminal and compare daily</li>
+  </ul>
+</div>
+
+<p>Consider tamper-evident seals on terminal seams and cable connections &mdash; adhesive labels that show &ldquo;VOID&rdquo; when removed. Replace seals after any authorized service and log the date.</p>
+
+<!-- Section 6: Change Default Credentials -->
+<h2>Change Default Credentials</h2>
+
+<p>Every network device ships with a factory-default username and password. These defaults are published in product manuals, on vendor websites, and on public databases anyone can search. An attacker on your network can look up the default login for your router and be in within seconds.</p>
+
+<p>PCI DSS Requirement 2 mandates removing or disabling vendor-supplied default accounts before deploying any system. An assessor will check for this.</p>
+
+<div class="checklist-card">
+  <h3>Default Credential Audit</h3>
+  <ul>
+    <li><strong>POS terminal admin password</strong> &mdash; the management interface, not the cashier login</li>
+    <li><strong>Router/firewall admin login</strong> &mdash; both the web UI password and SSH/console password</li>
+    <li><strong>Managed switch admin login</strong> &mdash; including SNMP community strings (change from &ldquo;public&rdquo;/&ldquo;private&rdquo;)</li>
+    <li><strong>Access point admin login</strong> &mdash; and the Wi-Fi pre-shared key</li>
+    <li><strong>Printer admin panel</strong> &mdash; printers are frequently overlooked and have full network access</li>
+    <li><strong>Security camera / DVR / NVR login</strong> &mdash; IP cameras with default credentials are a common entry point</li>
+  </ul>
+</div>
+
+<!-- Section 7: What It All Costs -->
+<h2>What It All Costs</h2>
+
+<p>Here is the full stack for a small business with 3&ndash;5 machines:</p>
+
+<div class="os-tab-group" id="tabs-cost">
+  <div class="os-tabs">
+    <button class="os-tab active" data-os="windows" onclick="switchAllOS('windows')">Windows</button>
+    <button class="os-tab" data-os="apple" onclick="switchAllOS('apple')">macOS</button>
+  </div>
+
+  <div class="os-panel active" data-os="windows">
+    <table>
+      <thead>
+      <tr><th scope="col">Layer</th><th scope="col">Product</th><th scope="col">Monthly Cost</th><th scope="col">Setup Time</th><th scope="col">Ongoing Maintenance</th></tr>
+      </thead>
+      <tbody>
+      <tr><td>Base protection</td><td>Windows Defender</td><td>Free</td><td>Already running</td><td>None &mdash; auto-updates</td></tr>
+      <tr><td>Secondary AV</td><td>Malwarebytes Premium</td><td>$12&ndash;$20</td><td>10 min per machine</td><td>None &mdash; auto-updates, alerts if needed</td></tr>
+      <tr><td>VPN</td><td>Cloudflare WARP</td><td>Free</td><td>5 min per machine</td><td>None</td></tr>
+      <tr><td>Password manager</td><td>Bitwarden Teams</td><td>$20&ndash;$40</td><td>1 hour initial setup</td><td>Add/remove users as staff changes</td></tr>
+      <tr><td>MFA</td><td>Microsoft Authenticator</td><td>Free</td><td>5 min per user</td><td>None</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-green">
+      <strong>Total: $32&ndash;$60/month</strong> for the full hardening stack on a 3&ndash;5 machine business. That covers two layers of antivirus, encrypted traffic, centrally managed passwords, and multi-factor authentication. Compare that to the cost of a breach &mdash; $120K on the low end &mdash; and this is not even a conversation.
+    </div>
+  </div>
+
+  <div class="os-panel" data-os="apple">
+    <table>
+      <thead>
+      <tr><th scope="col">Layer</th><th scope="col">Product</th><th scope="col">Monthly Cost</th><th scope="col">Setup Time</th><th scope="col">Ongoing Maintenance</th></tr>
+      </thead>
+      <tbody>
+      <tr><td>Base protection</td><td>XProtect</td><td>Free</td><td>Already running</td><td>None &mdash; updates with macOS</td></tr>
+      <tr><td>Firewall</td><td>macOS Firewall</td><td>Free</td><td>2 minutes</td><td>None &mdash; enable once</td></tr>
+      <tr><td>Disk encryption</td><td>FileVault</td><td>Free</td><td>15 minutes</td><td>None &mdash; runs transparently</td></tr>
+      <tr><td>Secondary AV</td><td>Malwarebytes for Mac</td><td>$12&ndash;$20</td><td>10 min per machine</td><td>None &mdash; auto-updates</td></tr>
+      <tr><td>VPN</td><td>Cloudflare WARP</td><td>Free</td><td>5 min per machine</td><td>None</td></tr>
+      <tr><td>Password manager</td><td>Bitwarden Teams</td><td>$20&ndash;$40</td><td>1 hour initial setup</td><td>Add/remove users as staff changes</td></tr>
+      <tr><td>MFA</td><td>Microsoft Authenticator (iOS)</td><td>Free</td><td>5 min per user</td><td>None</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-green">
+      <strong>Total: $32&ndash;$60/month</strong> for the full hardening stack on a 3&ndash;5 Mac business. The costs are nearly identical to Windows &mdash; most security products are cross-platform. macOS adds two free layers (firewall + FileVault) that Windows Pro users get through BitLocker, but Windows Home users do not.
+    </div>
+  </div>
+</div>
+
+<!-- Section 8: Getting Started -->
+<h2>Getting Started</h2>
+
+<p>Everything on this page can be done in an afternoon. No consultants, no enterprise contracts, no ripping anything out. You are adding layers to what you already have:</p>
+
+<div class="os-tab-group" id="tabs-started">
+  <div class="os-tabs">
+    <button class="os-tab active" data-os="windows" onclick="switchAllOS('windows')">Windows</button>
+    <button class="os-tab" data-os="apple" onclick="switchAllOS('apple')">macOS</button>
+  </div>
+
+  <div class="os-panel active" data-os="windows">
+    <ol style="padding-left: 20px; margin-bottom: 12px;">
+      <li style="margin-bottom: 6px;"><strong>Verify Windows Defender is on and current on every machine.</strong> Check that cloud protection and tamper protection are enabled. This is your base layer &mdash; make sure it is actually running.</li>
+      <li style="margin-bottom: 6px;"><strong>Install a secondary antivirus on every machine.</strong> Malwarebytes Premium pairs cleanly with Defender and takes 10 minutes per machine to install.</li>
+      <li style="margin-bottom: 6px;"><strong>Install Cloudflare WARP on every staff machine.</strong> Five minutes per machine. Free. Encrypted traffic from day one.</li>
+      <li style="margin-bottom: 6px;"><strong>Change every default password on every network device.</strong> Router, switch, access point, printer, camera, POS terminal &mdash; all of them. Do this once and it is done.</li>
+      <li style="margin-bottom: 6px;"><strong>Deploy a password manager and eliminate shared logins.</strong> Create individual employee accounts. Use the hide-password feature on POS terminals.</li>
+      <li style="margin-bottom: 6px;"><strong>Enable MFA on every account that touches the cardholder data environment.</strong> PCI DSS 4.0 requires this. Microsoft Authenticator, Google Authenticator, or Duo all work. Free.</li>
+      <li style="margin-bottom: 6px;"><strong>Start daily POS tamper checks.</strong> Print the checklist, tape it to the back office wall, and make it part of the opening procedure.</li>
+    </ol>
+  </div>
+
+  <div class="os-panel" data-os="apple">
+    <ol style="padding-left: 20px; margin-bottom: 12px;">
+      <li style="margin-bottom: 6px;"><strong>Keep macOS updated on every machine.</strong> XProtect updates ship with system updates. System Settings &gt; General &gt; Software Update. Enable automatic updates &mdash; this is your base layer.</li>
+      <li style="margin-bottom: 6px;"><strong>Enable the macOS firewall.</strong> System Settings &gt; Network &gt; Firewall. It is OFF by default. Turn it on. One-time setting, no ongoing maintenance.</li>
+      <li style="margin-bottom: 6px;"><strong>Enable FileVault on every machine.</strong> System Settings &gt; Privacy &amp; Security &gt; FileVault. Full disk encryption, built into macOS. No reason not to enable it.</li>
+      <li style="margin-bottom: 6px;"><strong>Restrict AirDrop.</strong> System Settings &gt; General &gt; AirDrop &amp; Handoff. Set to &ldquo;Contacts Only&rdquo; or &ldquo;No One&rdquo; on business machines. AirDrop can be used for unsolicited file delivery and social engineering.</li>
+      <li style="margin-bottom: 6px;"><strong>Install a secondary antivirus on every machine.</strong> Malwarebytes for Mac pairs cleanly with XProtect and takes 10 minutes per machine to install.</li>
+      <li style="margin-bottom: 6px;"><strong>Install Cloudflare WARP on every staff machine.</strong> Five minutes per machine. Free. Encrypted traffic from day one.</li>
+      <li style="margin-bottom: 6px;"><strong>Change every default password on every network device.</strong> Router, switch, access point, printer, camera, POS terminal &mdash; all of them. Do this once and it is done.</li>
+      <li style="margin-bottom: 6px;"><strong>Deploy a password manager and eliminate shared logins.</strong> Create individual employee accounts. Use the hide-password feature on POS terminals.</li>
+      <li style="margin-bottom: 6px;"><strong>Enable MFA on every account that touches the cardholder data environment.</strong> PCI DSS 4.0 requires this. Microsoft Authenticator, Google Authenticator, or Duo all work. Free.</li>
+      <li style="margin-bottom: 6px;"><strong>Start daily POS tamper checks.</strong> Print the checklist, tape it to the back office wall, and make it part of the opening procedure.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="callout-blue">
+  <strong>Next step: train your team.</strong> See the <a href="employee-security-training.html" style="font-weight: 600;">Employee Security Training Guide</a> for a ready-to-use training outline covering phishing, POS security, password hygiene, and incident reporting.
+</div>
+
+<div style="margin: 36px 0 20px; padding: 20px 24px; background: #f0f6fb; border-radius: 8px; border-left: 4px solid #1a5276; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 9.5pt;">
+  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">PCI Compliance Series</div>
+  <div style="margin-bottom: 4px;"><a href="pci-compliance-case-study.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 1: The Importance of PCI Compliance</a> &mdash; <span style="color: #666;">Breach costs, compliance tiers, the business case</span></div>
+  <div style="margin-bottom: 4px;"><a href="network-topology-v2.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 2: PCI-Compliant Network Roadmap</a> &mdash; <span style="color: #666;">Equipment, VLANs, firewall rules</span></div>
+  <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 3: PCI Hardening Basics</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
+  <div style="margin-bottom: 4px;"><a href="employee-security-training.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 4: Employee Security Training</a> &mdash; <span style="color: #666;">Phishing, social engineering, incident reporting</span></div>
+  <div><a href="ransomware-backup-strategy.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Companion: Ransomware Backup Strategy</a> &mdash; <span style="color: #666;">Three-tier backup, encrypted SSDs, calendar reminders</span></div>
+</div>
+
+<div class="doc-footer">
+  Erin Fernando &nbsp;&mdash;&nbsp; <a href="https://erinfernando.com" style="color: inherit; text-decoration: none;">erinfernando.com</a> &nbsp;&mdash;&nbsp; PCI Hardening Basics for Small Businesses &nbsp;&mdash;&nbsp; &copy; 2026
+</div>
+
+<script>
+function switchAllOS(os) {
+  document.querySelectorAll('.os-tab').forEach(function(t) {
+    t.classList.toggle('active', t.getAttribute('data-os') === os);
+  });
+  document.querySelectorAll('.os-panel').forEach(function(p) {
+    p.classList.toggle('active', p.getAttribute('data-os') === os);
+  });
+}
+</script>
+
+</body>
+</html>

@@ -44,8 +44,8 @@
 })();
 
 /* ── Contact obfuscation ── */
-/* Email and phone are assembled at runtime so crawlers reading
-   the static HTML never see a harvestable address or number. */
+/* Email is assembled at runtime so crawlers reading
+   the static HTML never see a harvestable address. */
 (function () {
   var u = 'fernando.erin.c';
   var d = 'gmail.com';
@@ -59,11 +59,5 @@
     el.appendChild(a);
   });
 
-  var p1 = '(858) 243';
-  var p2 = '-6917';
-  var phone = p1 + p2;
-
-  document.querySelectorAll('[data-contact="phone"]').forEach(function (el) {
-    el.textContent = phone;
-  });
+  /* Phone number removed — Harvey flagged PII exposure risk on public site */
 })();

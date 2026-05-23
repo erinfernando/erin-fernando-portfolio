@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
+<meta name="description" content="Employee security awareness training guide for small businesses pursuing PCI compliance. Covers phishing, social engineering, password hygiene, POS tamper checks, and incident reporting. By Erin Fernando.">
+<title>Employee Security Training for Small Businesses | Erin Fernando</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.5in 0.6in;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  /* Design tokens — cherry-picked from Open Props v1.7.6 (MIT) */
+  :root {
+    --shadow-color: 220 3% 15%;
+    --shadow-strength: 1%;
+    --shadow-2: 0 3px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+                0 7px 14px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%));
+    --shadow-3: 0 -1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+                0 1px 2px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+                0 2px 5px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+                0 4px 12px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
+                0 12px 15px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
+    --ease-3: cubic-bezier(.25, 0, .3, 1);
+    --radius-2: 5px;
+    --radius-3: 1rem;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Calibri', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0 0.6in 0.5in;
+    background: #f7f9fb;
+  }
+
+  .doc-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #1a5276;
+  }
+  .doc-header h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #1a5276;
+    margin-bottom: 2px;
+  }
+  .doc-header .subtitle {
+    font-size: 11pt;
+    color: #555;
+    font-style: italic;
+  }
+
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a5276;
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: none;
+    position: relative;
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #1a5276, #2e86c1);
+    border-radius: 2px;
+  }
+
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 16px 0 6px;
+  }
+
+  p, li {
+    font-size: 10pt;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9pt;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #1a5276;
+    color: #fff;
+    font-weight: 700;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  tr:nth-child(even) { background: #f4f8fb; }
+
+  /* Highlight boxes */
+  .callout {
+    background: #fef9e7;
+    border: 1px solid #f0d66e;
+    border-left: 4px solid #f0d66e;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #6b5900;
+    line-height: 1.5;
+  }
+  .callout-red {
+    background: #fdedec;
+    border: 1px solid #e6b0aa;
+    border-left: 4px solid #c0392b;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #78281f;
+    line-height: 1.5;
+  }
+  .callout-blue {
+    background: #eaf2f8;
+    border: 1px solid #aed6f1;
+    border-left: 4px solid #2e86c1;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #1a5276;
+    line-height: 1.5;
+  }
+  .callout-green {
+    background: #eafaf1;
+    border: 1px solid #a9dfbf;
+    border-left: 4px solid #27ae60;
+    border-radius: var(--radius-2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 10pt;
+    color: #1e8449;
+    line-height: 1.5;
+  }
+
+  .overview {
+    background: #fff;
+    border-left: 4px solid #1a5276;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 10pt;
+    line-height: 1.6;
+    border-radius: 0 var(--radius-2) var(--radius-2) 0;
+    box-shadow: var(--shadow-2);
+  }
+
+  /* SmolCSS auto-fit grid pattern (MIT) — red-flag cards */
+  .redflag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .redflag-card {
+    background: #fff;
+    border-radius: var(--radius-3);
+    padding: 20px;
+    box-shadow: var(--shadow-2);
+    border-left: 4px solid #c0392b;
+    transition: transform 180ms var(--ease-3), box-shadow 180ms var(--ease-3);
+  }
+  .redflag-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-3);
+  }
+  .redflag-title {
+    font-weight: 700;
+    color: #c0392b;
+    font-size: 10pt;
+    margin-bottom: 6px;
+  }
+  .redflag-desc {
+    font-size: 9.5pt;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  /* Checklist styling */
+  .checklist {
+    list-style: none;
+    padding-left: 0;
+    margin: 12px 0;
+    counter-reset: checklist-counter;
+  }
+  .checklist li {
+    counter-increment: checklist-counter;
+    background: #fff;
+    border-radius: var(--radius-2);
+    padding: 12px 16px 12px 48px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow-2);
+    position: relative;
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+  .checklist li::before {
+    content: counter(checklist-counter);
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #1a5276;
+    color: #fff;
+    font-size: 9pt;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  /* Incident steps */
+  .incident-steps {
+    list-style: none;
+    padding-left: 0;
+    margin: 12px 0;
+  }
+  .incident-steps li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 10pt;
+  }
+  .incident-steps li:last-child { border-bottom: none; }
+  .step-label {
+    font-weight: 700;
+    color: #1a5276;
+    text-transform: uppercase;
+    font-size: 9pt;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    width: 80px;
+  }
+
+  .note {
+    font-size: 9pt;
+    color: #666;
+    font-style: italic;
+    margin: 8px 0;
+  }
+
+  .doc-footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 14px;
+    border-top: 2px solid #1a5276;
+    font-size: 9pt;
+    color: #777;
+  }
+
+  a { color: #1a5276; }
+
+  /* SmolCSS reduced-motion pattern (MIT) */
+  @media (prefers-reduced-motion: reduce) {
+    .redflag-card { transition-duration: 0.01ms !important; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px 24px; }
+    .redflag-grid { grid-template-columns: 1fr; }
+    .checklist li { padding-left: 44px; }
+    .checklist li::before { left: 10px; }
+    .step-label { width: 64px; font-size: 8pt; }
+  }
+</style>
+</head>
+<body>
+
+<a href="../#portfolio" style="display: inline-block; margin: 16px 0 20px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
+
+<div class="doc-header">
+  <h1>Employee Security Training for Small Businesses</h1>
+  <div class="subtitle">Your network is only as strong as the person using it</div>
+</div>
+
+<div class="overview">
+  <strong>Why this training exists:</strong> PCI DSS Requirement 12.6 mandates annual security awareness training for all personnel who interact with cardholder data or the systems that handle it. This is not optional &mdash; it is a compliance requirement. If your business accepts credit cards, every employee who touches a register, a workstation, or the business network needs to complete this training. Failure to train your staff is a finding on your Self-Assessment Questionnaire and can result in non-compliance penalties from your acquiring bank.
+</div>
+
+
+<!-- 1. Phishing -->
+<h2>How to Spot a Phishing Email</h2>
+
+<p>Phishing is the most common way attackers get into small business networks. They send emails designed to look legitimate &mdash; from your bank, your payment processor, your boss &mdash; hoping you will click a link, open an attachment, or hand over your credentials. One wrong click can compromise the entire business.</p>
+
+<h3>Red flags to watch for</h3>
+
+<div class="redflag-grid">
+  <div class="redflag-card">
+    <div class="redflag-title">Urgent or threatening language</div>
+    <div class="redflag-desc">"Your account will be closed in 24 hours" or "Immediate action required." Real companies do not threaten you via email. Urgency is designed to make you act before you think.</div>
+  </div>
+  <div class="redflag-card">
+    <div class="redflag-title">Sender address mismatch</div>
+    <div class="redflag-desc">The display name says "Amazon Support" but the actual email address is support@amaz0n-security.com. Always check the full email address, not just the name shown in your inbox.</div>
+  </div>
+  <div class="redflag-card">
+    <div class="redflag-title">Generic greeting</div>
+    <div class="redflag-desc">"Dear Customer" or "Dear User" instead of your actual name. Legitimate companies that have your account know your name and use it.</div>
+  </div>
+  <div class="redflag-card">
+    <div class="redflag-title">Suspicious links</div>
+    <div class="redflag-desc">Hover over any link before clicking it. If the URL doesn't match the company it claims to be from &mdash; or if it's a string of random characters &mdash; don't click it.</div>
+  </div>
+  <div class="redflag-card">
+    <div class="redflag-title">Unexpected attachments</div>
+    <div class="redflag-desc">Be especially cautious with .zip, .exe, or Office files that ask you to "enable macros." If you weren't expecting the file, don't open it.</div>
+  </div>
+  <div class="redflag-card">
+    <div class="redflag-title">Requests for credentials or card numbers</div>
+    <div class="redflag-desc">No legitimate company will ever ask you for your password, card number, or account credentials via email. This is always a scam &mdash; no exceptions.</div>
+  </div>
+</div>
+
+<div class="callout">
+  <strong>When in doubt, don't click.</strong> Contact the sender through a known channel &mdash; call the number on their official website, not the number in the email. Forward suspicious emails to your manager so they can alert the rest of the team.
+</div>
+
+
+<!-- 2. Social Engineering -->
+<h2>Social Engineering</h2>
+
+<p>Phishing is just one type of social engineering. Attackers also use phone calls (vishing), text messages (smishing), and in-person deception to manipulate employees into giving up information or access they shouldn't.</p>
+
+<h3>Common scenarios for small businesses</h3>
+
+<ul>
+  <li><strong>"I'm from your payment processor. I need to verify your merchant ID."</strong> &mdash; Your payment processor does not call you to verify your merchant ID. If someone claims to be from your processor, hang up and call the number on your processing statement.</li>
+  <li><strong>"I'm the new IT guy. I need the Wi-Fi password."</strong> &mdash; Verify through your manager before giving network credentials to anyone, even if they look the part. Attackers dress professionally and act confident.</li>
+  <li><strong>Tailgating through secured doors.</strong> &mdash; Someone follows an employee through a locked door without badging in. They may carry a box or look like a delivery driver to avoid suspicion. Every person needs their own access.</li>
+  <li><strong>"I left my card inside. Can you let me behind the counter?"</strong> &mdash; Never allow non-staff members into restricted areas, regardless of the story. Direct them to a manager.</li>
+</ul>
+
+<div class="callout-red">
+  <strong>The pattern is always the same.</strong> Social engineering works by exploiting trust and creating urgency. The attacker wants you to act fast and skip the verification step. The defense is simple: verify through a separate channel before acting on any request for access, credentials, or sensitive information.
+</div>
+
+
+<!-- 3. Password Hygiene -->
+<h2>Password Hygiene</h2>
+
+<p>Weak passwords are one of the easiest ways for an attacker to get in. PCI DSS 4.0 requires a minimum of 12 characters for all passwords. But length alone is not enough &mdash; how you manage your passwords matters just as much.</p>
+
+<h3>Rules every employee must follow</h3>
+
+<ul>
+  <li><strong>Never share your login with a coworker</strong> &mdash; not even temporarily. PCI DSS requires unique IDs for every user so that actions can be traced to individuals.</li>
+  <li><strong>Never write passwords on sticky notes, under keyboards, or taped to monitors.</strong> An auditor will find them. So will an attacker.</li>
+  <li><strong>Use the company password manager.</strong> Your employer provides one so you don't have to memorize anything beyond a single master password. (This ties into the technical controls covered in the hardening guide.)</li>
+  <li><strong>Never reuse work passwords on personal accounts.</strong> If your personal account gets breached, the attacker now has your work credentials too.</li>
+  <li><strong>If you think your password has been compromised, report it and change it immediately.</strong> Don't wait. Don't assume it's fine. Report it and reset it.</li>
+</ul>
+
+<table>
+  <thead>
+  <tr><th scope="col">Practice</th><th scope="col">Good</th><th scope="col">Bad</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>Password length</td><td>12+ characters, using a passphrase</td><td>8 characters or fewer</td></tr>
+  <tr><td>Storage</td><td>Company password manager</td><td>Sticky note, spreadsheet, text file</td></tr>
+  <tr><td>Sharing</td><td>Never &mdash; each person has their own login</td><td>"We all use the same POS login"</td></tr>
+  <tr><td>Reuse</td><td>Unique password for every account</td><td>Same password for work email and personal Netflix</td></tr>
+  <tr><td>Compromised password</td><td>Report immediately, change it now</td><td>"It's probably fine, I'll deal with it later"</td></tr>
+  <tr><td>Multi-factor authentication</td><td>Enabled on all accounts that support it</td><td>Disabled because it's "annoying"</td></tr>
+  </tbody>
+</table>
+
+<div class="callout-blue">
+  <strong>Your employer provides a password manager so you don't have to memorize anything.</strong> One master password, and the manager handles the rest. There is no excuse for sticky notes on a monitor or a shared login on the register.
+</div>
+
+
+<!-- 4. POS Tamper Checks -->
+<h2>POS Tamper Checks</h2>
+
+<p>Skimming attacks install small devices on card readers to steal card data as customers swipe, dip, or tap. These devices can be almost invisible &mdash; thin overlays on PIN pads, fake card slots, or tiny cameras aimed at the keypad. Your daily inspection is the first line of defense.</p>
+
+<h3>Daily inspection routine</h3>
+
+<ol class="checklist">
+  <li><strong>Wiggle the card reader.</strong> It should be firmly attached to the terminal, not loose or wobbly. A skimmer sits on top of or over the real reader and will feel different.</li>
+  <li><strong>Check the PIN pad.</strong> Feel for extra thickness, misaligned buttons, or anything that seems like an overlay sitting on top of the real pad.</li>
+  <li><strong>Inspect the cables.</strong> Look for anything spliced in, extra wires, or unfamiliar devices attached between the terminal and the wall or network connection.</li>
+  <li><strong>Compare to a reference photo.</strong> Keep a photo of what the terminal should look like when it's clean. Compare against it every shift. Differences are easier to spot side by side.</li>
+  <li><strong>Check for hidden cameras.</strong> Look for small holes or unusual objects pointed at the PIN pad &mdash; a tiny camera could be capturing PINs as customers type them.</li>
+  <li><strong>Inspect tamper-evident seals.</strong> Many terminals have security stickers over screw holes and seams. If a sticker shows "VOID," is torn, or looks like it has been peeled and reapplied, report it immediately.</li>
+</ol>
+
+<p class="note">This inspection takes about 30 seconds per terminal. Do it once per shift &mdash; at the start, before you process any transactions.</p>
+
+<div class="callout-red">
+  <strong>If anything looks wrong, do NOT continue using the terminal.</strong> Unplug it, report it to your manager, and switch to a backup device. Do not try to remove a suspected skimmer yourself &mdash; leave that to law enforcement or your payment processor's fraud team.
+</div>
+
+
+<!-- 5. Card Data Handling -->
+<h2>Card Data Handling</h2>
+
+<p>Card data is the most sensitive information your business handles. PCI DSS exists specifically to protect it. As an employee, your job is to make sure card data never leaves the POS system.</p>
+
+<h3>What you must NEVER do</h3>
+
+<ul>
+  <li><strong>Never write down a customer's card number</strong> &mdash; not on paper, not in a text message, not in an email, not in a chat. Nowhere.</li>
+  <li><strong>Never photograph a credit card.</strong> Not even "just to process it later." There is no safe way to store a photo of a card.</li>
+  <li><strong>Never process a transaction on a personal phone or device.</strong> Only use company-approved POS equipment.</li>
+  <li><strong>Never read a card number aloud</strong> in a way others can hear. If you need to verbally confirm digits with a customer, lower your voice and keep it between you and them.</li>
+  <li><strong>Never store card data anywhere other than the POS system.</strong> No spreadsheets, no notebooks, no "backup" files. The POS system handles encryption and tokenization &mdash; nothing else does.</li>
+</ul>
+
+<h3>What if a customer wants to pay over the phone?</h3>
+
+<p>If a customer asks you to take their card number over the phone, explain that you have secure alternatives available. Offer to send them a payment link, a hosted payment page, or ask them to come in person. Taking card numbers verbally and entering them manually creates compliance risk and puts the business in a higher PCI scope.</p>
+
+<div class="callout">
+  <strong>If you accidentally see or handle card data outside the POS system, report it.</strong> It is not a fireable offense to make a mistake. But hiding it is a compliance violation &mdash; and that creates real consequences for the business and for you.
+</div>
+
+
+<!-- 6. Physical Security -->
+<h2>Physical Security</h2>
+
+<p>Digital security means nothing if someone can walk up to an unlocked workstation or wander into your server room. Physical access is the fastest path to a breach.</p>
+
+<ul>
+  <li><strong>Lock your workstation every time you step away.</strong> Win+L on Windows. Cmd+Control+Q on Mac. Every time. Even if you're just walking to the back for 30 seconds.</li>
+  <li><strong>Don't let anyone you don't recognize behind the counter or into back-of-house areas.</strong> It doesn't matter what they're wearing or what they say they're there for.</li>
+  <li><strong>Challenge strangers in restricted areas.</strong> A simple "Can I help you find someone?" is enough. If they belong there, they'll have an answer. If they don't, you've just stopped a potential intrusion.</li>
+  <li><strong>Don't hold doors open for people you don't recognize.</strong> Tailgating is one of the oldest physical security attacks, and it works because people are polite.</li>
+  <li><strong>Keep server rooms and network closets locked at all times.</strong> Only authorized personnel should have keys or access codes.</li>
+  <li><strong>Shred before you trash.</strong> Any document with card data, customer information, or transaction records must be shredded before disposal. A dumpster is not a secure container.</li>
+</ul>
+
+
+<!-- 7. USB and Unknown Devices -->
+<h2>USB and Unknown Devices</h2>
+
+<p>If you find a USB drive in the parking lot, at the front counter, or "left by a customer" &mdash; do not plug it in. This is not hypothetical. It is a real attack technique called a USB drop, and it is specifically designed to exploit curiosity.</p>
+
+<ul>
+  <li><strong>Never plug in a USB drive you found.</strong> Not into your workstation, not into the POS terminal, not into your personal computer. Hand it to your manager.</li>
+  <li><strong>Only use company-approved devices.</strong> If you need a USB drive for work, your employer will provide one.</li>
+  <li><strong>Don't plug personal phone chargers into POS terminals or business computers.</strong> Use a wall outlet or a dedicated charging station. USB ports on business machines are data pathways, not power outlets.</li>
+</ul>
+
+<div class="callout">
+  <strong>"USB drop" attacks are real.</strong> Attackers leave infected drives in parking lots, restrooms, and lobbies where employees will find them. The malware executes the moment the drive is plugged in &mdash; no clicking required. Curiosity is the exploit.
+</div>
+
+
+<!-- 8. Safe Browsing and Wi-Fi -->
+<h2>Safe Browsing and Wi-Fi</h2>
+
+<p>How you use the business network matters. Every device connected to it is a potential entry point for an attacker &mdash; and every personal device that shouldn't be there expands the attack surface.</p>
+
+<ul>
+  <li><strong>Don't use personal email on work computers.</strong> Personal email is a common delivery mechanism for phishing and malware. Keep it on your phone, on the guest Wi-Fi.</li>
+  <li><strong>Don't download software without approval.</strong> Even something that seems harmless &mdash; a browser extension, a PDF tool, a "free" utility &mdash; could contain malware or create a vulnerability.</li>
+  <li><strong>Don't dismiss Windows Update or security alerts.</strong> Those updates patch known vulnerabilities. Clicking "remind me later" every day for three months is how systems get compromised.</li>
+  <li><strong>Personal phones go on the guest Wi-Fi, not the business network.</strong> Your manager or IT admin can give you the guest network password. The business network is for business devices only.</li>
+</ul>
+
+<div class="callout-blue">
+  <strong>The network is segmented into VLANs for a reason.</strong> Personal devices on the business network put the card reader in PCI scope &mdash; one compromised phone becomes a compliance problem for the entire business. Guest Wi-Fi exists so your personal devices have internet access without touching anything sensitive.
+</div>
+
+
+<!-- 9. Incident Reporting -->
+<h2>Incident Reporting</h2>
+
+<p>A security incident is anything that looks wrong, feels wrong, or breaks the rules covered in this training. You do not need to be certain something is an attack to report it. If something seems off, say something.</p>
+
+<h3>What counts as a security incident</h3>
+
+<ul>
+  <li>A POS terminal that looks tampered with or feels different than normal</li>
+  <li>A phishing email you clicked on &mdash; even if you didn't enter any information</li>
+  <li>A lost or stolen work device (laptop, tablet, phone used for business)</li>
+  <li>Suspicious login activity or an account that keeps getting locked out</li>
+  <li>A customer reporting unauthorized charges after visiting your business</li>
+  <li>Any violation of the rules in this training &mdash; yours or someone else's</li>
+</ul>
+
+<h3>What to do</h3>
+
+<ul class="incident-steps">
+  <li>
+    <span class="step-label">Stop</span>
+    <span>Don't try to fix it yourself. Don't investigate. Don't "see if it happens again." Stop what you're doing with the affected system.</span>
+  </li>
+  <li>
+    <span class="step-label">Report</span>
+    <span>Tell your manager immediately. Not in an hour, not at the end of your shift &mdash; now. Every minute of delay gives an attacker more time.</span>
+  </li>
+  <li>
+    <span class="step-label">Preserve</span>
+    <span>Don't delete anything. Don't clear your browser history. Don't unplug anything &mdash; unless it's a tampered POS terminal, in which case unplug it and set it aside.</span>
+  </li>
+  <li>
+    <span class="step-label">Document</span>
+    <span>Write down what happened, when it happened, and exactly what you observed. Details matter for the investigation that follows.</span>
+  </li>
+</ul>
+
+<div class="callout-green">
+  <strong>Reporting an incident is never a bad thing.</strong> The bad thing is knowing about a problem and not saying anything. You will not get in trouble for reporting a false alarm &mdash; you will get in trouble for sitting on a real one. Every minute of delay gives an attacker more time to move through the network.
+</div>
+
+
+<!-- 10. Training Schedule -->
+<h2>Training Schedule</h2>
+
+<p>PCI DSS requires annual security awareness training, but annual is the bare minimum. Best practice is quarterly refreshers &mdash; short sessions that reinforce the key points and cover any new threats.</p>
+
+<ul>
+  <li><strong>New employees:</strong> Security training on day one, before they touch any system, any register, or any workstation. No exceptions.</li>
+  <li><strong>Annual requirement:</strong> Every employee completes full training once per year. This is what PCI assessors check for.</li>
+  <li><strong>Quarterly refreshers:</strong> Brief sessions covering new phishing techniques, recent incidents, or reminders on specific topics like tamper checks or password hygiene.</li>
+  <li><strong>After any incident:</strong> Immediate refresher training for the affected team. If something went wrong, make sure everyone understands what happened and how to prevent it next time.</li>
+  <li><strong>Keep records:</strong> Document who completed training and when. Your PCI assessor or acquiring bank will ask for proof. A sign-in sheet or training log is sufficient.</li>
+</ul>
+
+<div class="callout-blue">
+  <strong>This training is one piece of a larger security program.</strong> For the technical controls that support these practices &mdash; network segmentation, firewall rules, system hardening &mdash; see <a href="pci-hardening-basics.html" style="font-weight: 600;">PCI Hardening Basics</a>. To understand the business case for why all of this matters, see <a href="pci-compliance-case-study.html" style="font-weight: 600;">The Importance of PCI Compliance</a>.
+</div>
+
+<div style="margin: 36px 0 20px; padding: 20px 24px; background: #f0f6fb; border-radius: 8px; border-left: 4px solid #1a5276; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 9.5pt;">
+  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">PCI Compliance Series</div>
+  <div style="margin-bottom: 4px;"><a href="pci-compliance-case-study.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 1: The Importance of PCI Compliance</a> &mdash; <span style="color: #666;">Breach costs, compliance tiers, the business case</span></div>
+  <div style="margin-bottom: 4px;"><a href="network-topology-v2.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 2: PCI-Compliant Network Roadmap</a> &mdash; <span style="color: #666;">Equipment, VLANs, firewall rules</span></div>
+  <div style="margin-bottom: 4px;"><a href="pci-hardening-basics.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 3: PCI Hardening Basics</a> &mdash; <span style="color: #666;">Endpoint protection, passwords, POS security</span></div>
+  <div><strong style="color: #1a5276;">&#9656; Part 4: Employee Security Training</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
+</div>
+
+<div class="doc-footer">
+  Erin Fernando &nbsp;&mdash;&nbsp; <a href="https://erinfernando.com" style="color: inherit; text-decoration: none;">erinfernando.com</a> &nbsp;&mdash;&nbsp; Employee Security Training for Small Businesses &nbsp;&mdash;&nbsp; &copy; 2026
+</div>
+
+</body>
+</html>
