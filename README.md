@@ -4,10 +4,17 @@ Personal portfolio and resume site showcasing network architecture, security doc
 
 ## Contents
 
-- **Resume** — Downloadable PDF with SHA-256 integrity hash
-- **Network Topology v1** — First-draft PCI-compliant network for a small business
-- **Network Topology v2** — Revised architecture with isolated VoIP and printer VLANs
-- **Operation: Casita Unwired** — Point-to-point wireless bridge deployment (Ubiquiti airMAX)
+### Portfolio
+- **Project: Nightingale** — Live failure analytics dashboard for AI agent workflows
+- **Operation: LAN Before Time** — Point-to-point wireless bridge deployment (Ubiquiti airMAX)
+- **The Importance of PCI Compliance** — Breach costs, compliance tiers, the business case
+- **Small Business Network Topology** — Network diagram and firewall rules for PCI compliance
+
+### Blog
+- **PCI-Compliant Network Roadmap** — VLAN segmentation, firewall rules, equipment budget
+- **PCI Hardening Basics** — Endpoint protection with Windows and macOS tabs
+- **Employee Security Training** — Phishing, social engineering, incident response
+- **Ransomware Backup Strategy** — Three-tier backup with encrypted SSD rotation
 
 ## Built With
 
