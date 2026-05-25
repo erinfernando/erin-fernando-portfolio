@@ -504,6 +504,20 @@
 
   @media (max-width: 640px) {
     body { padding: 0 16px 24px; }
+    .subnav-links {
+      display: none !important;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: #0d2b3e;
+      flex-direction: column;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .subnav-links.open { display: flex !important; }
+    .subnav-links a { padding: 12px 24px !important; }
+    nav button { display: block !important; }
     .stat-row { grid-template-columns: 1fr 1fr; gap: 10px; }
     .stat-row.row-3 { grid-template-columns: 1fr 1fr; }
     .fine-label { width: 72px; font-size: 8.5pt; }
@@ -549,6 +563,7 @@
   }
 
   @media print {
+    nav,
     .download-section,
     a[href*="#portfolio"] {
       display: none !important;
@@ -598,7 +613,19 @@
 </head>
 <body>
 
-<a href="../#portfolio" style="display: inline-block; margin: 16px 0 20px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Portfolio</a>
+<nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
+  <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
+  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div style="display: flex; gap: 4px;" class="subnav-links">
+    <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
+    <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
+    <a href="../#blog" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Blog</a>
+    <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
+    <a href="../#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
+    <a href="../#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
+    <a href="../#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
+  </div>
+</nav>
 
 <div class="doc-header">
   <h1>The Importance of PCI Compliance</h1>
@@ -776,13 +803,13 @@
   <tr><td>SMBs that experienced a breach in the past year</td><td>61%</td><td>Industry surveys</td></tr>
   <tr><td>Ransomware involvement in SMB breaches</td><td>88%</td><td>Verizon 2025 DBIR</td></tr>
   <tr><td>Ransomware in large enterprise breaches</td><td>39%</td><td>Verizon 2025 DBIR</td></tr>
-  <tr><td>Average time to detect a breach</td><td>181 days</td><td>IBM 2025</td></tr>
-  <tr><td>Average time to contain after detection</td><td>60 days</td><td>IBM 2025</td></tr>
+  <tr><td>Average time to detect a breach</td><td>158 days</td><td>IBM 2025</td></tr>
+  <tr><td>Average time to contain after detection</td><td>83 days</td><td>IBM 2025</td></tr>
   </tbody>
 </table>
 
 <div class="callout">
-  <strong>Key insight:</strong> Small businesses face a higher rate of ransomware attacks (88%) than large enterprises (39%), yet have fewer resources to recover. The average breach goes undetected for 6 months &mdash; by the time it's found, the damage is done.
+  <strong>Key insight:</strong> Small businesses face a higher rate of ransomware attacks (88%) than large enterprises (39%), yet have fewer resources to recover. The average breach goes undetected for over 5 months &mdash; by the time it's found, the damage is done.
 </div>
 
 <!-- Compliance Costs by Tier -->
@@ -1048,11 +1075,12 @@
 </div>
 
 <div style="margin: 36px 0 20px; padding: 20px 24px; background: #f0f6fb; border-radius: 8px; border-left: 4px solid #1a5276; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 9.5pt;">
-  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">PCI Compliance Series</div>
+  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">Guide To: PCI Compliance</div>
   <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 1: The Importance of PCI Compliance</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
   <div style="margin-bottom: 4px;"><a href="pci-network-roadmap.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 2: PCI-Compliant Network Roadmap</a> &mdash; <span style="color: #666;">Equipment, VLANs, firewall rules</span></div>
-  <div style="margin-bottom: 4px;"><a href="pci-hardening-basics.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 3: PCI Hardening Basics</a> &mdash; <span style="color: #666;">Endpoint protection, passwords, POS security</span></div>
-  <div style="margin-bottom: 4px;"><a href="employee-security-training.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 4: Employee Security Training</a> &mdash; <span style="color: #666;">Phishing, social engineering, incident reporting</span></div>
+  <div style="margin-bottom: 4px;"><a href="firewall-rules-v2.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 3: Firewall &amp; VLAN Rules</a> &mdash; <span style="color: #666;">VLAN segmentation, inter-zone policies, DNS filtering</span></div>
+  <div style="margin-bottom: 4px;"><a href="pci-hardening-basics.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 4: PCI Hardening Basics</a> &mdash; <span style="color: #666;">Endpoint protection, passwords, POS security</span></div>
+  <div style="margin-bottom: 4px;"><a href="employee-security-training.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 5: Employee Security Training</a> &mdash; <span style="color: #666;">Phishing, social engineering, incident reporting</span></div>
   <div><a href="ransomware-backup-strategy.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Companion: Ransomware Backup Strategy</a> &mdash; <span style="color: #666;">Three-tier backup, encrypted SSDs, calendar reminders</span></div>
 </div>
 
@@ -1076,6 +1104,8 @@
   </script>
   <div class="pdf-hash">SHA-256: 8FD28C447E25D5A79505A372BBA046BCDFACC4A976FBB5F50C74908498BE71F4</div>
 </div>
+
+<p class="note" style="max-width: 680px; margin: 32px auto 0; padding: 14px 18px; background: #f4f8fb; border-left: 4px solid #1a5276; border-radius: 4px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #5d6d7e; line-height: 1.6;">This guide is provided for educational and portfolio purposes. It reflects general best practices and does not constitute professional security consulting for your specific environment. Consult a qualified professional for your business&rsquo;s security needs.</p>
 
 <div class="doc-footer">
   Erin Fernando &nbsp;&mdash;&nbsp; <a href="https://erinfernando.com" style="color: inherit; text-decoration: none;">erinfernando.com</a> &nbsp;&mdash;&nbsp; The Importance of PCI Compliance &nbsp;&mdash;&nbsp; &copy; 2026

@@ -233,8 +233,26 @@
   .matrix-table .no { background: #fdedec; color: #c0392b; font-weight: 700; }
   .matrix-table .self { background: #f4f4f4; color: #999; }
 
+  @media (max-width: 640px) {
+    .subnav-links {
+      display: none !important;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: #0d2b3e;
+      flex-direction: column;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .subnav-links.open { display: flex !important; }
+    .subnav-links a { padding: 12px 24px !important; }
+    nav button { display: block !important; }
+  }
+
   @media print {
     body { padding: 0; }
+    nav { display: none; }
     .page-break { page-break-before: always; }
   }
 </style>
@@ -243,18 +261,27 @@
 
 <nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
   <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
-  <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">&larr; Back to Portfolio</a>
+  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div style="display: flex; gap: 4px;" class="subnav-links">
+    <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
+    <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
+    <a href="../#blog" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Blog</a>
+    <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
+    <a href="../#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
+    <a href="../#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
+    <a href="../#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
+  </div>
 </nav>
 
 <div style="background: #f4f8fb; border: 1px solid #c5d5e4; border-radius: 4px; padding: 12px 16px; margin: 0 0 16px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #2c3e50; line-height: 1.5;">
-  <strong>Note:</strong> This is a first draft of the firewall configuration. The production rules have since been redesigned, so this version is no longer in use and is safe to publish. <a href="firewall-rules-v2.html" style="color: #1a5276; font-weight: 600;">View the revised version (v2) &rarr;</a>
+  <strong>Note:</strong> This is an initial draft of the firewall configuration. The production rules have since been redesigned, so this version is no longer in use and is safe to publish. <a href="firewall-rules-v2.html" style="color: #1a5276; font-weight: 600;">View the expanded ruleset &rarr;</a>
 </div>
 
 <div class="doc-header">
   <h1>Firewall &amp; VLAN Rules</h1>
   <div class="subtitle">Small Business</div>
   <div class="meta">Approximated from deployed network topology &mdash; Not a live configuration export</div>
-  <div style="display: inline-block; background: #777; color: #fff; font-size: 8.5pt; font-weight: 700; padding: 2px 10px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px;">v1 &mdash; First Draft</div>
+  <div style="display: inline-block; background: #777; color: #fff; font-size: 8.5pt; font-weight: 700; padding: 2px 10px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px;">Initial Draft</div>
 </div>
 
 <div class="overview">

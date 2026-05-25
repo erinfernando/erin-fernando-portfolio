@@ -331,12 +331,16 @@ section h2 {
   padding: 2px 8px;
   border-radius: 3px;
   margin-bottom: 10px;
+  margin-right: 6px;
 }
 .portfolio-card .part-label--ransomware {
   background: #c0392b;
 }
-.portfolio-card .part-label--training {
-  background: #27ae60;
+.portfolio-card .part-label--all-sizes {
+  background: #138d75;
+}
+.portfolio-card .part-label--small-biz {
+  background: #b7770a;
 }
 .version-tag {
   font-size: 15px;

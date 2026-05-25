@@ -8,8 +8,8 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
-<meta name="description" content="Employee security awareness training guide for small businesses pursuing PCI compliance. Covers phishing, social engineering, password hygiene, POS tamper checks, and incident reporting. By Erin Fernando.">
-<title>Employee Security Training for Small Businesses | Erin Fernando</title>
+<meta name="description" content="Employee security awareness training guide for PCI compliance. Covers phishing, social engineering, password hygiene, POS tamper checks, and incident reporting. By Erin Fernando.">
+<title>Employee Security Training | Erin Fernando</title>
 <style>
   @page {
     size: letter;
@@ -61,6 +61,8 @@
     font-size: 11pt;
     color: #555;
     font-style: italic;
+    max-width: 540px;
+    margin: 0 auto;
   }
 
   h2 {
@@ -298,63 +300,116 @@
 
   @media (max-width: 640px) {
     body { padding: 0 16px 24px; }
+    .subnav-links {
+      display: none !important;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: #0d2b3e;
+      flex-direction: column;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .subnav-links.open { display: flex !important; }
+    .subnav-links a { padding: 12px 24px !important; }
+    nav button { display: block !important; }
     .redflag-grid { grid-template-columns: 1fr; }
     .checklist li { padding-left: 44px; }
     .checklist li::before { left: 10px; }
     .step-label { width: 64px; font-size: 8pt; }
   }
+
+  @media print {
+    nav { display: none; }
+  }
 </style>
 </head>
 <body>
 
-<a href="../#blog" style="display: inline-block; margin: 16px 0 20px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Blog</a>
+<nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
+  <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
+  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div style="display: flex; gap: 4px;" class="subnav-links">
+    <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
+    <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
+    <a href="../#blog" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Blog</a>
+    <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
+    <a href="../#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
+    <a href="../#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
+    <a href="../#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
+  </div>
+</nav>
 
 <div class="doc-header">
-  <h1>Employee Security Training for Small Businesses</h1>
-  <div class="subtitle">Your network is only as strong as the person using it</div>
+  <h1>Employee Security Training</h1>
+  <div class="subtitle">Because I don&rsquo;t care how long the password is or how secure the firewall is if employees just start plugging in random USB sticks they found in the parking lot.</div>
 </div>
 
-<div class="overview">
-  <strong>Why this training exists:</strong> PCI DSS Requirement 12.6 mandates annual security awareness training for all personnel who interact with cardholder data or the systems that handle it. This is not optional &mdash; it is a compliance requirement. If your business accepts credit cards, every employee who touches a register, a workstation, or the business network needs to complete this training. Failure to train your staff is a finding on your Self-Assessment Questionnaire and can result in non-compliance penalties from your acquiring bank.
-</div>
+<h2>Why This Training Exists</h2>
+
+<p>If your business accepts credit cards, every employee who touches a register, a workstation, or the business network needs this training. PCI DSS Requirement 12.6 says so &mdash; annually, no exceptions.</p>
+
+<p><em>Just kidding.</em> You should be training every single employee how to do these things. It&rsquo;s free real estate. If I offered you a free house, are you really gonna turn it down because it doesn&rsquo;t come furnished? No! Do the free training.</p>
 
 
 <!-- 1. Phishing -->
 <h2>How to Spot a Phishing Email</h2>
 
-<p>Phishing is the most common way attackers get into small business networks. They send emails designed to look legitimate &mdash; from your bank, your payment processor, your boss &mdash; hoping you will click a link, open an attachment, or hand over your credentials. One wrong click can compromise the entire business.</p>
+<p>Phishing is everywhere. They see how much personal info and private data you have and they want you. <em>They want you bad.</em> They stoop so low as to spam your inbox, your phone, your mail, your Facebook, your dating apps, they&rsquo;ll even spam your grandma if they have to. And sadly, knowing all of that, we still have to venture out into the digital age and persist. So protect yourself with tips, tricks, and tools. You won&rsquo;t be able to read minds, but you can read the Reply-To: and hit the &ldquo;Report Spam&rdquo; button, can&rsquo;t you?</p>
 
-<h3>Red flags to watch for</h3>
+<p>Phishing emails are a lot like dating. You&rsquo;re gonna see a lot of <em>red flags.</em> Here are some to watch out for:</p>
 
-<div class="redflag-grid">
-  <div class="redflag-card">
-    <div class="redflag-title">Urgent or threatening language</div>
-    <div class="redflag-desc">"Your account will be closed in 24 hours" or "Immediate action required." Real companies do not threaten you via email. Urgency is designed to make you act before you think.</div>
+<h3>Urgent or threatening language</h3>
+<p>&ldquo;Your account will be closed in 24 hours&rdquo; or &ldquo;Immediate action required.&rdquo; It&rsquo;s only urgent if it causes enough panic in your heart to send you running into the strong, firm embrace of your IT admin&rsquo;s inbox. If you&rsquo;re not scared enough to seek help, it ain&rsquo;t all that urgent. Don&rsquo;t let them fool you with scary words and meaningless language. If you&rsquo;re scared, don&rsquo;t worry, I&rsquo;ll wrap you in a warm Support Ticket and stoke the firewall &hearts;</p>
+
+<h3>Display names? More like Display <em>lies</em></h3>
+<p>Display Names, as you&rsquo;ve probably noticed from making your own, are entirely made up. You can put down anything your heart desires, can&rsquo;t you? Well the same freedom applies to spammers and grifters. They can and do change their display names to say things like &ldquo;Amazon Support&rdquo;; but they&rsquo;re <em>lying.</em> Go look at the Sent email address.</p>
+
+<div style="max-width: 420px; margin: 16px 0;">
+  <div style="display: flex; align-items: center; padding: 10px 14px; font-family: 'Segoe UI', 'Calibri', Arial, sans-serif; font-size: 10pt; color: #1a1a1a; background: #f4f8fb; border: 1px solid #c8d6e0; border-radius: 4px 4px 0 0; border-bottom: none;">
+    <span style="color: #1e8449; font-size: 13pt; margin-right: 10px;">&#10003;</span>
+    <input type="text" value="support@amazon.com" readonly style="border: none; background: transparent; font-family: inherit; font-size: inherit; color: inherit; width: 100%; cursor: default; outline: none;">
   </div>
-  <div class="redflag-card">
-    <div class="redflag-title">Sender address mismatch</div>
-    <div class="redflag-desc">The display name says "Amazon Support" but the actual email address is support@amaz0n-security.com. Always check the full email address, not just the name shown in your inbox.</div>
-  </div>
-  <div class="redflag-card">
-    <div class="redflag-title">Generic greeting</div>
-    <div class="redflag-desc">"Dear Customer" or "Dear User" instead of your actual name. Legitimate companies that have your account know your name and use it.</div>
-  </div>
-  <div class="redflag-card">
-    <div class="redflag-title">Suspicious links</div>
-    <div class="redflag-desc">Hover over any link before clicking it. If the URL doesn't match the company it claims to be from &mdash; or if it's a string of random characters &mdash; don't click it.</div>
-  </div>
-  <div class="redflag-card">
-    <div class="redflag-title">Unexpected attachments</div>
-    <div class="redflag-desc">Be especially cautious with .zip, .exe, or Office files that ask you to "enable macros." If you weren't expecting the file, don't open it.</div>
-  </div>
-  <div class="redflag-card">
-    <div class="redflag-title">Requests for credentials or card numbers</div>
-    <div class="redflag-desc">No legitimate company will ever ask you for your password, card number, or account credentials via email. This is always a scam &mdash; no exceptions.</div>
+  <div style="display: flex; align-items: center; padding: 10px 14px; font-family: 'Segoe UI', 'Calibri', Arial, sans-serif; font-size: 10pt; color: #1a1a1a; background: #f4f8fb; border: 1px solid #c8d6e0; border-radius: 0 0 4px 4px;">
+    <span style="color: #c0392b; font-size: 13pt; margin-right: 10px;">&#10007;</span>
+    <input type="text" value="support@amaz0n.com" readonly style="border: none; background: transparent; font-family: inherit; font-size: inherit; color: inherit; width: 100%; cursor: default; outline: none;">
   </div>
 </div>
 
+<p>Does it say &ldquo;support@amazon.com&rdquo; or does it actually say &ldquo;amaz0n.com&rdquo;?</p>
+
+<h3>What phishing actually looks like</h3>
+<p>These are not hypothetical. These are the kinds of emails that land in real inboxes every single day.</p>
+
+<ul>
+  <li><strong>&ldquo;ACTION REQUIRED: Verify your direct deposit information.&rdquo;</strong> &mdash; Looks like it came from HR. Same logo, same signature block, same font. But the Reply-To goes to a Gmail address. They&rsquo;re hoping you&rsquo;ll hand over your bank routing number before you notice.</li>
+</ul>
+
+<h3>Generic greetings</h3>
+<p>&ldquo;Dear Customer&rdquo; and &ldquo;Dear User&rdquo; are just Stranger Danger dressed up in a trench coat. Don&rsquo;t know my name? Then I don&rsquo;t need to know yours, <em>punk.</em> :D Stop wasting my time. My bank knows my <em>name</em> just fine. Even Reddit calls me by my fake internet name, like a gentleman. Don&rsquo;t fall for &ldquo;Dear Stranger.&rdquo;</p>
+
+<h3>Suspicious links</h3>
+<p>Hover the link to check it first. If you hover it for ~3-5 seconds, it should make a bar appear with the full link listed. If it says it&rsquo;s a link to Facebook but then the hover readout says &ldquo;http://www.superfakelink.com/fakeprofile25258922&rdquo; then it might be a scam. Why doesn&rsquo;t it take you to facebook.com? Because it&rsquo;s <em>lies</em>. Go back and check the Reply-To: and Sender email again. Still nothing but a suspicious link that makes you feel the grip of uncertainty? Everything is gonna be alright, we&rsquo;re here, let IT reassure you.</p>
+
+<h3>Attachment Styles</h3>
+<p>Everyone has a different attachment style. Some of us are stand-offish and send Word documents. Some of us are mature and use PDF. Others still, send OpenOffice files like degenerates. We&rsquo;re each different, but we are all vulnerable to attacks. Anything from .zip, .exe, to Office files asking for macro access. It&rsquo;s a jungle out there, so bring a machete named Antivirus. Never accept a download from an unexpected person, unexpected time, or unexpected source. Go ask the sender, through proper channels: &ldquo;Hey, did you send me this?&rdquo; It doesn&rsquo;t need to be complicated. From your boss to your bank, go ahead and circle back with them with known, secure means of communication to make sure. Don&rsquo;t ignore your gut. If you wanna page IT, it&rsquo;s okay. We just can&rsquo;t wait to hear your call.</p>
+
+<div class="callout" style="border-left-color: #555; background: #f9f9f9;">
+  <p style="margin: 0 0 8px; font-style: italic; color: #555;">&ldquo;Shared document: Q4 Budget Review.xlsx&rdquo;</p>
+  <p style="margin: 0 0 8px;">&ldquo;Oh look, an email from Steve,&rdquo; you think to yourself as you glance down at your phone. Wait. An email from Steve? The beginnings of a question form, but before you can finish thinking it, you glance up.</p>
+  <p style="margin: 0 0 8px;">There&rsquo;s Steve. He&rsquo;s talking to you right now.</p>
+  <p style="margin: 0 0 8px;"><em>Maybe he sent it earlier and it just took a second to get it? What a weird coincidence.</em></p>
+  <p style="margin: 0 0 8px;">With a nervous chuckle, you show him your phone and say &ldquo;Haha, look, you just emailed me!&rdquo;</p>
+  <p style="margin: 0 0 8px;">Steve glances at the phone. Then back at you.</p>
+  <p style="margin: 0; font-style: italic; color: #555;">A man who trusted the familiar face of a friend &mdash; only to find that trust had been borrowed by a stranger. A reminder that in the digital age, even Steve isn&rsquo;t always Steve. Filed under: cautionary tales&hellip; from the Twilight Zone.</p>
+</div>
+
+<h3>Requests for credentials or card numbers</h3>
+<p>That guy on the other end claiming to be tech support and he just needs to verify your identity to unlock your account? He&rsquo;s &mdash; and say it with me, class &mdash; <em>lying.</em> Your account isn&rsquo;t even locked right now. Hang. Up. The. Phone. If someone calls and says there&rsquo;s a problem, tell them you&rsquo;ll call back at the main line. If they&rsquo;re pushy, push back harder and fight dirty. Get super swamped with work &mdash; &ldquo;Oh no, someone just walked into my office, I have to go. I&rsquo;ll call the IT department main line later! Bye-sies!&rdquo; Buy yourself time to think over the interaction and form an opinion on what exactly they were asking of you. The IT department would never be so pushy with you. We respect your boundaries, boo. If it&rsquo;s giving &ldquo;odd&rdquo; or makes you furrow your brow, that&rsquo;s your threat detection system flagging it for investigation. Mull it over. Who did they say they were? Is there any proof of that claim that I can dig up? Where can I go to confirm this information independent from what that person said? Well, if the &ldquo;bank&rdquo; sends you an email about locking your account, look on the back of your card and call their hotline. If &ldquo;IT&rdquo; calls and needs your passwords, you should reject this call; IT already has access to your account. Contact the real IT department to make a report.</p>
+
 <div class="callout">
-  <strong>When in doubt, don't click.</strong> Contact the sender through a known channel &mdash; call the number on their official website, not the number in the email. Forward suspicious emails to your manager so they can alert the rest of the team.
+  <strong>When in doubt, don't click.</strong> Contact the sender through a known channel &mdash; call the number on their official website, not the number in the email. Call me, beep me, if you wanna reach IT. Whenever you need IT &mdash; it doesn&rsquo;t matter where or when there&rsquo;s trouble.
 </div>
 
 
@@ -363,13 +418,13 @@
 
 <p>Phishing is just one type of social engineering. Attackers also use phone calls (vishing), text messages (smishing), and in-person deception to manipulate employees into giving up information or access they shouldn't.</p>
 
-<h3>Common scenarios for small businesses</h3>
+<h3>Common scenarios</h3>
 
 <ul>
   <li><strong>"I'm from your payment processor. I need to verify your merchant ID."</strong> &mdash; Your payment processor does not call you to verify your merchant ID. If someone claims to be from your processor, hang up and call the number on your processing statement.</li>
   <li><strong>"I'm the new IT guy. I need the Wi-Fi password."</strong> &mdash; Verify through your manager before giving network credentials to anyone, even if they look the part. Attackers dress professionally and act confident.</li>
-  <li><strong>Tailgating through secured doors.</strong> &mdash; Someone follows an employee through a locked door without badging in. They may carry a box or look like a delivery driver to avoid suspicion. Every person needs their own access.</li>
-  <li><strong>"I left my card inside. Can you let me behind the counter?"</strong> &mdash; Never allow non-staff members into restricted areas, regardless of the story. Direct them to a manager.</li>
+  <li><strong>Tailgating through secured doors.</strong> &mdash; Someone follows an employee through a locked door without badging in. They carry a box or look like a delivery driver to avoid suspicion.</li>
+  <li><strong>"I left my card inside. Can you let me behind the counter?"</strong> &mdash; A pretext to get into restricted areas. It works because people default to being helpful.</li>
 </ul>
 
 <div class="callout-red">
@@ -407,7 +462,7 @@
 </table>
 
 <div class="callout-blue">
-  <strong>Your employer provides a password manager so you don't have to memorize anything.</strong> One master password, and the manager handles the rest. There is no excuse for sticky notes on a monitor or a shared login on the register.
+  <strong>Day one: ask your manager for access to the company password manager.</strong> If the business does not have one yet, that is a conversation worth having. Free options exist. One master password replaces every sticky note, every shared login, and every &ldquo;I forgot&rdquo; call to IT.
 </div>
 
 
@@ -451,7 +506,7 @@
 
 <h3>What if a customer wants to pay over the phone?</h3>
 
-<p>If a customer asks you to take their card number over the phone, explain that you have secure alternatives available. Offer to send them a payment link, a hosted payment page, or ask them to come in person. Taking card numbers verbally and entering them manually creates compliance risk and puts the business in a higher PCI scope.</p>
+<p>If a customer wants to pay over the phone, do not take the card number. Send them a payment link or a hosted payment page instead. Taking card numbers verbally puts the business in a higher PCI scope &mdash; more auditing, more paperwork, more risk. There is no upside.</p>
 
 <div class="callout">
   <strong>If you accidentally see or handle card data outside the POS system, report it.</strong> It is not a fireable offense to make a mistake. But hiding it is a compliance violation &mdash; and that creates real consequences for the business and for you.
@@ -469,7 +524,7 @@
   <li><strong>Challenge strangers in restricted areas.</strong> A simple "Can I help you find someone?" is enough. If they belong there, they'll have an answer. If they don't, you've just stopped a potential intrusion.</li>
   <li><strong>Don't hold doors open for people you don't recognize.</strong> Tailgating is one of the oldest physical security attacks, and it works because people are polite.</li>
   <li><strong>Keep server rooms and network closets locked at all times.</strong> Only authorized personnel should have keys or access codes.</li>
-  <li><strong>Shred before you trash.</strong> Any document with card data, customer information, or transaction records must be shredded before disposal. A dumpster is not a secure container.</li>
+  <li><strong>Shred before you trash.</strong> Any document with card or customer data gets shredded, not tossed. See the Document Shredding Policy below for what counts and what kind of shredder to buy.</li>
 </ul>
 
 
@@ -485,7 +540,7 @@
 </ul>
 
 <div class="callout">
-  <strong>"USB drop" attacks are real.</strong> Attackers leave infected drives in parking lots, restrooms, and lobbies where employees will find them. The malware executes the moment the drive is plugged in &mdash; no clicking required. Curiosity is the exploit.
+  <strong>The malware executes the moment the drive is plugged in &mdash; no clicking required.</strong> There is no safe way to &ldquo;check what&rsquo;s on it.&rdquo; Hand it to your manager and let them deal with it.
 </div>
 
 
@@ -506,7 +561,48 @@
 </div>
 
 
-<!-- 9. Incident Reporting -->
+<!-- 9. Document Shredding Policy -->
+<h2>Document Shredding Policy</h2>
+
+<p>PCI DSS Requirement 9.4.6 requires that hard-copy materials containing cardholder data be destroyed when no longer needed, using a method that renders the data unrecoverable. For paper documents, that means a cross-cut shredder &mdash; not a strip-cut, and definitely not the recycling bin.</p>
+
+<h3>What must be shredded</h3>
+
+<ul>
+  <li><strong>Any document with card numbers, even partial.</strong> Receipts, transaction logs, handwritten notes, refund paperwork &mdash; if it has digits from a card number, it gets shredded.</li>
+  <li><strong>Customer information printouts.</strong> Names, addresses, phone numbers, email addresses tied to transactions.</li>
+  <li><strong>Old reports and statements.</strong> End-of-day reports, batch settlement printouts, monthly statements from your payment processor.</li>
+  <li><strong>Voided or declined transaction receipts.</strong> A voided receipt still has card data on it. Shred it.</li>
+  <li><strong>Anything you would not want a stranger reading.</strong> When in doubt, shred it. The shredder is cheaper than the breach.</li>
+</ul>
+
+<h3>Cross-cut vs. strip-cut</h3>
+
+<p>Strip-cut shredders slice paper into long ribbons. Those ribbons can be reassembled &mdash; it is tedious, but it has been done in real investigations. Cross-cut shredders cut in two directions, producing small confetti-like particles that are practically impossible to reconstruct. PCI compliance means cross-cut, P-3 or higher. That is more than enough teeth for a small business.</p>
+
+<h3>Recommended shredders</h3>
+
+<p>A compliant shredder is a one-time purchase under $50. These are budget-friendly options that handle paper, credit cards, staples, and paper clips:</p>
+
+<table>
+  <thead>
+  <tr><th scope="col">Model</th><th scope="col">Type</th><th scope="col">Sheets</th><th scope="col">Approx. Price</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>Bonsaii C237-B</td><td>Cross-cut</td><td>8</td><td>~$35</td></tr>
+  <tr><td>Amazon Basics 8-Sheet</td><td>Cross-cut</td><td>8</td><td>~$40</td></tr>
+  <tr><td>Aurora AU1230XA</td><td>Cross-cut (anti-jam)</td><td>12</td><td>~$45</td></tr>
+  </tbody>
+</table>
+
+<p class="note">All three shred credit cards and handle staples without requiring removal. Prices are approximate as of 2026 &mdash; verify current availability before purchasing.</p>
+
+<div class="callout-green">
+  <strong>This is one of the cheapest security upgrades you can make.</strong> A $35 cross-cut shredder next to the register or in the back office turns a compliance gap into a closed item. Buy one, plug it in, and train your staff to use it for anything with cardholder data. Done.
+</div>
+
+
+<!-- 10. Incident Reporting -->
 <h2>Incident Reporting</h2>
 
 <p>A security incident is anything that looks wrong, feels wrong, or breaks the rules covered in this training. You do not need to be certain something is an attack to report it. If something seems off, say something.</p>
@@ -515,7 +611,7 @@
 
 <ul>
   <li>A POS terminal that looks tampered with or feels different than normal</li>
-  <li>A phishing email you clicked on &mdash; even if you didn't enter any information</li>
+  <li>A phishing email &mdash; whether you clicked on it or not. Forward it to your manager.</li>
   <li>A lost or stolen work device (laptop, tablet, phone used for business)</li>
   <li>Suspicious login activity or an account that keeps getting locked out</li>
   <li>A customer reporting unauthorized charges after visiting your business</li>
@@ -544,11 +640,11 @@
 </ul>
 
 <div class="callout-green">
-  <strong>Reporting an incident is never a bad thing.</strong> The bad thing is knowing about a problem and not saying anything. You will not get in trouble for reporting a false alarm &mdash; you will get in trouble for sitting on a real one. Every minute of delay gives an attacker more time to move through the network.
+  <strong>You will not get in trouble for reporting a false alarm.</strong> You will get in trouble for sitting on a real one.
 </div>
 
 
-<!-- 10. Training Schedule -->
+<!-- 11. Training Schedule -->
 <h2>Training Schedule</h2>
 
 <p>PCI DSS requires annual security awareness training, but annual is the bare minimum. Best practice is quarterly refreshers &mdash; short sessions that reinforce the key points and cover any new threats.</p>
@@ -566,16 +662,19 @@
 </div>
 
 <div style="margin: 36px 0 20px; padding: 20px 24px; background: #f0f6fb; border-radius: 8px; border-left: 4px solid #1a5276; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 9.5pt;">
-  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">PCI Compliance Series</div>
+  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">Guide To: PCI Compliance</div>
   <div style="margin-bottom: 4px;"><a href="pci-compliance-case-study.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 1: The Importance of PCI Compliance</a> &mdash; <span style="color: #666;">Breach costs, compliance tiers, the business case</span></div>
   <div style="margin-bottom: 4px;"><a href="pci-network-roadmap.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 2: PCI-Compliant Network Roadmap</a> &mdash; <span style="color: #666;">Equipment, VLANs, firewall rules</span></div>
-  <div style="margin-bottom: 4px;"><a href="pci-hardening-basics.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 3: PCI Hardening Basics</a> &mdash; <span style="color: #666;">Endpoint protection, passwords, POS security</span></div>
-  <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 4: Employee Security Training</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
+  <div style="margin-bottom: 4px;"><a href="firewall-rules-v2.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 3: Firewall &amp; VLAN Rules</a> &mdash; <span style="color: #666;">VLAN segmentation, inter-zone policies, DNS filtering</span></div>
+  <div style="margin-bottom: 4px;"><a href="pci-hardening-basics.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 4: PCI Hardening Basics</a> &mdash; <span style="color: #666;">Endpoint protection, passwords, POS security</span></div>
+  <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 5: Employee Security Training</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
   <div><a href="ransomware-backup-strategy.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Companion: Ransomware Backup Strategy</a> &mdash; <span style="color: #666;">Three-tier backup, encrypted SSDs, calendar reminders</span></div>
 </div>
 
+<p class="note">This guide is provided for educational and portfolio purposes. It reflects general best practices and does not constitute professional security consulting for your specific environment. Consult a qualified professional for your business&rsquo;s security needs.</p>
+
 <div class="doc-footer">
-  Erin Fernando &nbsp;&mdash;&nbsp; <a href="https://erinfernando.com" style="color: inherit; text-decoration: none;">erinfernando.com</a> &nbsp;&mdash;&nbsp; Employee Security Training for Small Businesses &nbsp;&mdash;&nbsp; &copy; 2026
+  Erin Fernando &nbsp;&mdash;&nbsp; <a href="https://erinfernando.com" style="color: inherit; text-decoration: none;">erinfernando.com</a> &nbsp;&mdash;&nbsp; Employee Security Training &nbsp;&mdash;&nbsp; &copy; 2026
 </div>
 
 </body>

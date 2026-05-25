@@ -86,26 +86,27 @@
       <p>Extended internet to a detached building via rooftop wireless bridge &mdash; running unattended since 2017.</p>
       <span class="view-link">View documentation &rarr;</span>
     </a>
-    <a href="portfolio/pci-compliance-case-study.html" class="portfolio-card">
-      <h3>The Importance of PCI Compliance</h3>
-      <div class="tech">PCI DSS 4.0 &middot; Breach Analytics &middot; Compliance ROI</div>
-      <p>What compliance costs vs. what a breach costs. The business case for why security is a low-cost no-brainer.</p>
-      <span class="view-link">See for yourself &rarr;</span>
-    </a>
     <a href="portfolio/network-topology.html" class="portfolio-card">
       <h3>Small Business Network Topology</h3>
       <div class="tech">Network Architecture &middot; Firewall Rules &middot; VLAN Design</div>
       <p>Network diagram and firewall rule table designed for a PCI-compliant small business.</p>
       <span class="view-link">View topology &rarr;</span>
     </a>
+    <a href="portfolio/firewall-rules.html" class="portfolio-card">
+      <h3>Small Business Firewall Rules</h3>
+      <div class="tech">Zone-Based Firewall &middot; PCI DSS &middot; Inter-Zone Policy</div>
+      <p>Initial firewall ruleset for a PCI-compliant small business &mdash; zone-based policies covering POS, staff, guest, and management traffic.</p>
+      <span class="view-link">View rules &rarr;</span>
+    </a>
   </div>
 </section>
 
 <section id="blog">
   <h2>Blog</h2>
-  <h3 class="portfolio-series-header">PCI Compliance Series</h3>
+  <h3 class="portfolio-series-header">Guide To: PCI Compliance</h3>
   <div class="portfolio-grid">
     <a href="portfolio/pci-compliance-case-study.html" class="portfolio-card">
+      <div class="part-label part-label--all-sizes">For All Sizes</div>
       <div class="part-label">Part 1</div>
       <h3>The Importance of PCI Compliance</h3>
       <div class="tech">PCI DSS 4.0 &middot; Breach Analytics &middot; Compliance ROI</div>
@@ -113,27 +114,39 @@
       <span class="view-link">See for yourself &rarr;</span>
     </a>
     <a href="portfolio/pci-network-roadmap.html" class="portfolio-card">
+      <div class="part-label part-label--small-biz">Small Business</div>
       <div class="part-label">Part 2</div>
       <h3>PCI-Compliant Network Roadmap</h3>
       <div class="tech">VLANs &middot; Firewall Rules &middot; Equipment Budget</div>
       <p>A simple, affordable roll-out strategy for small businesses that handle card transactions &mdash; budget-friendly equipment, easy to implement.</p>
       <span class="view-link">View roadmap &rarr;</span>
     </a>
-    <a href="portfolio/pci-hardening-basics.html" class="portfolio-card">
+    <a href="portfolio/firewall-rules-v2.html" class="portfolio-card">
+      <div class="part-label part-label--small-biz">Small Business</div>
       <div class="part-label">Part 3</div>
+      <h3>Firewall &amp; VLAN Rules</h3>
+      <div class="tech">Firewall Policy &middot; VLAN Segmentation &middot; Inter-VLAN Routing &middot; PCI DSS</div>
+      <p>Complete firewall ruleset with VLAN segmentation, inter-zone policies, and DNS filtering for a PCI-compliant small business.</p>
+      <span class="view-link">View rules &rarr;</span>
+    </a>
+    <a href="portfolio/pci-hardening-basics.html" class="portfolio-card">
+      <div class="part-label part-label--small-biz">Small Business</div>
+      <div class="part-label">Part 4</div>
       <h3>PCI Hardening Basics</h3>
       <div class="tech">Endpoint Protection &middot; VPN &middot; Password Policy &middot; Windows &amp; macOS Tabs</div>
       <p>Practical hardening guide with platform-specific recommendations for Windows and macOS &mdash; endpoint protection, VPN, password managers, POS tamper checks.</p>
       <span class="view-link">View guide &rarr;</span>
     </a>
     <a href="portfolio/employee-security-training.html" class="portfolio-card">
-      <div class="part-label">Part 4</div>
+      <div class="part-label part-label--small-biz">Small Business</div>
+      <div class="part-label">Part 5</div>
       <h3>Employee Security Training</h3>
       <div class="tech">Phishing &middot; Social Engineering &middot; Incident Response &middot; PCI Requirement 12.6</div>
       <p>Ready-to-use training outline for front-line staff &mdash; phishing, POS tamper checks, password hygiene, and what to do when something goes wrong.</p>
       <span class="view-link">View training guide &rarr;</span>
     </a>
     <a href="portfolio/ransomware-backup-strategy.html" class="portfolio-card">
+      <div class="part-label part-label--small-biz">Small Business</div>
       <div class="part-label part-label--ransomware">Ransomware</div>
       <h3>Ransomware Backup Strategy</h3>
       <div class="tech">Backup Tiers &middot; Encrypted SSDs &middot; Air-Gapped Storage &middot; Calendar Reminders</div>
@@ -200,7 +213,7 @@
     <p class="job-context">Meeting the various needs of an indoor/outdoor wedding space was often difficult. They needed nighttime maintenance, remote work, in-office installations, extensive Wi-Fi coverage.</p>
     <ul>
       <li>Inherited a network with zero security posture &mdash; shared passwords across all accounts, unattended POS hardware, no phishing awareness. Rotated every credential, established unique logins, and trained staff on phishing identification.</li>
-      <li>Deployed a full security stack across all endpoints &mdash; VLAN-capable firewall, site-to-site VPN, and managed antivirus. Segmented the network into VLANs for PCI compliance on card transactions.</li>
+      <li>Deployed a full security stack across all endpoints &mdash; VLAN-capable firewall, VPN, and managed antivirus. Segmented the network into VLANs for PCI compliance on card transactions.</li>
       <li>Conducted a Wi-Fi site survey to map coverage gaps and frequency conflicts, then upgraded to a higher-output access point &mdash; enabling reliable handheld payment processing during 200+ person outdoor events.</li>
       <li>I&rsquo;ve personally migrated over the Microsoft 365 licenses, OneDrive license and contents, Outlook contents, website files, email services, and domain services. Three times, overnight. Swapping between service providers every three years netted us $1,000/year in savings.</li>
       <li>Implemented OneDrive for regular operational backups, and an airgapped encrypted drive for ransomware protection.</li>

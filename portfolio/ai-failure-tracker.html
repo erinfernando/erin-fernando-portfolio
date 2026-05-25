@@ -608,23 +608,74 @@
     margin: 0 auto;
   }
 
-  @media (max-width: 600px) {
+  /* ── View Toggle ── */
+  .chart-view-toggle {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .view-btn {
+    padding: 6px 18px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text-light);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .view-btn:first-child { border-radius: 6px 0 0 6px; }
+  .view-btn:last-child { border-radius: 0 6px 6px 0; border-left: 0; }
+  .view-btn.active {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+
+
+
+  @media (max-width: 640px) {
     .page-header h1 { font-size: 24px; }
     .chart-wrap { height: 300px; }
     .cat-table td, .cat-table th { padding: 10px 12px; }
     .team-grid { grid-template-columns: 1fr; }
+    .subnav-links {
+      display: none !important;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: #0d2b3e;
+      flex-direction: column;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .subnav-links.open { display: flex !important; }
+    .subnav-links a { padding: 12px 24px !important; }
+    nav button { display: block !important; }
   }
 </style>
 </head>
 <body>
 
-<nav class="back-nav">
-  <a href="../">&larr; Back to Portfolio</a>
+<nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
+  <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
+  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div style="display: flex; gap: 4px;" class="subnav-links">
+    <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
+    <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
+    <a href="../#blog" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Blog</a>
+    <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
+    <a href="../#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
+    <a href="../#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
+    <a href="../#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
+  </div>
 </nav>
 
 <header class="page-header">
   <h1>Project: Nightingale</h1>
-  <p class="subtitle">Live process metrics for a multi-agent AI workflow</p>
+  <p class="subtitle">Live Metrics</p>
   <p class="updated" id="lastUpdated">Loading...</p>
 </header>
 
@@ -633,6 +684,10 @@
   <div class="chart-container">
     <h2 class="chart-title">Cumulative Incidents by Category</h2>
     <p class="chart-hint">Solid lines = with skills active. Dotted lines = baseline (before skills existed). Click a legend label to toggle both.</p>
+    <div class="chart-view-toggle">
+      <button class="view-btn active" data-view="cumulative">Cumulative</button>
+      <button class="view-btn" data-view="daily">Daily New</button>
+    </div>
     <div class="chart-wrap">
       <canvas id="failureChart"></canvas>
     </div>
@@ -647,7 +702,7 @@
       <li>Build out skills to automate routine tasks and functions for a small business.</li>
       <li>Help streamline complex processes into a formal structure.</li>
       <li>Limit-testing the capabilities of AI skillsets with a special focus on self-propulsion and organic growth.</li>
-      <li>Determine the veracity of AI skillsets for real-world application. Can AI reliably be used for XYZ archetype reliably?</li>
+      <li>Determine the veracity of AI skillsets for real-world application. Can AI reliably be used for each professional archetype?</li>
     </ul>
 
     <h3>Strategies:</h3>
@@ -661,7 +716,7 @@
       <li>Personas and Professions as a viewpoint enabled easier processing for gaps and scoping of responsibilities.</li>
       <li>Page was used to look into more automation strategies and gaps.</li>
       <hr class="how-list-break">
-      <li>Eventually developed an auditing system, compiled chats and tool-calls to have it process. Used the early stages of skill-less AI project developments as a baseline metric of performance.</li>
+      <li>Eventually developed an auditing system, compiled chats and tool-calls to have it process. Used these early stages of skill-less AI project development as a baseline metric of performance.</li>
       <li>From this auditing system, Project: Nightingale was born. She is tasked with the delicate art of being a nurse. She must decide if she is helping or harming, on the fly. In order to do this, metrics were developed. 10 primary categories of the broad strokes, and 11+ is for tracking in a more granular mode. The granular mode has also been built out with organic growth in mind. The 10 primary categories will stay the same over time; but the granular mode, by nature, will be a list of problems that are naturally rotated through with the passage of time. Scaling this for long-term use is critical for the development process to survive.</li>
       <li>Introduced the concept of Subconsciousness: F-Tier. I went down the skill tree and picked up Nightmares and Daydreaming, as well. We&rsquo;ll see how well this introduces dynamic learning and repeated problem aversion. Building it out will most likely require time.</li>
     </ul>
@@ -689,7 +744,7 @@
 
   <section class="team-section">
     <h2>The Team</h2>
-    <p class="section-desc">Every agent has a name, a personality, and a job. The names are fun. The accountability isn't. Accuracy ratings are calculated by Nightingale from real audit data — tasks completed vs. incidents attributed. You don't get a card until you've done real work.</p>
+    <p class="section-desc">These are AI agents, not employees. Every agent has a name, a personality, and a job. The names are fun. The accountability isn't. Accuracy ratings are calculated by Nightingale from real audit data — tasks completed vs. incidents attributed. You don't get a card until you've done real work.</p>
     <div class="team-grid" id="teamGrid">
       <!-- Populated by JS -->
     </div>
@@ -703,7 +758,7 @@
 </main>
 
 <footer>
-  &copy; 2026 Erin Fernando &mdash; Data updated automatically by Nightingale.
+  &copy; 2026 Erin Fernando &mdash; Data updated by Nightingale at the end of each work session.
 </footer>
 
 <script>
@@ -712,7 +767,26 @@
     .then(function(r) { return r.json(); })
     .then(function(data) {
       // Update header
-      document.getElementById('lastUpdated').textContent = 'Last updated: ' + data.lastUpdated;
+      var parts = data.lastUpdated.split('-');
+      var d = new Date(parts[0], parts[1] - 1, parts[2]);
+      var formatted = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      document.getElementById('lastUpdated').textContent = 'Last updated ' + formatted;
+
+      // Project baseline forward past observation period
+      // Baseline was only observed through baselineEnd (index 8 = 05/14).
+      // After that, extrapolate at the observed average daily rate so the
+      // dotted lines keep climbing — showing where you'd be WITHOUT skills.
+      var baselineEnd = data.baselineEnd || 8;
+      var catKeys = Object.keys(data.categories);
+      catKeys.forEach(function(key) {
+        var bl = data.categories[key].baseline;
+        if (!bl || baselineEnd >= bl.length - 1) return;
+        var endVal = bl[baselineEnd];
+        var rate = baselineEnd > 0 ? endVal / baselineEnd : 0;
+        for (var p = baselineEnd + 1; p < bl.length; p++) {
+          bl[p] = Math.round(endVal + rate * (p - baselineEnd));
+        }
+      });
 
       // Build datasets — two per category: solid (post-skill) + dotted (baseline)
       var datasets = [];
@@ -747,15 +821,30 @@
         });
       });
 
+      // Pre-compute data arrays for cumulative vs daily toggle
+      var cumulativeData = [];
+      var dailyData = [];
+      keys.forEach(function(key) {
+        var cat = data.categories[key];
+        var baseline = cat.baseline || cat.data.map(function() { return 0; });
+        cumulativeData.push(cat.data.slice());
+        cumulativeData.push(baseline.slice());
+        var deltas = cat.data.map(function(v, i) { return i === 0 ? v : v - cat.data[i - 1]; });
+        var baseDeltas = baseline.map(function(v, i) { return i === 0 ? v : v - baseline[i - 1]; });
+        dailyData.push(deltas);
+        dailyData.push(baseDeltas);
+      });
+      var dateLabels = data.dates.map(function(d) {
+        var parts = d.split('-');
+        return parts[1] + '/' + parts[2];
+      });
+
       // Create chart
       var ctx = document.getElementById('failureChart').getContext('2d');
       new Chart(ctx, {
         type: 'line',
         data: {
-          labels: data.dates.map(function(d) {
-            var parts = d.split('-');
-            return parts[1] + '/' + parts[2];
-          }),
+          labels: dateLabels,
           datasets: datasets
         },
         options: {
@@ -908,6 +997,34 @@
           '<td class="cat-count">' + total + '</td>';
         tbody.appendChild(tr);
       });
+
+      // ── Toggle: Cumulative ↔ Daily New ──
+      var toggleBtns = document.querySelectorAll('.view-btn');
+      for (var b = 0; b < toggleBtns.length; b++) {
+        toggleBtns[b].addEventListener('click', function() {
+          for (var k = 0; k < toggleBtns.length; k++) {
+            toggleBtns[k].classList.remove('active');
+          }
+          this.classList.add('active');
+          var view = this.getAttribute('data-view');
+          var chart = Chart.getChart('failureChart');
+          var source = (view === 'daily') ? dailyData : cumulativeData;
+          for (var j = 0; j < chart.data.datasets.length; j++) {
+            chart.data.datasets[j].data = source[j];
+          }
+          if (view === 'daily') {
+            chart.options.scales.y.title.text = 'New Incidents per Day';
+            chart.options.scales.y.ticks.stepSize = 2;
+            document.querySelector('.chart-title').textContent = 'Daily New Incidents by Category';
+          } else {
+            chart.options.scales.y.title.text = 'Cumulative Incidents';
+            chart.options.scales.y.ticks.stepSize = 5;
+            document.querySelector('.chart-title').textContent = 'Cumulative Incidents by Category';
+          }
+          chart.update();
+        });
+      }
+
     })
     .catch(function(err) {
       console.error('Failed to load tracker data:', err);

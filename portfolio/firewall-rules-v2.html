@@ -8,7 +8,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
-<title>Small Business Firewall &amp; VLAN Rules v2</title>
+<title>Small Business Firewall &amp; VLAN Rules</title>
 <style>
   @page {
     size: letter;
@@ -241,8 +241,26 @@
     text-align: center;
   }
 
+  @media (max-width: 640px) {
+    .subnav-links {
+      display: none !important;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: #0d2b3e;
+      flex-direction: column;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .subnav-links.open { display: flex !important; }
+    .subnav-links a { padding: 12px 24px !important; }
+    nav button { display: block !important; }
+  }
+
   @media print {
     body { padding: 0; }
+    nav { display: none; }
   }
 </style>
 </head>
@@ -250,22 +268,30 @@
 
 <nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
   <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
-  <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">&larr; Back to Portfolio</a>
+  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div style="display: flex; gap: 4px;" class="subnav-links">
+    <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
+    <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
+    <a href="../#blog" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Blog</a>
+    <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
+    <a href="../#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
+    <a href="../#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
+    <a href="../#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
+  </div>
 </nav>
 
 <div style="background: #f4f8fb; border: 1px solid #c5d5e4; border-radius: 4px; padding: 12px 16px; margin: 16px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #2c3e50; line-height: 1.5;">
-  <strong>Note:</strong> This is a revised ruleset based on the <a href="firewall-rules.html" style="color: #1a5276;">first draft</a>. This firewall strategy is no longer in production and is published here as a portfolio example of network security work.
+  <strong>Note:</strong> This firewall strategy is no longer in production and is published here as a portfolio example of network security work.
 </div>
 
 <div class="doc-header">
   <h1>Firewall &amp; VLAN Rules</h1>
   <div class="subtitle">Small Business</div>
-  <div class="meta">Revised ruleset &mdash; companion to <a href="pci-network-roadmap.html" style="color: #1a5276;">PCI-Compliant Network Roadmap</a></div>
-  <div class="version-badge">v2 &mdash; Revised Rules</div>
+  <div class="meta">Companion to <a href="pci-network-roadmap.html" style="color: #1a5276;">PCI-Compliant Network Roadmap</a></div>
 </div>
 
 <div class="overview" style="border-left-color: #2e86c1; margin-bottom: 12px;">
-  <strong>What changed from v1:</strong> In the first draft, VoIP phones and the printer shared VLAN 10 (Operations) with desktops. A compromised printer or phone had direct network access to workstations. This revision gives each device type its own VLAN and adds targeted firewall rules so desktops and laptops can still print across VLAN boundaries without opening up full access.
+  <strong>Design rationale:</strong> VoIP phones and printers get their own VLANs instead of sharing with desktops. A compromised printer or phone cannot reach workstations directly. Targeted firewall rules let desktops and laptops print across VLAN boundaries without opening up full access.
 </div>
 
 <div class="overview">
@@ -339,7 +365,7 @@
 <p class="note">DHCP ranges are intentionally narrow on Voice, Print, PCI, and AP Management VLANs to limit the number of devices that can obtain an address.</p>
 
 <div class="callout-blue">
-  <strong>New in v2:</strong> VLAN 15 (Voice) and VLAN 18 (Print) are broken out from the original Operations VLAN. Phones and printers no longer share a broadcast domain with workstations.
+  <strong>Design note:</strong> VLAN 15 (Voice) and VLAN 18 (Print) are broken out from the original Operations VLAN. Phones and printers no longer share a broadcast domain with workstations.
 </div>
 
 <h2>Inter-VLAN Traffic Matrix</h2>
@@ -553,7 +579,7 @@
 </div>
 
 <div class="callout-blue">
-  <strong>New in v2:</strong> Rules 3&ndash;4 isolate the Voice VLAN. Rules 7&ndash;9 create a controlled print path: desktops and laptops can send print jobs to the printer, but the printer itself cannot initiate connections to anything. In v1, the printer sat on the same VLAN as desktops &mdash; a compromised printer had direct access to workstations.
+  <strong>Design note:</strong> Rules 3&ndash;4 isolate the Voice VLAN. Rules 7&ndash;9 create a controlled print path: desktops and laptops can send print jobs to the printer, but the printer itself cannot initiate connections to anything. Without this separation, the printer would sit on the same VLAN as desktops &mdash; a compromised printer would have direct access to workstations.
 </div>
 
 <h2>Firewall Rules &mdash; Outbound (WAN)</h2>
@@ -686,7 +712,7 @@
 </div>
 
 <div class="callout-blue">
-  <strong>New in v2:</strong> VoIP traffic (SIP/RTP) moved from Ops outbound rules to Voice VLAN outbound (rules 3&ndash;4), locked to the VoIP provider only. The printer (rule 5) has no internet access at all &mdash; it only receives inbound print jobs from authorized VLANs.
+  <strong>Design note:</strong> VoIP traffic (SIP/RTP) moved from Ops outbound rules to Voice VLAN outbound (rules 3&ndash;4), locked to the VoIP provider only. The printer (rule 5) has no internet access at all &mdash; it only receives inbound print jobs from authorized VLANs.
 </div>
 
 <h2>Inbound Rules (WAN &rarr; LAN)</h2>
@@ -761,10 +787,22 @@
 </table>
 
 <div style="text-align: center; margin: 16px 0 4px 0;">
-  <a href="firewall-rules.html" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; View First Draft (v1)</a>
+  <a href="firewall-rules.html" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; View Initial Draft</a>
   &nbsp;&nbsp;&middot;&nbsp;&nbsp;
   <a href="pci-network-roadmap.html" style="font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">View PCI-Compliant Network Roadmap &rarr;</a>
 </div>
+
+<div style="margin: 36px 0 20px; padding: 20px 24px; background: #f0f6fb; border-radius: 8px; border-left: 4px solid #1a5276; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 9.5pt;">
+  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">Guide To: PCI Compliance</div>
+  <div style="margin-bottom: 4px;"><a href="pci-compliance-case-study.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 1: The Importance of PCI Compliance</a> &mdash; <span style="color: #666;">Breach costs, compliance tiers, the business case</span></div>
+  <div style="margin-bottom: 4px;"><a href="pci-network-roadmap.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 2: PCI-Compliant Network Roadmap</a> &mdash; <span style="color: #666;">Equipment, VLANs, firewall rules</span></div>
+  <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 3: Firewall &amp; VLAN Rules</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
+  <div style="margin-bottom: 4px;"><a href="pci-hardening-basics.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 4: PCI Hardening Basics</a> &mdash; <span style="color: #666;">Endpoint protection, passwords, POS security</span></div>
+  <div style="margin-bottom: 4px;"><a href="employee-security-training.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 5: Employee Security Training</a> &mdash; <span style="color: #666;">Phishing, social engineering, incident reporting</span></div>
+  <div><a href="ransomware-backup-strategy.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Companion: Ransomware Backup Strategy</a> &mdash; <span style="color: #666;">Three-tier backup, encrypted SSDs, calendar reminders</span></div>
+</div>
+
+<p class="note">This guide is provided for educational and portfolio purposes. It reflects general best practices and does not constitute professional security consulting for your specific environment. Consult a qualified professional for your business&rsquo;s security needs.</p>
 
 <div class="doc-footer">
   Erin Fernando &nbsp;&mdash;&nbsp; Network Documentation &nbsp;&mdash;&nbsp; Small Business

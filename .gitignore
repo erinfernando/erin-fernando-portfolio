@@ -11,3 +11,16 @@ desktop.ini
 
 # Local dev
 serve*.ps1
+.claude/
+
+# Test artifacts
+portfolio/test-weasyprint.pdf
+
+# Nightingale automation
+portfolio/nightingale-intake.jsonl
+scripts/nightingale-archive/
+scripts/nightingale-backups/
+scripts/nightingale-status.json
+scripts/nightingale-error.json
+scripts/.tracker-update.lock
+scripts/update-tracker.log

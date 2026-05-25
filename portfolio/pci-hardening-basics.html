@@ -262,14 +262,44 @@
 
   @media (max-width: 640px) {
     body { padding: 0 16px 24px; }
+    .subnav-links {
+      display: none !important;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: #0d2b3e;
+      flex-direction: column;
+      padding: 8px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .subnav-links.open { display: flex !important; }
+    .subnav-links a { padding: 12px 24px !important; }
+    nav button { display: block !important; }
     table { font-size: 8pt; }
     th, td { padding: 4px 6px; }
+  }
+
+  @media print {
+    nav { display: none; }
   }
 </style>
 </head>
 <body>
 
-<a href="../#blog" style="display: inline-block; margin: 16px 0 20px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10pt; color: #1a5276; text-decoration: none; font-weight: 600;">&larr; Return to Blog</a>
+<nav style="position: sticky; top: 0; z-index: 100; background: #0d2b3e; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: 'Segoe UI', system-ui, sans-serif; width: 100vw; margin-left: calc(-50vw + 50%);">
+  <a href="../" style="color: #fff; font-weight: 700; font-size: 18px; text-decoration: none;">Erin Fernando</a>
+  <button style="display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 8px;" onclick="var n=this.nextElementSibling;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <div style="display: flex; gap: 4px;" class="subnav-links">
+    <a href="../#about" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">About</a>
+    <a href="../#portfolio" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Portfolio</a>
+    <a href="../#blog" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Blog</a>
+    <a href="../#skills" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Skills</a>
+    <a href="../#experience" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Experience</a>
+    <a href="../#projects" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Lab</a>
+    <a href="../#contact" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; padding: 6px 14px; border-radius: 4px;">Contact</a>
+  </div>
+</nav>
 
 <div class="doc-header">
   <h1>PCI Hardening Basics for Small Businesses</h1>
@@ -628,13 +658,16 @@
 </div>
 
 <div style="margin: 36px 0 20px; padding: 20px 24px; background: #f0f6fb; border-radius: 8px; border-left: 4px solid #1a5276; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 9.5pt;">
-  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">PCI Compliance Series</div>
+  <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #1a5276; margin-bottom: 10px;">Guide To: PCI Compliance</div>
   <div style="margin-bottom: 4px;"><a href="pci-compliance-case-study.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 1: The Importance of PCI Compliance</a> &mdash; <span style="color: #666;">Breach costs, compliance tiers, the business case</span></div>
   <div style="margin-bottom: 4px;"><a href="pci-network-roadmap.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 2: PCI-Compliant Network Roadmap</a> &mdash; <span style="color: #666;">Equipment, VLANs, firewall rules</span></div>
-  <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 3: PCI Hardening Basics</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
-  <div style="margin-bottom: 4px;"><a href="employee-security-training.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 4: Employee Security Training</a> &mdash; <span style="color: #666;">Phishing, social engineering, incident reporting</span></div>
+  <div style="margin-bottom: 4px;"><a href="firewall-rules-v2.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 3: Firewall &amp; VLAN Rules</a> &mdash; <span style="color: #666;">VLAN segmentation, inter-zone policies, DNS filtering</span></div>
+  <div style="margin-bottom: 4px;"><strong style="color: #1a5276;">&#9656; Part 4: PCI Hardening Basics</strong> <span style="color: #888; font-size: 8.5pt;">(you are here)</span></div>
+  <div style="margin-bottom: 4px;"><a href="employee-security-training.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Part 5: Employee Security Training</a> &mdash; <span style="color: #666;">Phishing, social engineering, incident reporting</span></div>
   <div><a href="ransomware-backup-strategy.html" style="color: #2e86c1; text-decoration: none; font-weight: 600;">Companion: Ransomware Backup Strategy</a> &mdash; <span style="color: #666;">Three-tier backup, encrypted SSDs, calendar reminders</span></div>
 </div>
+
+<p class="note">This guide is provided for educational and portfolio purposes. It reflects general best practices and does not constitute professional security consulting for your specific environment. Consult a qualified professional for your business&rsquo;s security needs.</p>
 
 <div class="doc-footer">
   Erin Fernando &nbsp;&mdash;&nbsp; <a href="https://erinfernando.com" style="color: inherit; text-decoration: none;">erinfernando.com</a> &nbsp;&mdash;&nbsp; PCI Hardening Basics for Small Businesses &nbsp;&mdash;&nbsp; &copy; 2026
