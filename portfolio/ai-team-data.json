@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-30",
   "mvpMinTasks": 10,
   "personas": [
     {
@@ -10,7 +10,10 @@
       "description": "She doesn't do the work. She makes sure everyone else does theirs — and that they do it right.",
       "accent": "#c8a45c",
       "tasksHandled": 40,
-      "incidentsAttributed": 11
+      "incidentsAttributed": 11,
+      "baselineTasks": 40,
+      "baselineIncidents": 11,
+      "active": true
     },
     {
       "id": "harvey",
@@ -20,7 +23,10 @@
       "description": "Reviews every public-facing page for legal compliance before it goes live. Privacy notices, consent flows, liability language. If it touches the public without his sign-off, that's his failure.",
       "accent": "#1a3a5c",
       "tasksHandled": 15,
-      "incidentsAttributed": 5
+      "incidentsAttributed": 5,
+      "baselineTasks": 15,
+      "baselineIncidents": 5,
+      "active": true
     },
     {
       "id": "craig",
@@ -30,7 +36,10 @@
       "description": "Guards the design system like his reputation depends on it. Typography, color tokens, spacing, layout — nothing ships without a design review.",
       "accent": "#7b5ea7",
       "tasksHandled": 25,
-      "incidentsAttributed": 12
+      "incidentsAttributed": 12,
+      "baselineTasks": 25,
+      "baselineIncidents": 12,
+      "active": true
     },
     {
       "id": "lovelace",
@@ -40,7 +49,10 @@
       "description": "Builds everything that runs in a browser — HTML, CSS, JavaScript, server config. Most active agent on the team by a wide margin, which also means the most chances to break things.",
       "accent": "#2a9d8f",
       "tasksHandled": 45,
-      "incidentsAttributed": 10
+      "incidentsAttributed": 10,
+      "baselineTasks": 45,
+      "baselineIncidents": 10,
+      "active": true
     },
     {
       "id": "dior",
@@ -50,7 +62,10 @@
       "description": "Runs competitive intelligence, audits online listings across platforms, plans campaigns, and catches every inconsistency between what the brand says and what the internet thinks.",
       "accent": "#c2727a",
       "tasksHandled": 15,
-      "incidentsAttributed": 2
+      "incidentsAttributed": 2,
+      "baselineTasks": 15,
+      "baselineIncidents": 2,
+      "active": true
     },
     {
       "id": "page",
@@ -60,7 +75,10 @@
       "description": "Goes deep on research before anyone makes a move — competitor analysis, industry data, market positioning, resume optimization. Prefers real sources over general knowledge.",
       "accent": "#4a8c5c",
       "tasksHandled": 22,
-      "incidentsAttributed": 4
+      "incidentsAttributed": 4,
+      "baselineTasks": 22,
+      "baselineIncidents": 4,
+      "active": true
     },
     {
       "id": "john-wick",
@@ -71,7 +89,10 @@
       "description": "Defines security standards, reviews code for vulnerabilities, and maintains the security checklist. Doesn't run the scans — he writes the rules that make Hackerman's job possible.",
       "accent": "#8b2f2f",
       "tasksHandled": 16,
-      "incidentsAttributed": 2
+      "incidentsAttributed": 2,
+      "baselineTasks": 16,
+      "baselineIncidents": 2,
+      "active": true
     },
     {
       "id": "hackerman",
@@ -81,7 +102,10 @@
       "description": "Tests live systems for the weaknesses John Wick worries about. Headers, SSL, DNS, email auth, exposed endpoints. Observe freely, probe carefully, attack only with permission.",
       "accent": "#3cb371",
       "tasksHandled": 8,
-      "incidentsAttributed": 1
+      "incidentsAttributed": 1,
+      "baselineTasks": 8,
+      "baselineIncidents": 1,
+      "active": true
     },
     {
       "id": "leslie-knope",
@@ -91,7 +115,10 @@
       "description": "Manages vendor relationships, creates proposals and sponsorship packages, negotiates event partnerships, and produces documentation with terrifying thoroughness.",
       "accent": "#d4a843",
       "tasksHandled": 25,
-      "incidentsAttributed": 3
+      "incidentsAttributed": 3,
+      "baselineTasks": 25,
+      "baselineIncidents": 3,
+      "active": true
     },
     {
       "id": "nightingale",
@@ -101,7 +128,10 @@
       "description": "Investigates breakdowns, tags recurring failure patterns, mines session data for incidents the team missed, and holds everyone accountable — including herself.",
       "accent": "#2e86c1",
       "tasksHandled": 5,
-      "incidentsAttributed": 1
+      "incidentsAttributed": 1,
+      "baselineTasks": 5,
+      "baselineIncidents": 1,
+      "active": true
     },
     {
       "id": "theseus",
@@ -111,7 +141,117 @@
       "description": "The skill that writes the skills — including himself. He once knew a ship like that. They kept replacing the planks until nothing original remained, and it became a question no one could answer.",
       "accent": "#a0785a",
       "tasksHandled": 30,
-      "incidentsAttributed": 3
+      "incidentsAttributed": 3,
+      "baselineTasks": 30,
+      "baselineIncidents": 3,
+      "active": true
     }
-  ]
+  ],
+  "bench": [
+    {
+      "id": "aim",
+      "name": "AIM",
+      "title": "Asset Management",
+      "accent": "#6b7a4f",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "tiffany",
+      "name": "Tiffany & Co.",
+      "title": "Analytics",
+      "accent": "#0abab5",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "marie-kondo",
+      "name": "Marie Kondo",
+      "title": "Redundancy Auditor",
+      "accent": "#b8a9c9",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "lois-lane",
+      "name": "Lois Lane",
+      "title": "Outreach Director",
+      "accent": "#2c5f8a",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "mailchimp",
+      "name": "MailChimp",
+      "title": "Email Template Builder",
+      "accent": "#e0b020",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "ouroboros",
+      "name": "Ouroboros",
+      "title": "Quality Engineer",
+      "accent": "#3a7d44",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "felix",
+      "name": "Fix-it Felix",
+      "title": "Emergency Repair",
+      "accent": "#e8552d",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "title": "Email Compliance Officer",
+      "accent": "#4a90d9",
+      "tagline": "",
+      "description": "",
+      "baselineTasks": 0,
+      "baselineIncidents": 0,
+      "active": false,
+      "tasksHandled": 0,
+      "incidentsAttributed": 0
+    }
+  ],
+  "model": "Per-persona numbers = baseline (curated 2026-05-20) + logged events (persona-tasks.jsonl, nightingale-intake.jsonl). A benched persona joins the board on its first logged task/incident. Numbers are never invented; recompute with scripts/persona-rollup.py."
 }

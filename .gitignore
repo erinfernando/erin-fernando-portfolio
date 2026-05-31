@@ -24,3 +24,7 @@ scripts/nightingale-status.json
 scripts/nightingale-error.json
 scripts/.tracker-update.lock
 scripts/update-tracker.log
+
+# Persona tracking backups (persona-rollup.py writes these)
+portfolio/ai-team-data.json.bak
+portfolio/*.bak

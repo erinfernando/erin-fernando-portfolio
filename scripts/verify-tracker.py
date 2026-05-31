@@ -122,7 +122,7 @@ def create_github_issue(error_detail):
     )
     try:
         result = subprocess.run(
-            ["gh", "issue", "create",
+            [r"C:\Program Files\GitHub CLI\gh.exe", "issue", "create",
              "--repo", "erinfernando/erin-fernando-portfolio",
              "--title", title,
              "--body", body,
