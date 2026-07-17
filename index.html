@@ -3,310 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
 <title>Erin Fernando — IT Administrator | Tucson, AZ</title>
-<meta name="description" content="Erin Fernando — IT Administrator in Tucson, AZ. Ten years of small-business IT experience, CompTIA Security+ certified. Portfolio, resume, and contact information.">
-<!-- Open Graph — LinkedIn / social sharing -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Erin Fernando — IT Administrator">
-<meta property="og:description" content="Ten years of small-business IT, CompTIA Security+ certified. Network builds, PCI compliance, endpoint security. Tucson, AZ.">
-<meta property="og:url" content="https://erinfernando.com/">
-<meta property="og:image" content="https://erinfernando.com/og-image.png">
-<meta property="og:locale" content="en_US">
-<!-- Twitter/X card -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Erin Fernando — IT Administrator">
-<meta name="twitter:description" content="Ten years of small-business IT, CompTIA Security+ certified. Network builds, PCI compliance, endpoint security. Tucson, AZ.">
-<meta name="twitter:image" content="https://erinfernando.com/og-image.png">
+<meta name="description" content="Erin Fernando — IT Administrator, Tucson AZ. Site is being refreshed and will be back shortly.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #1a5276;
+    --navy-dark: #0d2b3e;
+    --accent: #2e86c1;
+    --line: rgba(255,255,255,0.14);
+    --muted: rgba(255,255,255,0.72);
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #fff;
+    background: radial-gradient(1200px 600px at 50% -10%, var(--navy) 0%, var(--navy-dark) 60%, #08202f 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    line-height: 1.6;
+  }
+  main {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: clamp(30px, 7vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .role {
+    font-size: clamp(15px, 3.4vw, 18px);
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .divider {
+    width: 56px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 26px auto;
+  }
+  p.note {
+    font-size: clamp(15px, 3.4vw, 17px);
+    color: rgba(255,255,255,0.88);
+    max-width: 44ch;
+    margin: 0 auto;
+  }
+  .contact {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  a.btn {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: var(--accent);
+    padding: 11px 22px;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.05s;
+  }
+  a.btn:hover { background: #3d95d0; }
+  a.btn:active { transform: translateY(1px); }
+  a.btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  footer {
+    margin-top: 40px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.btn { transition: none; }
+  }
+</style>
 </head>
 <body>
-
-<nav>
-  <a href="#" class="nav-name">Erin Fernando</a>
-  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#blog">Blog</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Lab</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<div class="hero">
+<main>
+  <span class="badge">Tucson, AZ &middot; CompTIA Security+</span>
   <h1>Erin Fernando</h1>
-  <div class="tagline">IT Administrator</div>
-  <div class="location">Tucson, AZ &nbsp;&middot;&nbsp; <span data-contact="email"><noscript>Enable JavaScript to see email</noscript></span> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/erin-fernando-82458840b/">LinkedIn</a></div>
-  <div class="hero-cta">
-    <a href="Erin_Fernando_Resume.pdf" download class="btn-download btn-download--hero">Download Resume (PDF)</a>
-    <div class="resume-hash resume-hash--hero">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
+  <div class="role">IT Administrator</div>
+  <div class="divider" aria-hidden="true"></div>
+  <p class="note">This site is being refreshed and will be back shortly. Thanks for stopping by &mdash; I'd love to connect in the meantime.</p>
+  <div class="contact">
+    <a class="btn" href="https://linkedin.com/in/erin-fernando-82458840b/">Connect on LinkedIn</a>
   </div>
-</div>
-
-<section id="about">
-  <h2>About</h2>
-  <p class="about-text">Ten years as the sole IT admin for a small business &mdash; I built the network, brought it to PCI compliance, and owned every problem end-to-end. CompTIA Security+ certified, 20+ years building and troubleshooting hardware. Looking for a full-time IT role in Tucson where I can bring that to a team.</p>
-</section>
-
-<section id="portfolio">
-  <h2>Portfolio</h2>
-  <div class="portfolio-grid">
-    <a href="portfolio/ai-failure-tracker.html" class="portfolio-card">
-      <svg viewBox="0 0 400 200" preserveAspectRatio="none" class="portfolio-card__chart" aria-hidden="true">
-        <!-- Silent Failure — steep climb -->
-        <polyline points="0,180 36,170 72,170 108,158 144,158 180,142 216,142 252,126 288,126 324,126 360,110 400,50" fill="none" stroke="#e84393" stroke-width="2" opacity="0.18"/>
-        <circle cx="0" cy="180" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="36" cy="170" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="108" cy="158" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="180" cy="142" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="252" cy="126" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="360" cy="110" r="2.5" fill="#e84393" opacity="0.25"/><circle cx="400" cy="50" r="2.5" fill="#e84393" opacity="0.25"/>
-        <!-- Tool/Env Issue — steep climb -->
-        <polyline points="0,190 36,190 72,178 108,178 144,165 180,165 216,150 252,150 288,150 324,135 360,135 400,40" fill="none" stroke="#636e72" stroke-width="2" opacity="0.2"/>
-        <circle cx="0" cy="190" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="72" cy="178" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="144" cy="165" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="216" cy="150" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="324" cy="135" r="2.5" fill="#636e72" opacity="0.28"/><circle cx="400" cy="40" r="2.5" fill="#636e72" opacity="0.28"/>
-        <!-- Specialist Not Consulted -->
-        <polyline points="0,195 36,195 72,182 108,182 144,182 180,182 216,168 252,168 288,168 324,168 360,152 400,130" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.16"/>
-        <circle cx="72" cy="182" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="216" cy="168" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="360" cy="152" r="2.5" fill="#e74c3c" opacity="0.22"/><circle cx="400" cy="130" r="2.5" fill="#e74c3c" opacity="0.22"/>
-        <!-- Information Loss -->
-        <polyline points="0,195 36,195 72,195 108,195 144,185 180,185 216,185 252,172 288,172 324,172 360,158 400,130" fill="none" stroke="#8e44ad" stroke-width="1.8" opacity="0.14"/>
-        <circle cx="144" cy="185" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="252" cy="172" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="360" cy="158" r="2.5" fill="#8e44ad" opacity="0.2"/><circle cx="400" cy="130" r="2.5" fill="#8e44ad" opacity="0.2"/>
-      </svg>
-      <div class="portfolio-card__content">
-        <h3>Project: Nightingale</h3>
-        <div class="tech">2026 &middot; Failure Analytics &middot; Workflow Automation &middot; Live Metrics via Automated Monitoring</div>
-        <p>Live dashboard tracking 10 categories of process failures in my AI agent workflow. Interactive chart with daily updates.</p>
-        <span class="view-link">View live tracker &rarr;</span>
-      </div>
-    </a>
-    <a href="portfolio/operation-casita.html" class="portfolio-card">
-      <h3>Operation: LAN Before Time</h3>
-      <div class="tech">2017 &middot; Ubiquiti airMAX &middot; WDS Bridge &middot; PtP Wireless</div>
-      <p>Extended internet to a detached building via rooftop wireless bridge &mdash; running unattended since 2017.</p>
-      <span class="view-link">View documentation &rarr;</span>
-    </a>
-    <a href="portfolio/network-topology.html" class="portfolio-card">
-      <h3>Small Business Network Topology</h3>
-      <div class="tech">Network Architecture &middot; Firewall Rules &middot; VLAN Design</div>
-      <p>Network diagram and firewall rule table designed for a PCI-compliant small business.</p>
-      <span class="view-link">View topology &rarr;</span>
-    </a>
-    <a href="portfolio/firewall-rules.html" class="portfolio-card">
-      <h3>Small Business Firewall Rules</h3>
-      <div class="tech">Zone-Based Firewall &middot; PCI DSS &middot; Inter-Zone Policy</div>
-      <p>Initial firewall ruleset for a PCI-compliant small business &mdash; zone-based policies covering POS, staff, guest, and management traffic.</p>
-      <span class="view-link">View rules &rarr;</span>
-    </a>
-  </div>
-</section>
-
-<section id="blog">
-  <h2>Blog</h2>
-  <h3 class="portfolio-series-header">Guide To: PCI Compliance</h3>
-  <div class="portfolio-grid">
-    <a href="portfolio/pci-compliance-case-study.html" class="portfolio-card">
-      <div class="part-label part-label--all-sizes">For All Sizes</div>
-      <div class="part-label">Part 1</div>
-      <h3>The Importance of PCI Compliance</h3>
-      <div class="tech">PCI DSS 4.0 &middot; Breach Analytics &middot; Compliance ROI</div>
-      <p>What compliance costs vs. what a breach costs. The business case for why security is a low-cost no-brainer.</p>
-      <span class="view-link">See for yourself &rarr;</span>
-    </a>
-    <a href="portfolio/pci-network-roadmap.html" class="portfolio-card">
-      <div class="part-label part-label--small-biz">Small Business</div>
-      <div class="part-label">Part 2</div>
-      <h3>PCI-Compliant Network Roadmap</h3>
-      <div class="tech">VLANs &middot; Firewall Rules &middot; Equipment Budget</div>
-      <p>A simple, affordable roll-out strategy for small businesses that handle card transactions &mdash; budget-friendly equipment, easy to implement.</p>
-      <span class="view-link">View roadmap &rarr;</span>
-    </a>
-    <a href="portfolio/firewall-rules-v2.html" class="portfolio-card">
-      <div class="part-label part-label--small-biz">Small Business</div>
-      <div class="part-label">Part 3</div>
-      <h3>Firewall &amp; VLAN Rules</h3>
-      <div class="tech">Firewall Policy &middot; VLAN Segmentation &middot; Inter-VLAN Routing &middot; PCI DSS</div>
-      <p>Complete firewall ruleset with VLAN segmentation, inter-zone policies, and DNS filtering for a PCI-compliant small business.</p>
-      <span class="view-link">View rules &rarr;</span>
-    </a>
-    <a href="portfolio/pci-hardening-basics.html" class="portfolio-card">
-      <div class="part-label part-label--small-biz">Small Business</div>
-      <div class="part-label">Part 4</div>
-      <h3>PCI Hardening Basics</h3>
-      <div class="tech">Endpoint Protection &middot; VPN &middot; Password Policy &middot; Windows &amp; macOS Tabs</div>
-      <p>Practical hardening guide with platform-specific recommendations for Windows and macOS &mdash; endpoint protection, VPN, password managers, POS tamper checks.</p>
-      <span class="view-link">View guide &rarr;</span>
-    </a>
-    <a href="portfolio/employee-security-training.html" class="portfolio-card">
-      <div class="part-label part-label--small-biz">Small Business</div>
-      <div class="part-label">Part 5</div>
-      <h3>Employee Security Training</h3>
-      <div class="tech">Phishing &middot; Social Engineering &middot; Incident Response &middot; PCI Requirement 12.6</div>
-      <p>Ready-to-use training outline for front-line staff &mdash; phishing, POS tamper checks, password hygiene, and what to do when something goes wrong.</p>
-      <span class="view-link">View training guide &rarr;</span>
-    </a>
-    <a href="portfolio/ransomware-backup-strategy.html" class="portfolio-card">
-      <div class="part-label part-label--small-biz">Small Business</div>
-      <div class="part-label part-label--ransomware">Ransomware</div>
-      <h3>Ransomware Backup Strategy</h3>
-      <div class="tech">Backup Tiers &middot; Encrypted SSDs &middot; Air-Gapped Storage &middot; Calendar Reminders</div>
-      <p>Three-tier backup plan with encrypted SSD rotation, cloud sync, and one-click calendar reminders for backup schedules.</p>
-      <span class="view-link">View strategy &rarr;</span>
-    </a>
-  </div>
-</section>
-
-<section id="certs">
-  <h2>Certifications</h2>
-  <div class="cert-item">
-    <img src="Security+.png" alt="CompTIA Security+ Certified badge" class="cert-badge">
-    <div class="cert-details">
-      <span class="cert-name">CompTIA Security+</span>
-      <span class="cert-date">Earned May 2026</span>
-    </div>
-  </div>
-</section>
-
-<section id="skills">
-  <h2>Technical Skills</h2>
-  <div class="skills-grid">
-    <div class="skill-card">
-      <h3>Operating Systems</h3>
-      <p>Windows 10, Windows 11, Windows Server 2022</p>
-    </div>
-    <div class="skill-card">
-      <h3>Networking</h3>
-      <p>TCP/IP, DNS, DHCP, VPN, firewall configuration, network segmentation, VLANs, Wi-Fi site surveys, wireless bridging (Ubiquiti airMAX), cable management</p>
-    </div>
-    <div class="skill-card">
-      <h3>Security</h3>
-      <p>CompTIA Security+, PCI compliance, endpoint protection (Avast Small Office), endpoint management, antivirus management, access control, password policies, phishing awareness training, backup and disaster recovery, incident response</p>
-    </div>
-    <div class="skill-card">
-      <h3>Systems &amp; Cloud</h3>
-      <p>Microsoft 365 administration, OneDrive, Active Directory (AD), Group Policy (GPO), Hyper-V, domain and tenant migrations, remote desktop support</p>
-    </div>
-    <div class="skill-card">
-      <h3>Hardware</h3>
-      <p>20+ years building PCs &mdash; component selection, diagnostics, hardware-level troubleshooting, hardware configuration</p>
-    </div>
-    <div class="skill-card">
-      <h3>Support</h3>
-      <p>Technical support, help desk, remote support, end-user training, documentation, vendor management, IT asset management, subscription and license auditing, root cause analysis</p>
-    </div>
-    <div class="skill-card">
-      <h3>Web</h3>
-      <p>HTML, CSS, small business website design</p>
-    </div>
-  </div>
-</section>
-
-<section id="experience">
-  <h2>Experience</h2>
-
-  <div class="job">
-    <div class="job-top">
-      <h3>IT Administrator</h3>
-      <span class="dates">2016 &ndash; Present</span>
-    </div>
-    <div class="company">Oasis at Wild Horse Ranch &nbsp;&middot;&nbsp; Contract: Project-based + On-Call &nbsp;&middot;&nbsp; Tucson, AZ</div>
-    <p class="job-context">Meeting the various needs of an indoor/outdoor wedding space was often difficult. They needed nighttime maintenance, remote work, in-office installations, extensive Wi-Fi coverage.</p>
-    <ul>
-      <li>Inherited a network with zero security posture &mdash; shared passwords across all accounts, unattended POS hardware, no phishing awareness. Rotated every credential, established unique logins, and trained staff on phishing identification.</li>
-      <li>Deployed a full security stack across all endpoints &mdash; VLAN-capable firewall, VPN, and managed antivirus. Segmented the network into VLANs for PCI compliance on card transactions.</li>
-      <li>Conducted a Wi-Fi site survey to map coverage gaps and frequency conflicts, then upgraded to a higher-output access point &mdash; enabling reliable handheld payment processing during 200+ person outdoor events.</li>
-      <li>I&rsquo;ve personally migrated over the Microsoft 365 licenses, OneDrive license and contents, Outlook contents, website files, email services, and domain services. Three times, overnight. Swapping between service providers every three years netted us $1,000/year in savings.</li>
-      <li>Implemented OneDrive for regular operational backups, and an airgapped encrypted drive for ransomware protection.</li>
-      <li>Audited all technology subscriptions and eliminated unused licenses &mdash; old Microsoft 365 accounts, dormant OneDrive seats, legacy antivirus, and unused email accounts. Replaced cable TV boxes across the venue with Amazon Fire TV Sticks and a YouTube TV subscription, cutting costs further.</li>
-      <li>Updated their old website and established web analytics for SEO purposes.</li>
-      <li>Salvaged parts from two failing PCs to build one working tower that ran for 10 more years &mdash; saving the cost of a new machine.</li>
-    </ul>
-  </div>
-
-  <details class="earlier-roles">
-    <summary>Earlier Roles (2012 &ndash; 2016)</summary>
-    <p class="earlier-roles-note">Married to an active-duty Navy servicemember during this period &mdash; short tenures reflect military relocations.</p>
-    <div class="early-role">
-      <div class="job-top">
-        <h4>Library Page</h4>
-        <span class="dates">July 2012 &ndash; October 2014</span>
-      </div>
-      <div class="company">Geasa-Marana Public Library</div>
-      <p>Troubleshot public computers and printers, taught one-on-one computer classes to patrons, and handled front-desk customer service. First role where I explained technical concepts to non-technical users on a daily basis.</p>
-    </div>
-    <div class="early-role">
-      <div class="job-top">
-        <h4>Sales Associate (Seasonal)</h4>
-        <span class="dates">October 2014 &ndash; January 2015</span>
-      </div>
-      <div class="company">Best Buy</div>
-      <p>Sold consumer tech during the holiday season. Leaned on years of PC-building knowledge to help customers pick the right hardware.</p>
-    </div>
-    <div class="early-role">
-      <div class="job-top">
-        <h4>Crew Member</h4>
-        <span class="dates">January 2016 &ndash; October 2016</span>
-      </div>
-      <div class="company">Dunkin' Donuts</div>
-      <p>Fast-paced customer service &mdash; point-of-sale (POS) operations, cash handling, sales floor. Transitioned to the IT admin contract at Wild Horse Ranch after this role.</p>
-    </div>
-  </details>
-</section>
-
-<section id="projects">
-  <h2>Lab &amp; Side Work</h2>
-
-  <div class="job lab-entry">
-    <h3>Windows Server and Active Directory (AD) Lab</h3>
-    <p>I was concerned about my lack of training on common tools used by larger firms, so I used AI to generate structured lab exercises, tailored to my Security+ coursework and experience level, for learning Active Directory. I spun up a Windows Server 2022 as the domain controller, and joined three other Windows 11 VMs. From there I established a few GPOs, like standardized desktop backgrounds and password hardening measures, mapped a network drive and shared it with role-based access control (RBAC), to learn the workings of Active Directory better.</p>
-  </div>
-
-  <div class="job lab-entry">
-    <h3>AI-Driven Business Operations</h3>
-    <p>Designed a workflow using specialized AI agents as force multipliers for marketing analytics, drafting complex documents, security auditing, and streamlining vendor communication. Creating an automated workflow for baseline productivity tasks.</p>
-  </div>
-
-</section>
-
-<section id="education">
-  <h2>Education</h2>
-  <div class="job">
-    <div class="job-top">
-      <h3>Marana High School</h3>
-      <span class="dates">Diploma, May 2012</span>
-    </div>
-    <p class="education-note">Honor Roll. Coursework in Computer Programming.</p>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="contact-grid">
-    <ul class="contact-list">
-      <li>
-        <span class="contact-label">Email</span>
-        <span class="contact-value" data-contact="email"><noscript>Enable JavaScript to see email</noscript></span>
-      </li>
-      <li>
-        <span class="contact-label">LinkedIn</span>
-        <span class="contact-value"><a href="https://linkedin.com/in/erin-fernando-82458840b/">linkedin.com/in/erin-fernando</a></span>
-      </li>
-      <li>
-        <span class="contact-label">Location</span>
-        <span class="contact-value">Tucson, AZ</span>
-      </li>
-    </ul>
-    <div class="contact-cta">
-      <a href="Erin_Fernando_Resume.pdf" download class="btn-download btn-download--contact">Download Resume (PDF)</a>
-      <div class="resume-hash resume-hash--contact">SHA-256: CD1DCB79DF803CA5BFF52A0F861C92970ACA7968EA7676865023A4D16CE29DA6</div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  &copy; 2026 Erin Fernando
-</footer>
-
-<script src="script.js"></script>
+  <footer>&copy; 2026 Erin Fernando</footer>
+</main>
 </body>
 </html>
